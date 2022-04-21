@@ -44,9 +44,8 @@ public class FesController {
         qry += "    \"size\": 1";
         qry += "}";
 
-        result = service.fesSearch(index, qry);
-        model.addAttribute("fes", result);
-
+//        result = service.fesSearch(index, qry);
+        model.addAttribute("all", service.fesSearch(index, qry));
 
         return "dashboard";
     }

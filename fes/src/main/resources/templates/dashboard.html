@@ -6,6 +6,56 @@
 </head>
 <body>
     내놔
-<span th:text="${fes.hits}"></span>
+    <th:block>
+        <h1>모든 데이터 : </h1>
+    </th:block>
+    <th:block>
+        <span th:text="${all}"></span>
+    </th:block>
+    <br />
+    <th:block>
+        <h1>누적 모돈수(daily_modon_increment) : </h1>
+    </th:block>
+    <th:block>
+        <span th:text="${all.hits.hits[0]._source.daily_modon_increment}"></span>
+    </th:block>
+    <br />
+    <th:block>
+        <h1>누적 출하두수(daily_ekape_increment) : </h1>
+    </th:block>
+    <th:block>
+        <span th:text="${all.hits.hits[0]._source.daily_ekape_increment}"></span>
+    </th:block>
+    <br />
+    <th:block>
+        <h1>누적 데이터건수(daily_total_increment) : </h1>
+    </th:block>
+    <th:block>
+        <span th:text="${all.hits.hits[0]._source.daily_total_increment}"></span>
+    </th:block>
+    <br />
+    <th:block>
+        <h1>전날 대비 모둔수 증감(re_daily_modon_increment) : </h1>
+    </th:block>
+    <th:block>
+        <span th:text="${all.hits.hits[0]._source.re_daily_modon_increment}"></span>
+    </th:block>
+    <br />
+    <th:block>
+        <h1>전날 대비 출하두수 증감(re_daily_ekape_increment) : </h1>
+    </th:block>
+    <th:block>
+        <span th:text="${all.hits.hits[0]._source.re_daily_ekape_increment}"></span>
+    </th:block>
+    <br />
+    <th:block>
+        <h1>전날 대비 총 데이터 건수 증감(re_daily_total_increment) : </h1>
+    </th:block>
+    <th:block>
+        <span th:text="${all.hits.hits[0]._source.re_daily_total_increment}"></span>
+    </th:block>
+
+
+
 </body>
 </html>
