@@ -113,9 +113,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 //.antMatchers("/login/loginForm").permitAll()	// 로그인 페이지
                 //.antMatchers("/login/loginProc").permitAll()	// 토큰을 받기위한 login api
                 .antMatchers("/fes/**").permitAll()	// 토큰을 받기위한 login api
+                .antMatchers("/testa/**").permitAll()
                 .antMatchers("/login/**").permitAll()	// 토큰을 받기위한 login api
                 .antMatchers("/login/logoutProc").permitAll()	// logout
                 .antMatchers("/user/joinForm").permitAll()		// 회원가입을 위한 api
+                
                 
                 .antMatchers("/qna/**").permitAll()	// 질의응답 controller
                 
