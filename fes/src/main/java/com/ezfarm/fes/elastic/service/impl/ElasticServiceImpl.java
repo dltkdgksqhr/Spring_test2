@@ -159,7 +159,6 @@ public class ElasticServiceImpl implements ElasticService {
 	 * @return String
 	 */
 	public String dayQryStatement(String qry){
-
 		// 현재 날짜 구하기 (시스템 시계, 시스템 타임존)
 		LocalDate now = LocalDate.now();
 		LocalDate pastOf10days = now.minusDays(10);
@@ -196,6 +195,10 @@ public class ElasticServiceImpl implements ElasticService {
 	 * @return String
 	 */
 	public String weekQryStatement(String qry){
+		// 현재 날짜 구하기 (시스템 시계, 시스템 타임존)
+		LocalDate now = LocalDate.now();
+		LocalDate pastOf4weeks = now.minusWeeks(4);
+
 		qry += "{";
 		qry += "	\"query\": {";
 		qry += "	\"bool\": {";
@@ -203,8 +206,8 @@ public class ElasticServiceImpl implements ElasticService {
 		qry += "		{";
 		qry += "			\"range\": {";
 		qry += "			\"agg_dt\": {";
-		qry += "				\"gte\": \"2022-03-01\",";
-		qry += "						\"lte\": \"2022-04-10\"";
+		qry += "				\"gte\": \""+pastOf4weeks+"\",";
+		qry += "						\"lte\": \""+now+"\"";
 		qry += "			}";
 		qry += "		}";
 		qry += "		}";
@@ -261,6 +264,10 @@ public class ElasticServiceImpl implements ElasticService {
 	 * @return String
 	 */
 	public String monthQryStatement(String qry){
+		// 현재 날짜 구하기 (시스템 시계, 시스템 타임존)
+		LocalDate now = LocalDate.now();
+		LocalDate pastOf2Months = now.minusMonths(2);
+
 		qry += "{";
 		qry += "	\"query\": {";
 		qry += "	\"bool\": {";
@@ -268,8 +275,8 @@ public class ElasticServiceImpl implements ElasticService {
 		qry += "		{";
 		qry += "			\"range\": {";
 		qry += "			\"agg_dt\": {";
-		qry += "				\"gte\": \"2022-03-01\",";
-		qry += "						\"lte\": \"2022-04-10\"";
+		qry += "				\"gte\": \""+pastOf2Months+"\",";
+		qry += "						\"lte\": \""+now+"\"";
 		qry += "			}";
 		qry += "		}";
 		qry += "		}";

@@ -28,10 +28,10 @@ public class FesController {
     public String search(Model model) throws Exception{
 
 
-//        model.addAttribute("all", service.fesSearch());
-//        model.addAttribute("day", service.fesDailySearch());
-//        model.addAttribute("week", service.fesWeekSearch());
-//        model.addAttribute("month", service.fesMonthSearch());
+        model.addAttribute("all", service.fesSearch());
+        model.addAttribute("day", service.fesDailySearch());
+        model.addAttribute("week", service.fesWeekSearch());
+        model.addAttribute("month", service.fesMonthSearch());
 
         return "dashboard";
     }
