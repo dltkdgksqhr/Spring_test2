@@ -31,6 +31,8 @@ import org.springframework.stereotype.Service;
 
 import com.ezfarm.fes.elastic.ElasticResultMap;
 
+import java.time.LocalDate;
+
 
 /**
  * 공통 엘라스틱 service
@@ -132,6 +134,191 @@ public class ElasticServiceImpl implements ElasticService {
 		Header[] headers = {new BasicHeader("Authorization", basicAuth)};
 
 		return headers;
+	}
+
+	/**
+	 * @param qry
+	 * @return String
+	 */
+	public String allQryStatement(String qry){
+		qry += "    {";
+		qry += "        \"sort\": [";
+		qry += "        {";
+		qry += "            \"agg_dt\": {";
+		qry += "                \"order\": \"desc\"";
+		qry += "            }";
+		qry += "        }";
+		qry += "    ],";
+		qry += "    \"size\": 1";
+		qry += "}";
+		return qry;
+	}
+
+	/**
+	 * @param qry
+	 * @return String
+	 */
+	public String dayQryStatement(String qry){
+
+		// 현재 날짜 구하기 (시스템 시계, 시스템 타임존)
+		LocalDate now = LocalDate.now();
+		LocalDate pastOf10days = now.minusDays(10);
+
+		qry += " {";
+		qry += "	\"query\": {";
+		qry += "    	\"bool\": {";
+		qry += "    		\"must\": [";
+		qry += "    		{";
+		qry += "    			\"range\": {";
+		qry += "    			\"agg_dt\": {";
+		qry += "    				\"gte\": \""+pastOf10days+"\",";
+		qry += "    						\"lte\": \""+now+"\"";
+		qry += "    			}";
+		qry += "    		}";
+		qry += "    		}";
+		qry += "      ]";
+		qry += "    	}";
+		qry += "    },";
+		qry += "    	\"sort\": [";
+		qry += "    	{";
+		qry += "    		\"agg_dt\": {";
+		qry += "    		\"order\": \"asc\"";
+		qry += "    	}";
+		qry += "    	}";
+		qry += "      ],";
+		qry += "    	\"size\": 10";
+		qry += "    }";
+		return qry;
+	}
+
+	/**
+	 * @param qry
+	 * @return String
+	 */
+	public String weekQryStatement(String qry){
+		qry += "{";
+		qry += "	\"query\": {";
+		qry += "	\"bool\": {";
+		qry += "		\"must\": [";
+		qry += "		{";
+		qry += "			\"range\": {";
+		qry += "			\"agg_dt\": {";
+		qry += "				\"gte\": \"2022-03-01\",";
+		qry += "						\"lte\": \"2022-04-10\"";
+		qry += "			}";
+		qry += "		}";
+		qry += "		}";
+		qry += "  ]";
+		qry += "	}";
+		qry += "},";
+		qry += "	\"aggs\": {";
+		qry += "	\"aggWeek\": {";
+		qry += "		\"date_histogram\": {";
+		qry += "			\"field\": \"agg_dt\",";
+		qry += "					\"interval\": \"week\"";
+		qry += "		},";
+		qry += "		\"aggs\": {";
+		qry += "			\"daily_modon_increment\": {";
+		qry += "				\"max\": {";
+		qry += "					\"field\": \"daily_modon_increment\"";
+		qry += "				}";
+		qry += "			},";
+		qry += "			\"daily_ekape_increment\": {";
+		qry += "				\"max\": {";
+		qry += "					\"field\": \"daily_ekape_increment\"";
+		qry += "				}";
+		qry += "			},";
+		qry += "			\"daily_total_increment\": {";
+		qry += "				\"max\": {";
+		qry += "					\"field\": \"daily_total_increment\"";
+		qry += "				}";
+		qry += "			},";
+		qry += "			\"re_daily_modon_increment\": {";
+		qry += "				\"sum\": {";
+		qry += "					\"field\": \"re_daily_modon_increment\"";
+		qry += "				}";
+		qry += "			},";
+		qry += "			\"re_daily_ekape_increment\": {";
+		qry += "				\"sum\": {";
+		qry += "					\"field\": \"re_daily_ekape_increment\"";
+		qry += "				}";
+		qry += "			},";
+		qry += "			\"re_daily_total_increment\": {";
+		qry += "				\"sum\": {";
+		qry += "					\"field\": \"re_daily_total_increment\"";
+		qry += "				}";
+		qry += "			}";
+		qry += "		}";
+		qry += "	}";
+		qry += "},";
+		qry += "	\"size\": 0";
+		qry += "}";
+		return qry;
+	}
+
+	/**
+	 * @param qry
+	 * @return String
+	 */
+	public String monthQryStatement(String qry){
+		qry += "{";
+		qry += "	\"query\": {";
+		qry += "	\"bool\": {";
+		qry += "		\"must\": [";
+		qry += "		{";
+		qry += "			\"range\": {";
+		qry += "			\"agg_dt\": {";
+		qry += "				\"gte\": \"2022-03-01\",";
+		qry += "						\"lte\": \"2022-04-10\"";
+		qry += "			}";
+		qry += "		}";
+		qry += "		}";
+		qry += "  ]";
+		qry += "	}";
+		qry += "},";
+		qry += "	\"aggs\": {";
+		qry += "	\"aggWeek\": {";
+		qry += "		\"date_histogram\": {";
+		qry += "			\"field\": \"agg_dt\",";
+		qry += "					\"interval\": \"month\"";
+		qry += "		},";
+		qry += "		\"aggs\": {";
+		qry += "			\"daily_modon_increment\": {";
+		qry += "				\"max\": {";
+		qry += "					\"field\": \"daily_modon_increment\"";
+		qry += "				}";
+		qry += "			},";
+		qry += "			\"daily_ekape_increment\": {";
+		qry += "				\"max\": {";
+		qry += "					\"field\": \"daily_ekape_increment\"";
+		qry += "				}";
+		qry += "			},";
+		qry += "			\"daily_total_increment\": {";
+		qry += "				\"max\": {";
+		qry += "					\"field\": \"daily_total_increment\"";
+		qry += "				}";
+		qry += "			},";
+		qry += "			\"re_daily_modon_increment\": {";
+		qry += "				\"sum\": {";
+		qry += "					\"field\": \"re_daily_modon_increment\"";
+		qry += "				}";
+		qry += "			},";
+		qry += "			\"re_daily_ekape_increment\": {";
+		qry += "				\"sum\": {";
+		qry += "					\"field\": \"re_daily_ekape_increment\"";
+		qry += "				}";
+		qry += "			},";
+		qry += "			\"re_daily_total_increment\": {";
+		qry += "				\"sum\": {";
+		qry += "					\"field\": \"re_daily_total_increment\"";
+		qry += "				}";
+		qry += "			}";
+		qry += "		}";
+		qry += "	}";
+		qry += "},";
+		qry += "	\"size\": 0";
+		qry += "}";
+		return qry;
 	}
 
 
@@ -238,7 +425,51 @@ public class ElasticServiceImpl implements ElasticService {
 	}
 
 	@Override
-	public ElasticResultMap fesSearch(String index, String qry) throws IOException, InstantiationException, IllegalAccessException {
+	public ElasticResultMap fesSearch() throws IOException, InstantiationException, IllegalAccessException {
+		String index = "";
+		String qry = "";
+		//상단 누적 모돈수 / 누적 출하두수 / 누적 데이터건수 조회 쿼리
+		index = "/wiselake_daily_data_count";
+		qry = allQryStatement(qry);
+
+		String jsonString = performRequest(index, qry, METHOD_GET, POSTFIX_SEARCH);
+		return new ElasticResultMap(jsonString);
+	}
+
+
+	@Override
+	public ElasticResultMap fesDailySearch() throws IOException, InstantiationException, IllegalAccessException {
+		String index = "";
+		String qry = "";
+		//일간 누적 모돈수 / 누적 출하두수 / 누적 데이터건수 조회 쿼리
+		index = "/wiselake_daily_data_count";
+		qry = dayQryStatement(qry);
+
+		String jsonString = performRequest(index, qry, METHOD_GET, POSTFIX_SEARCH);
+		return new ElasticResultMap(jsonString);
+	}
+
+	@Override
+	public ElasticResultMap fesWeekSearch() throws IOException, InstantiationException, IllegalAccessException {
+		String index = "";
+		String qry = "";
+		//주간 누적 모돈수 / 누적 출하두수 / 누적 데이터건수 조회 쿼리
+		index = "/wiselake_daily_data_count";
+		qry = weekQryStatement(qry);
+
+		String jsonString = performRequest(index, qry, METHOD_GET, POSTFIX_SEARCH);
+		return new ElasticResultMap(jsonString);
+	}
+
+	@Override
+	public ElasticResultMap fesMonthSearch() throws IOException, InstantiationException, IllegalAccessException {
+		String index = "";
+		String qry = "";
+
+		//주간 누적 모돈수 / 누적 출하두수 / 누적 데이터건수 조회 쿼리
+		index = "/wiselake_daily_data_count";
+		qry = monthQryStatement(qry);
+
 		String jsonString = performRequest(index, qry, METHOD_GET, POSTFIX_SEARCH);
 		return new ElasticResultMap(jsonString);
 	}

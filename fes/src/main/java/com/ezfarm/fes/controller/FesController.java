@@ -27,25 +27,11 @@ public class FesController {
     @GetMapping("/search")
     public String search(Model model) throws Exception{
 
-        ElasticResultMap result = null;
 
-        String index = "";
-        index = "/wiselake_daily_data_count";
-
-        String qry = "";
-        qry += "    {";
-        qry += "        \"sort\": [";
-        qry += "        {";
-        qry += "            \"agg_dt\": {";
-        qry += "                \"order\": \"desc\"";
-        qry += "            }";
-        qry += "        }";
-        qry += "    ],";
-        qry += "    \"size\": 1";
-        qry += "}";
-
-//        result = service.fesSearch(index, qry);
-        model.addAttribute("all", service.fesSearch(index, qry));
+//        model.addAttribute("all", service.fesSearch());
+//        model.addAttribute("day", service.fesDailySearch());
+//        model.addAttribute("week", service.fesWeekSearch());
+//        model.addAttribute("month", service.fesMonthSearch());
 
         return "dashboard";
     }
