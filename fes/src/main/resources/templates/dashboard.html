@@ -5,55 +5,100 @@
     <title>Title</title>
 </head>
 <body>
-    내놔
-    <th:block>
-        <h1>모든 데이터 : </h1>
-    </th:block>
-    <th:block>
-        <span th:text="${all}"></span>
-    </th:block>
+<!--    <div style="display:none">-->
+    <div>
+        <div>
+            <h1>총 누적 데이터 : </h1>
+        </div>
+        <br />
+        <table>
+            <tr>
+                <th>누적 모돈수(daily_modon_increment)</th>
+                <th>누적 출하두수(daily_ekape_increment)</th>
+                <th>누적 데이터건수(daily_total_increment)</th>
+                <th>전날 대비 모돈수 증감(re_daily_modon_increment)</th>
+                <th>전날 대비 출하두수 증감(re_daily_ekape_increment)</th>
+                <th>전날 대비 총 데이터 건수 증감(re_daily_total_increment)</th>
+            </tr>
+            <tr>
+                <td align="center" th:text="${all}"></td>
+<!--                <td align="center" th:text="${all.hits.hits[0]._source.daily_modon_increment}"></td>-->
+<!--                <td align="center" th:text="${all.hits.hits[0]._source.daily_ekape_increment}"></td>-->
+<!--                <td align="center" th:text="${all.hits.hits[0]._source.daily_total_increment}"></td>-->
+<!--                <td align="center" th:text="${all.hits.hits[0]._source.re_daily_modon_increment}"></td>-->
+<!--                <td align="center" th:text="${all.hits.hits[0]._source.re_daily_ekape_increment}"></td>-->
+<!--                <td align="center" th:text="${all.hits.hits[0]._source.re_daily_total_increment}"></td>-->
+            </tr>
+        </table>
+    </div>
     <br />
-    <th:block>
-        <h1>누적 모돈수(daily_modon_increment) : </h1>
-    </th:block>
-    <th:block>
-        <span th:text="${all.hits.hits[0]._source.daily_modon_increment}"></span>
-    </th:block>
+    <div>
+        <div>
+            <h1>일간 데이터 : </h1>
+        </div>
+        <table>
+            <tr>
+                <th>local_date</th>
+                <th>daily_modon_increment</th>
+                <th>daily_total_increment</th>
+                <th>daily_ekape_increment</th>
+                <th>re_daily_modon_increment</th>
+                <th>re_daily_total_increment</th>
+                <th>re_daily_ekape_increment</th>
+            </tr>
+<!--            <tr th:each="item : ${day.hits.hits}">-->
+            <td align="center" th:text="${day}"></td>
+
+<!--                <td align="center" th:text="${item._source.agg_dt}"></td>-->
+<!--                <td align="center" th:text="${item._source.daily_modon_increment}"></td>-->
+<!--                <td align="center" th:text="${item._source.daily_total_increment}"></td>-->
+<!--                <td align="center" th:text="${item._source.daily_ekape_increment}"></td>-->
+<!--                <td align="center" th:text="${item._source.re_daily_modon_increment}"></td>-->
+<!--                <td align="center" th:text="${item._source.re_daily_total_increment}"></td>-->
+<!--                <td align="center" th:text="${item._source.re_daily_ekape_increment}"></td>-->
+            </tr>
+        </table>
+    </div>
     <br />
-    <th:block>
-        <h1>누적 출하두수(daily_ekape_increment) : </h1>
-    </th:block>
-    <th:block>
-        <span th:text="${all.hits.hits[0]._source.daily_ekape_increment}"></span>
-    </th:block>
+    <div>
+        <div>
+            <h1>주간 데이터 : </h1>
+        </div>
+<!--        <div>-->
+<!--            <span th:text="${week}"></span>-->
+<!--        </div>-->
+        <table>
+            <tr>
+                <th>local_date</th>
+                <th>daily_modon_increment</th>
+                <th>daily_total_increment</th>
+                <th>daily_ekape_increment</th>
+                <th>re_daily_modon_increment</th>
+                <th>re_daily_total_increment</th>
+                <th>re_daily_ekape_increment</th>
+            </tr>
+            <tr th:each="item : ${week}">
+                <td align="center" th:text="${item}"></td>
+<!--                <td align="center" th:text="${item._source.daily_modon_increment}"></td>-->
+<!--                <td align="center" th:text="${item._source.daily_total_increment}"></td>-->
+<!--                <td align="center" th:text="${item._source.daily_ekape_increment}"></td>-->
+<!--                <td align="center" th:text="${item._source.re_daily_modon_increment}"></td>-->
+<!--                <td align="center" th:text="${item._source.re_daily_total_increment}"></td>-->
+<!--                <td align="center" th:text="${item._source.re_daily_ekape_increment}"></td>-->
+            </tr>
+        </table>
+    </div>
     <br />
-    <th:block>
-        <h1>누적 데이터건수(daily_total_increment) : </h1>
-    </th:block>
-    <th:block>
-        <span th:text="${all.hits.hits[0]._source.daily_total_increment}"></span>
-    </th:block>
+    <div>
+        <div>
+            <h1>월간 데이터 : </h1>
+        </div>
+        <div>
+            <span th:text="${month}"></span>
+        </div>
+
+    </div>
     <br />
-    <th:block>
-        <h1>전날 대비 모둔수 증감(re_daily_modon_increment) : </h1>
-    </th:block>
-    <th:block>
-        <span th:text="${all.hits.hits[0]._source.re_daily_modon_increment}"></span>
-    </th:block>
-    <br />
-    <th:block>
-        <h1>전날 대비 출하두수 증감(re_daily_ekape_increment) : </h1>
-    </th:block>
-    <th:block>
-        <span th:text="${all.hits.hits[0]._source.re_daily_ekape_increment}"></span>
-    </th:block>
-    <br />
-    <th:block>
-        <h1>전날 대비 총 데이터 건수 증감(re_daily_total_increment) : </h1>
-    </th:block>
-    <th:block>
-        <span th:text="${all.hits.hits[0]._source.re_daily_total_increment}"></span>
-    </th:block>
 
 
 

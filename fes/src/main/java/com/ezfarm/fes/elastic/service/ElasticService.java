@@ -53,22 +53,51 @@ public interface ElasticService {
 	ElasticResultMap postSearch(String index, String qry) throws IOException, InstantiationException, IllegalAccessException;
 
 	/**
-	 * post방식으로 요청
-	 * @param index 인덱스
-	 * @param qry 쿼리
+	 * get방식으로 요청
 	 * @return
 	 * @throws IOException
 	 * @throws IllegalAccessException
 	 * @throws InstantiationException
 	 * @since
-	 * 	0204	init
+	 * 	220422	init
 	 */
-	ElasticResultMap fesSearch(String index, String qry) throws IOException, InstantiationException, IllegalAccessException;
+	ElasticResultMap fesSearch() throws IOException, InstantiationException, IllegalAccessException;
+
+	/**
+	 * get방식으로 요청
+	 * @return ElasticResultMap
+	 * @throws IOException
+	 * @throws IllegalAccessException
+	 * @throws InstantiationException
+	 * @since
+	 * 	220422	init
+	 */
+	ElasticResultMap fesDailySearch() throws IOException, InstantiationException, IllegalAccessException;
+
+	/**
+	 * get방식으로 요청
+	 * @return ElasticResultMap
+	 * @throws IOException
+	 * @throws IllegalAccessException
+	 * @throws InstantiationException
+	 * @since
+	 * 	220422	init
+	 */
+	ElasticResultMap fesWeekSearch() throws IOException, InstantiationException, IllegalAccessException;
+
+	/**
+	 * get방식으로 요청
+	 * @return ElasticResultMap
+	 * @throws IOException
+	 * @throws IllegalAccessException
+	 * @throws InstantiationException
+	 * @since
+	 * 	220422	init
+	 */
+	ElasticResultMap fesMonthSearch() throws IOException, InstantiationException, IllegalAccessException;
 
 	/**
 	 * post방식으로 요청
-	 * @param index 인덱스
-	 * @param qry 쿼리
 	 * @return
 	 * @throws IOException
 	 * @throws IllegalAccessException
