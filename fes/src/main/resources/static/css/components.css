@@ -420,4 +420,5 @@ input[type=radio]:checked{
   -moz-appearance: none;
   appearance: none;
 }
-.dropdown::-ms-expand {display:none;} * IE 10, 11 화살표 숨기기 */
+.dropdown::-ms-expand {display:none;}  /*IE 10, 11 화살표 숨기기*/
+ 
