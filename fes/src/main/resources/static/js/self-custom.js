@@ -22,17 +22,37 @@ var myChart = new Chart(chartArea, {
     }
 });
 
-var _dailyMdnIncArr = [];
-//_dailyMdnIncArr[0] = $('#daily_modon_increment'+0).text();
-for(var i=0; i<10; i++){
-    _dailyMdnIncArr[i] = $('#daily_modon_increment'+i).text();
+
+var dateTest = new Date($('#date_daily_inc0').text());
+function dateFormat(date) {
+    let month = date.getMonth() + 1;
+    let day = date.getDate();
+    let sevenDays = date.getDay();
+    let week = ['일', '월', '화', '수', '목', '금', '토'];
+    month = month >= 10 ? month : '0' + month;
+    day = day >= 10 ? day : '0' + day;
+    return month+'-'+day+'('+week[sevenDays]+')';
 }
+
+console.log(dateFormat(dateTest))
+
+var _dailyMdnIncArr = [];
+var _dateDailyMdnIncArr = [];
+for(var i=0; i<8; i++){
+    _dailyMdnIncArr[i] = $('#daily_modon_increment'+i).text();
+    var tmp = new Date($('#date_daily_inc'+i).text());
+    _dateDailyMdnIncArr[i] = dateFormat(tmp);
+}
+
+var _beforeNnowDailyMdnIncArr = [];
+_beforeNnowDailyMdnIncArr[0] = $('#date_daily_inc5').text();
+_beforeNnowDailyMdnIncArr[1] = $('#date_daily_inc6').text();
 
 var lineChart = document.getElementById('myChart2').getContext('2d');
 var myChart2 = new Chart(lineChart, {
     type: 'line',
     data: {
-        labels: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'],
+        labels: _dateDailyMdnIncArr,
         datasets: [{
             label: '# of Votes',
             data: _dailyMdnIncArr,
