@@ -158,10 +158,18 @@ public class ElasticServiceImpl implements ElasticService {
 	 * @param qry
 	 * @return String
 	 */
-	public String dayQryStatement(String qry){
+	public String dayQryStatement(String qry, String[] daily){
 		// 현재 날짜 구하기 (시스템 시계, 시스템 타임존)
-		LocalDate now = LocalDate.now();
-		LocalDate pastOf10days = now.minusDays(10);
+		LocalDate now = null;
+		LocalDate pastOfDays = null;
+
+		if(!daily[0].equals("daily")){
+			now = LocalDate.now();
+			pastOfDays = now.minusDays(7); // 디폴트 7일
+		} else if(daily[0].equals("daily")) {
+			now = LocalDate.parse(daily[1]);
+			pastOfDays = LocalDate.parse(daily[2]);
+		}
 
 		qry += " {";
 		qry += "	\"query\": {";
@@ -170,7 +178,7 @@ public class ElasticServiceImpl implements ElasticService {
 		qry += "    		{";
 		qry += "    			\"range\": {";
 		qry += "    			\"agg_dt\": {";
-		qry += "    				\"gte\": \""+pastOf10days+"\",";
+		qry += "    				\"gte\": \""+pastOfDays+"\",";
 		qry += "    						\"lte\": \""+now+"\"";
 		qry += "    			}";
 		qry += "    		}";
@@ -194,10 +202,18 @@ public class ElasticServiceImpl implements ElasticService {
 	 * @param qry
 	 * @return String
 	 */
-	public String weekQryStatement(String qry){
+	public String weekQryStatement(String qry, String[] week){
 		// 현재 날짜 구하기 (시스템 시계, 시스템 타임존)
-		LocalDate now = LocalDate.now();
-		LocalDate pastOf4weeks = now.minusWeeks(4);
+		LocalDate now = null;
+		LocalDate pastOfWeeks = null;
+		
+		if(!week[0].equals("week")){
+			now = LocalDate.now();
+			pastOfWeeks = now.minusWeeks(5);
+		}else if (week[0].equals("week")){
+			now = LocalDate.parse(week[1]);
+			pastOfWeeks = LocalDate.parse(week[2]);
+		}
 
 		qry += "{";
 		qry += "	\"query\": {";
@@ -206,7 +222,7 @@ public class ElasticServiceImpl implements ElasticService {
 		qry += "		{";
 		qry += "			\"range\": {";
 		qry += "			\"agg_dt\": {";
-		qry += "				\"gte\": \""+pastOf4weeks+"\",";
+		qry += "				\"gte\": \""+pastOfWeeks+"\",";
 		qry += "						\"lte\": \""+now+"\"";
 		qry += "			}";
 		qry += "		}";
@@ -263,10 +279,17 @@ public class ElasticServiceImpl implements ElasticService {
 	 * @param qry
 	 * @return String
 	 */
-	public String monthQryStatement(String qry){
+	public String monthQryStatement(String qry, String[] month){
 		// 현재 날짜 구하기 (시스템 시계, 시스템 타임존)
-		LocalDate now = LocalDate.now();
-		LocalDate pastOf2Months = now.minusMonths(2);
+		LocalDate now = null;
+		LocalDate pastOfMonths = null;
+		if(!month[0].equals("month")){
+			now = LocalDate.now();
+			pastOfMonths = now.minusMonths(6);
+		}else if (month[0].equals("month")){
+			now = LocalDate.parse(month[1]);
+			pastOfMonths = LocalDate.parse(month[2]);
+		}
 
 		qry += "{";
 		qry += "	\"query\": {";
@@ -275,7 +298,7 @@ public class ElasticServiceImpl implements ElasticService {
 		qry += "		{";
 		qry += "			\"range\": {";
 		qry += "			\"agg_dt\": {";
-		qry += "				\"gte\": \""+pastOf2Months+"\",";
+		qry += "				\"gte\": \""+pastOfMonths+"\",";
 		qry += "						\"lte\": \""+now+"\"";
 		qry += "			}";
 		qry += "		}";
@@ -445,37 +468,36 @@ public class ElasticServiceImpl implements ElasticService {
 
 
 	@Override
-	public ElasticResultMap fesDailySearch() throws IOException, InstantiationException, IllegalAccessException {
+	public ElasticResultMap fesDailySearch(String[] daily) throws IOException, InstantiationException, IllegalAccessException {
 		String index = "";
 		String qry = "";
 		//일간 누적 모돈수 / 누적 출하두수 / 누적 데이터건수 조회 쿼리
 		index = "/wiselake_daily_data_count";
-		qry = dayQryStatement(qry);
+		qry = dayQryStatement(qry, daily);
 
 		String jsonString = performRequest(index, qry, METHOD_GET, POSTFIX_SEARCH);
 		return new ElasticResultMap(jsonString);
 	}
 
 	@Override
-	public ElasticResultMap fesWeekSearch() throws IOException, InstantiationException, IllegalAccessException {
+	public ElasticResultMap fesWeekSearch(String[] week) throws IOException, InstantiationException, IllegalAccessException {
 		String index = "";
 		String qry = "";
 		//주간 누적 모돈수 / 누적 출하두수 / 누적 데이터건수 조회 쿼리
 		index = "/wiselake_daily_data_count";
-		qry = weekQryStatement(qry);
+		qry = weekQryStatement(qry, week);
 
 		String jsonString = performRequest(index, qry, METHOD_GET, POSTFIX_SEARCH);
 		return new ElasticResultMap(jsonString);
 	}
 
 	@Override
-	public ElasticResultMap fesMonthSearch() throws IOException, InstantiationException, IllegalAccessException {
+	public ElasticResultMap fesMonthSearch(String[] month) throws IOException, InstantiationException, IllegalAccessException {
 		String index = "";
 		String qry = "";
-
-		//주간 누적 모돈수 / 누적 출하두수 / 누적 데이터건수 조회 쿼리
+		//월간 누적 모돈수 / 누적 출하두수 / 누적 데이터건수 조회 쿼리
 		index = "/wiselake_daily_data_count";
-		qry = monthQryStatement(qry);
+		qry = monthQryStatement(qry, month);
 
 		String jsonString = performRequest(index, qry, METHOD_GET, POSTFIX_SEARCH);
 		return new ElasticResultMap(jsonString);

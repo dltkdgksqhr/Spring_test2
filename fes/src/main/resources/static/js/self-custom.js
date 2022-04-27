@@ -93,7 +93,6 @@ var _dailyMdnIncArr = [];
 for(var i=0; i<10; i++){
     _dailyMdnIncArr[i] = $('#re_daily_modon_increment'+i).text();
 }
-
 var lineChart = document.getElementById('month_modon_increment').getContext('2d');
 var week_total_increment = new Chart(lineChart, {
     type: 'line',
@@ -126,7 +125,7 @@ var lineChart = document.getElementById('month_ekape_increment').getContext('2d'
 var week_total_increment = new Chart(lineChart, {
     type: 'line',
     data: {
-        labels: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'],
+        labels: _dateDailyMdnIncArr,
         datasets: [{
             label: '# of Votes',
             data: _dailyMdnIncArr,

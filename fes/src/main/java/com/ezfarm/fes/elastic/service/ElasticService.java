@@ -72,7 +72,7 @@ public interface ElasticService {
 	 * @since
 	 * 	220422	init
 	 */
-	ElasticResultMap fesDailySearch() throws IOException, InstantiationException, IllegalAccessException;
+	ElasticResultMap fesDailySearch(String[] daily) throws IOException, InstantiationException, IllegalAccessException;
 
 	/**
 	 * get방식으로 요청
@@ -83,7 +83,7 @@ public interface ElasticService {
 	 * @since
 	 * 	220422	init
 	 */
-	ElasticResultMap fesWeekSearch() throws IOException, InstantiationException, IllegalAccessException;
+	ElasticResultMap fesWeekSearch(String[] week) throws IOException, InstantiationException, IllegalAccessException;
 
 	/**
 	 * get방식으로 요청
@@ -94,7 +94,7 @@ public interface ElasticService {
 	 * @since
 	 * 	220422	init
 	 */
-	ElasticResultMap fesMonthSearch() throws IOException, InstantiationException, IllegalAccessException;
+	ElasticResultMap fesMonthSearch(String[] month) throws IOException, InstantiationException, IllegalAccessException;
 
 	/**
 	 * post방식으로 요청
