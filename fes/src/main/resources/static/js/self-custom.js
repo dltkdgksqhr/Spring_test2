@@ -19,8 +19,6 @@ var lineChart2 = new Chart(lineChart, {
 			label: '# of Votes',
 			data: _dailyMdnIncArr,
 			backgroundColor: 'rgba(255, 99, 132, 0.2)',
-
-
 			borderColor: 'rgba(255, 99, 132, 1)',
 			borderWidth: 1
 		}]
@@ -29,7 +27,10 @@ var lineChart2 = new Chart(lineChart, {
 		responsive: false,
 		scales: {
 			yAxes: {
-				beginAtZero: true
+				ticks: {
+					beginAtZero: false
+
+				}
 			}
 		}
 	}
@@ -58,7 +59,7 @@ var week_ekape_increment = new Chart(lineChart, {
 		responsive: false,
 		scales: {
 			y: {
-				beginAtZero: true
+				beginAtZero: false
 			}
 		}
 	}
@@ -67,8 +68,8 @@ var week_ekape_increment = new Chart(lineChart, {
 var _dailyMdnIncArr = [];
 for (var i = 0; i < 10; i++) {
 	_dailyMdnIncArr[i] = $('#daily_total_increment' + i).text();
+	
 }
-
 var lineChart = document.getElementById('week_total_increment').getContext('2d');
 var week_total_increment = new Chart(lineChart, {
 	type: 'line',
@@ -86,7 +87,7 @@ var week_total_increment = new Chart(lineChart, {
 		responsive: false,
 		scales: {
 			y: {
-				beginAtZero: true
+				beginAtZero: false
 			}
 		}
 	}
