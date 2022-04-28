@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+
     <meta th:replace="common/header">
 </head>
 <body class="p-3 mb-2 bg-white">
@@ -18,17 +19,29 @@
     <div th:replace="dashboard_month"></div>
 
     <br>
-    <div class="position-relative">
-        <label>선택창</label>
-        <select>
-            <option>일간 누적 표</option>
-            <option>주간 누적 표</option>
-            <option>월간 누적 표</option>
-        </select>
-        <label>날짜조회<input type="date" value="0000-00-00"></label>
-        <label>날짜조회<input type="date" value="0000-00-00"></label>
-        <input type="button" value="조회">
-    </div>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+
+		<h2>누적 표 조회</h2>
+		<form action="">
+			<div class="position-relative">
+				<select aria-label="Default select example">
+					<option selected>-----선택-----</option>
+					<option>일간 누적 표</option>
+					<option>주간 누적 표</option>
+					<option>월간 누적 표</option>
+				</select> 
+				
+				<input type="date"> <label>~</label> <input type="date">
+				<button type="submit" class="btn btn-dark">조회</button>
+				<button type="reset" class="btn btn-dark" >리셋</button>
+				
+			</div>
+		</form>
+		<br> <br> <br> <br> <br> <br> <br>
     <div>
         <div>
             <h1>총 누적 데이터 :</h1>
@@ -147,6 +160,7 @@
     <br />
     <input type="hidden" id="monthly_data_length" th:value="${#lists.size(month.aggregations.aggWeek.buckets)}">
 </div>
+
 </body>
 <script src="/js/self-custom.js"></script>
 </html>

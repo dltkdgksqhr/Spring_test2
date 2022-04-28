@@ -1,3 +1,4 @@
+
 //주간 누적 모돈 수
 var _dailyMdnIncArr = [];
 for(var i=0; i<10; i++){
@@ -13,7 +14,7 @@ var lineChart = document.getElementById('week_modon_increment').getContext('2d')
 var lineChart2 = new Chart(lineChart, {
     type: 'line',
     data: {
-        labels: ['1','2','3','4','5','6','7','8','9','10'],
+        labels: ['1','2','3','4','5','6','7'],
         datasets: [{
             label: '# of Votes',       
             data: _dailyMdnIncArr,
@@ -25,7 +26,8 @@ var lineChart2 = new Chart(lineChart, {
     options: {
 		responsive:false,
         scales: {
-            y: {
+            yAxes: {
+			beginAtZero: true
             }
         }
     }
@@ -41,7 +43,7 @@ var lineChart = document.getElementById('week_ekape_increment').getContext('2d')
 var week_ekape_increment = new Chart(lineChart, {
     type: 'line',
     data: {
-        labels: ['1','2','3','4','5','6','7','8','9','10'],
+        labels: ['1','2','3','4','5','6','7'],
         datasets: [{
             label: '# of Votes',
             data: _dailyMdnIncArr,
@@ -54,7 +56,7 @@ var week_ekape_increment = new Chart(lineChart, {
 		responsive:false,
         scales: {
             y: {
-               
+               beginAtZero: true
             }
         }
     }
@@ -69,7 +71,7 @@ var lineChart = document.getElementById('week_total_increment').getContext('2d')
 var week_total_increment = new Chart(lineChart, {
     type: 'line',
     data: {
-        labels: ['1','2','3','4','5','6','7','8','9','10'],
+        labels: ['1','2','3','4','5','6','7'],
         datasets: [{
             label: '# of Votes',
             data: _dailyMdnIncArr,
@@ -82,7 +84,7 @@ var week_total_increment = new Chart(lineChart, {
 		responsive:false,
         scales: {
             y: {
-           
+           	 beginAtZero: true
             }
         }
     }
@@ -96,7 +98,7 @@ var monthlyMdnInclineChart = document.getElementById('month_modon_increment').ge
 var monthly_modon_increment = new Chart(monthlyMdnInclineChart, {
     type: 'line',
     data: {
-        labels: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'],
+        labels: ['1','2','3','4','5','6','7'],
         datasets: [{
             label: '# of Votes',
             data: _dailyMdnIncArr,
