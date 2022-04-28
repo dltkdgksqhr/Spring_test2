@@ -91,6 +91,7 @@ var week_total_increment = new Chart(lineChart, {
 		}
 	}
 });
+<<<<<<< HEAD
 //월간 누적 모돈 수
 var _dailyMdnIncArr = [];
 for (var i = 0; i < 10; i++) {
@@ -174,3 +175,5 @@ var week_total_increment = new Chart(lineChart, {
 		}
 	}
 });
+=======
+>>>>>>> a7a2d87754c3fd252ebf9bdf1fc25aca01b33944
