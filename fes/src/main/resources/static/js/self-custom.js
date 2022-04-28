@@ -1,19 +1,112 @@
+//주간 누적 모돈 수
+var _dailyMdnIncArr = [];
+for(var i=0; i<10; i++){
+    _dailyMdnIncArr[i] = $('#daily_modon_increment'+i).text();
+    }
+var _dailyMdnIncArr2 = []; 
+for(var i=0; i<10; i++){
+    _dailyMdnIncArr2[i] = $('#date_daily_inc'+i).text();
+    }
+    /*alert(_dailyMdnIncArr[i]);*/
 
-
-var chartArea = document.getElementById('myChart').getContext('2d');
-var myChart = new Chart(chartArea, {
-    type: 'bar',
+var lineChart = document.getElementById('week_modon_increment').getContext('2d');
+var lineChart2 = new Chart(lineChart, {
+    type: 'line',
     data: {
-        labels: ['전전일', '전일'],
+        labels: ['1','2','3','4','5','6','7','8','9','10'],
         datasets: [{
-            label: '# of Votes',
-            data: [12, 19],
+            label: '# of Votes',       
+            data: _dailyMdnIncArr,
             backgroundColor: 'rgba(255, 99, 132, 0.2)',
             borderColor: 'rgba(255, 99, 132, 1)',
             borderWidth: 1
         }]
     },
     options: {
+		responsive:false,
+        scales: {
+            y: {
+            }
+        }
+    }
+});
+//주간 누적 출하두 수 
+var _dailyMdnIncArr = [];
+//_dailyMdnIncArr[0] = $('#daily_modon_increment'+0).text();
+for(var i=0; i<10; i++){
+    _dailyMdnIncArr[i] = $('#daily_ekape_increment'+i).text();
+}
+
+var lineChart = document.getElementById('week_ekape_increment').getContext('2d');
+var week_ekape_increment = new Chart(lineChart, {
+    type: 'line',
+    data: {
+        labels: ['1','2','3','4','5','6','7','8','9','10'],
+        datasets: [{
+            label: '# of Votes',
+            data: _dailyMdnIncArr,
+            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+            borderColor: 'rgba(255, 99, 132, 1)',
+            borderWidth: 1
+        }]
+    },
+    options: {
+		responsive:false,
+        scales: {
+            y: {
+               
+            }
+        }
+    }
+});
+//주간 누적 데이터 건 수
+var _dailyMdnIncArr = [];
+for(var i=0; i<10; i++){
+    _dailyMdnIncArr[i] = $('#daily_total_increment'+i).text();
+}
+
+var lineChart = document.getElementById('week_total_increment').getContext('2d');
+var week_total_increment = new Chart(lineChart, {
+    type: 'line',
+    data: {
+        labels: ['1','2','3','4','5','6','7','8','9','10'],
+        datasets: [{
+            label: '# of Votes',
+            data: _dailyMdnIncArr,
+            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+            borderColor: 'rgba(255, 99, 132, 1)',
+            borderWidth: 1
+        }]
+    },
+    options: {
+		responsive:false,
+        scales: {
+            y: {
+           
+            }
+        }
+    }
+});
+//월간 누적 모돈 수
+var _monthlyMdnIncArr = [];
+for(var i=0; i<$('#monthly_data_length').value(); i++){
+    _monthlyMdnIncArr[i] = $('#monthly_modon_increment'+i).text();
+}
+var monthlyMdnInclineChart = document.getElementById('month_modon_increment').getContext('2d');
+var monthly_modon_increment = new Chart(monthlyMdnInclineChart, {
+    type: 'line',
+    data: {
+        labels: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'],
+        datasets: [{
+            label: '# of Votes',
+            data: _dailyMdnIncArr,
+            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+            borderColor: 'rgba(255, 99, 132, 1)',
+            borderWidth: 1
+        }]
+    },
+    options: {
+		responsive:false,
         scales: {
             y: {
                 beginAtZero: true
@@ -21,35 +114,14 @@ var myChart = new Chart(chartArea, {
         }
     }
 });
-
-
-var dateTest = new Date($('#date_daily_inc0').text());
-function dateFormat(date) {
-    let month = date.getMonth() + 1;
-    let day = date.getDate();
-    let sevenDays = date.getDay();
-    let week = ['일', '월', '화', '수', '목', '금', '토'];
-    month = month >= 10 ? month : '0' + month;
-    day = day >= 10 ? day : '0' + day;
-    return month+'-'+day+'('+week[sevenDays]+')';
-}
-
-console.log(dateFormat(dateTest))
-
+//월간 누적 출하두 수
 var _dailyMdnIncArr = [];
-var _dateDailyMdnIncArr = [];
-for(var i=0; i<8; i++){
-    _dailyMdnIncArr[i] = $('#daily_modon_increment'+i).text();
-    var tmp = new Date($('#date_daily_inc'+i).text());
-    _dateDailyMdnIncArr[i] = dateFormat(tmp);
+for(var i=0; i<10; i++){
+    _dailyMdnIncArr[i] = $('#re_daily_ekape_increment'+i).text();
 }
 
-var _beforeNnowDailyMdnIncArr = [];
-_beforeNnowDailyMdnIncArr[0] = $('#date_daily_inc5').text();
-_beforeNnowDailyMdnIncArr[1] = $('#date_daily_inc6').text();
-
-var lineChart = document.getElementById('myChart2').getContext('2d');
-var myChart2 = new Chart(lineChart, {
+var lineChart = document.getElementById('month_ekape_increment').getContext('2d');
+var week_total_increment = new Chart(lineChart, {
     type: 'line',
     data: {
         labels: _dateDailyMdnIncArr,
@@ -62,6 +134,7 @@ var myChart2 = new Chart(lineChart, {
         }]
     },
     options: {
+		responsive:false,
         scales: {
             y: {
                 beginAtZero: true
@@ -69,34 +142,31 @@ var myChart2 = new Chart(lineChart, {
         }
     }
 });
+//월간 누적 데이터 건수
+var _dailyMdnIncArr = [];
+for(var i=0; i<10; i++){
+    _dailyMdnIncArr[i] = $('#re_daily_total_increment'+i).text();
+}
 
-//
-//const config = {
-//  type: 'line',
-//  data: data,
-//  options: {
-//    responsive: true,
-//    plugins: {
-//      title: {
-//        display: true,
-//        text: (ctx) => 'Point Style: ' + ctx.chart.data.datasets[0].pointStyle,
-//      }
-//    }
-//  }
-//};
-//
-//const data = {
-//  labels: ['Day 1', 'Day 2', 'Day 3', 'Day 4', 'Day 5', 'Day 6'],
-//  datasets: [
-//    {
-//      label: 'Dataset',
-//      data: Utils.numbers({count: 6, min: -100, max: 100}),
-//      borderColor: Utils.CHART_COLORS.red,
-//      backgroundColor: Utils.transparentize(Utils.CHART_COLORS.red, 0.5),
-//      pointStyle: 'circle',
-//      pointRadius: 10,
-//      pointHoverRadius: 15
-//    }
-//  ]
-//};
-//
+var lineChart = document.getElementById('month_total_increment').getContext('2d');
+var week_total_increment = new Chart(lineChart, {
+    type: 'line',
+    data: {
+        labels: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'],
+        datasets: [{
+            label: '# of Votes',
+            data: _dailyMdnIncArr,
+            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+            borderColor: 'rgba(255, 99, 132, 1)',
+            borderWidth: 1
+        }]
+    },
+    options: {
+		responsive:false,
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+});

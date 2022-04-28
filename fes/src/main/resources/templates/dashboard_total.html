@@ -1,0 +1,33 @@
+<!-- 토탈 데이터 -->
+<div class="row">
+    <div class="col">
+        <div class="card text-center">
+            <div class="card-header">총 누적 모돈 수(daily_modon_increment)</div>
+            <div class="card-body">
+                <h5 class="card-title"
+                    th:text="${all.hits.hits[0]._source.daily_modon_increment}">
+                </h5>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="card text-center">
+            <div class="card-header">총 누적 출하두수(daily_ekape_increment)</div>
+            <div class="card-body">
+                <h5 class="card-title"
+                    th:text="${all.hits.hits[0]._source.daily_ekape_increment}">
+                </h5>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="card text-center">
+            <div class="card-header">총 누적 데이터건수(daily_total_increment)</div>
+            <div class="card-body">
+                <h5 class="card-title"
+                    th:text="${all.hits.hits[0]._source.daily_total_increment}">
+                </h5>
+            </div>
+        </div>
+    </div>
+</div>
