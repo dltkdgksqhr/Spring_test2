@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-
     <meta th:replace="common/header">
 </head>
 <body class="p-3 mb-2 bg-white">
@@ -17,9 +16,6 @@
     <div th:replace="dashboard_week"></div>
     <!-- 월간 데이터 -->
     <div th:replace="dashboard_month"></div>
-
-	
-
     <br>
 		<br>
 		<br>
@@ -136,8 +132,8 @@
             <tr th:each="item,index : ${month.aggregations.aggWeek.buckets}">
                 <td align="center" th:id="monthly_local_date+${index.index}" th:text="${item.key_as_string}"></td>
                 <td align="center" th:id="monthly_modon_increment+${index.index}" th:text="${item.daily_modon_increment.value}"></td>
-                <td align="center" th:text="${item.daily_total_increment.value}"></td>
-                <td align="center" th:text="${item.daily_ekape_increment.value}"></td>
+                <td align="center" th:id="monthly_ekape_increment+${index.index}" th:text="${item.daily_ekape_increment.value}"></td>
+                <td align="center" th:id="monthly_total_increment+${index.index}" th:text="${item.daily_total_increment.value}"></td>
                 <td align="center" th:text="${item.re_daily_modon_increment.value}"></td>
                 <td align="center" th:text="${item.re_daily_total_increment.value}"></td>
                 <td align="center" th:text="${item.re_daily_ekape_increment.value}"></td>
@@ -147,11 +143,8 @@
     <br />
     <input type="hidden" id="monthly_data_length" th:value="${#lists.size(month.aggregations.aggWeek.buckets)}">
 </div>
-
 </body>
+<script src="/js/chart_util.js"></script>
 <script src="/js/self-custom.js"></script>
-<!--  
-<script src="/js/self-custom_dashboard_monthly/js"></script>
--->
-
+<script src="/js/self-custom_dashboard_monthly.js"></script>
 </html>

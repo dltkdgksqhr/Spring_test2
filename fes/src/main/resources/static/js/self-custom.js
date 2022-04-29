@@ -19,8 +19,6 @@ var lineChart2 = new Chart(lineChart, {
 			label: '# of Votes',
 			data: _dailyMdnIncArr,
 			backgroundColor: 'rgba(255, 99, 132, 0.2)',
-
-
 			borderColor: 'rgba(255, 99, 132, 1)',
 			borderWidth: 1
 		}]
@@ -91,4 +89,3 @@ var week_total_increment = new Chart(lineChart, {
 		}
 	}
 });
-

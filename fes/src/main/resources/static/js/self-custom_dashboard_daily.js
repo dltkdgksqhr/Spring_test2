@@ -1,6 +1,6 @@
 //날짜 포맷 수정 yyyy-mm
 function dateFormat(date) {
-    let month = date.getMonth() + 1;
+    let day = date.getMonth() + 1;
     month = month >= 10 ? month : '0' + month;
     return date.getFullYear() + '-' + month;
 }
