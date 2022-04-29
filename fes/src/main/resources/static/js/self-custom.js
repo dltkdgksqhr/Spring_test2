@@ -22,10 +22,10 @@ var lineChart2 = new Chart(lineChart, {
 	data: {
 		labels: ['1', '2', '3', '4', '5', '6', '7'],
 		datasets: [{
-			label: '# of Votes',
+			label: '주간 누적 모돈 수 표',
 			data: _dailyMdnIncArr,
 			backgroundColor: 'rgba(255, 99, 132, 0.2)',
-			borderColor: 'rgba(255, 99, 132, 1)',
+			borderColor: chartColors.red,
 			borderWidth: 1
 		}]
 	},
@@ -53,10 +53,10 @@ var week_ekape_increment = new Chart(lineChart, {
 	data: {
 		labels: ['1', '2', '3', '4', '5', '6', '7'],
 		datasets: [{
-			label: '# of Votes',
+			label: '주간 누적 출하두 수 표',
 			data: _dailyMdnIncArr,
 			backgroundColor: 'rgba(255, 99, 132, 0.2)',
-			borderColor: 'rgba(255, 99, 132, 1)',
+			borderColor: chartColors.blue,
 			borderWidth: 1
 		}]
 	},
@@ -81,10 +81,10 @@ var week_total_increment = new Chart(lineChart, {
 	data: {
 		labels: ['1', '2', '3', '4', '5', '6', '7'],
 		datasets: [{
-			label: '# of Votes',
+			label: '주간 누적 데이터 건 수 표',
 			data: _dailyMdnIncArr,
 			backgroundColor: 'rgba(255, 99, 132, 0.2)',
-			borderColor: 'rgba(255, 99, 132, 1)',
+			borderColor: chartColors.green,
 			borderWidth: 1
 		}]
 	},
