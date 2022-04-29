@@ -1,3 +1,9 @@
+//날짜 포맷 수정 yyyy-mm
+function dateFormat(date) {
+    let day = date.getMonth() + 1;
+    month = month >= 10 ? month : '0' + month;
+    return date.getFullYear() + '-' + month;
+}
 
 //주간 누적 모돈 수
 var _dailyMdnIncArr = [];
@@ -8,7 +14,7 @@ var _dailyMdnIncArr2 = [];
 for (var i = 0; i < 10; i++) {
 	_dailyMdnIncArr2[i] = $('#date_daily_inc' + i).text();
 }
-/*alert(_dailyMdnIncArr[i]);*/
+
 
 var lineChart = document.getElementById('week_modon_increment').getContext('2d');
 var lineChart2 = new Chart(lineChart, {
@@ -26,8 +32,10 @@ var lineChart2 = new Chart(lineChart, {
 	options: {
 		responsive: false,
 		scales: {
-			yAxes: {
-				beginAtZero: true
+			y: {
+				min:_dailyMdnIncArr[0]-150
+				
+				
 			}
 		}
 	}
@@ -56,7 +64,7 @@ var week_ekape_increment = new Chart(lineChart, {
 		responsive: false,
 		scales: {
 			y: {
-				beginAtZero: true
+				min:_dailyMdnIncArr[0]-100000
 			}
 		}
 	}
@@ -65,8 +73,8 @@ var week_ekape_increment = new Chart(lineChart, {
 var _dailyMdnIncArr = [];
 for (var i = 0; i < 10; i++) {
 	_dailyMdnIncArr[i] = $('#daily_total_increment' + i).text();
-}
 
+}
 var lineChart = document.getElementById('week_total_increment').getContext('2d');
 var week_total_increment = new Chart(lineChart, {
 	type: 'line',
@@ -84,7 +92,7 @@ var week_total_increment = new Chart(lineChart, {
 		responsive: false,
 		scales: {
 			y: {
-				beginAtZero: true
+				min:_dailyMdnIncArr[0]-5000
 			}
 		}
 	}
