@@ -48,12 +48,13 @@ const configMdnInc = {
     type: 'line',
     data: dataMdnInc,
     options: {
-        responsive: true,
+        responsive: false,
         interaction: {
             intersect: false,
             axis: 'x'
         },
         plugins: {
+		
             title: {
                 display: true,
                 text: (ctx) => 'Step ' + ctx.chart.data.datasets[0].stepped + ' Interpolation',
@@ -82,7 +83,7 @@ const configEkpInc = {
     type: 'line',
     data: dataEkpInc,
     options: {
-        responsive: true,
+        responsive: false,
         interaction: {
             intersect: false,
             axis: 'x'
@@ -116,7 +117,7 @@ const configTtlInc = {
     type: 'line',
     data: dataTtlInc,
     options: {
-        responsive: true,
+        responsive: false,
         interaction: {
             intersect: false,
             axis: 'x'
