@@ -16,6 +16,6 @@ public class HomeController {
 	
 	@RequestMapping(value="/test")
 	public String testget() {
-			return "NewFile";
+			return "test";
 	}
 }
