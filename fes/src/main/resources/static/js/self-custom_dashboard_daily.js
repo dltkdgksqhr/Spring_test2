@@ -17,45 +17,18 @@ for(var i=0; i<_dailyLength; i++){ // 누적 데이터 배열 그래프 수치 �
     _dailyEkpIncAvg += parseInt($('#re_daily_ekape_increment'+i).text());
     _dailyTtlIncAvg += parseInt($('#re_daily_total_increment'+i).text());
 }
-<<<<<<< HEAD
-
-//_monthlyLocalDateArr[2] = "2022-05";
-//_monthlyLocalDateArr[3] = "2022-06";
-//_monthlyLocalDateArr[4] = "2022-07";
-//_monthlyLocalDateArr[5] = "2022-08";
-//_monthlyLocalDateArr[6] = "2022-09";
-//_monthlyLocalDateArr[7] = "2022-10";
-//
-//_monthlyMdnIncArr[2] = 2700000;
-//_monthlyMdnIncArr[3] = 2701000;
-//_monthlyMdnIncArr[4] = 2710000;
-//_monthlyMdnIncArr[5] = 2720000;
-//_monthlyMdnIncArr[6] = 2730000;
-//_monthlyMdnIncArr[7] = 2750000;
-//일간 누적 모돈 수 차트 구현
-const dataMdnInc = {
-    labels: _monthlyLocalDateArr,
-    datasets: [{
-            label: 'Dataset',
-            data: _monthlyMdnIncArr,
-            borderColor: chartColors.red,
-            fill: false,
-            stepped: true,
-        }]
-=======
 const labelsDay = _dailyLocalDateArr;
 //일간 누적 모돈 수 차트 구현
 const dataDay = {
   labels: labelsDay,
   datasets: [
     {
-      label: 'Daily_modon_increment',
+      label: '일간 누적 모돈 수',
       data: _dailyMdnIncArr,
       borderColor: chartColors.blue,
       backgroundColor: chartColors.red
     }
   ]
->>>>>>> 093e8806c44fe4effe90a6fd713b3bba094ce1b8
 };
 
 const configDay = {
@@ -67,10 +40,10 @@ const configDay = {
       legend: {
         position: 'top',
       },
-      title: {
-        display: true,
-        text: '일간 누적 모돈 수'
-      }
+//      title: {
+//        display: true,
+//        text: '일간 누적 모돈 수'
+//      }
     },
     scales: {
         y: {
@@ -86,31 +59,19 @@ var contextDayMdnInc = document
     .getContext('2d');
 var myChart = new Chart(contextDayMdnInc, configDay);
 
-<<<<<<< HEAD
-//일간 누적 출하두 수 차트 구현
-const dataEkpInc = {
-    labels: _monthlyLocalDateArr,
-    datasets: [{
-            label: 'Dataset',
-            data: _monthlyEkpIncArr,
-            borderColor: chartColors.blue,
-            fill: false,
-            stepped: true,
-        }]
-=======
+
 
 //일간 누적 출하두 수 차트 구현
 const dataEkpDay = {
   labels: labelsDay,
   datasets: [
     {
-      label: 'Daily_ekape_increment',
+      label: '일간 누적 출하두 수',
       data: _dailyEkpIncArr,
       borderColor: chartColors.blue,
       backgroundColor: chartColors.red
     }
   ]
->>>>>>> 093e8806c44fe4effe90a6fd713b3bba094ce1b8
 };
 
 const configEkpDay = {
@@ -122,10 +83,10 @@ const configEkpDay = {
       legend: {
         position: 'top',
       },
-      title: {
-        display: true,
-        text: '일간 누적 출하두수'
-      }
+//      title: {
+//        display: true,
+//        text: '일간 누적 출하두수'
+//      }
     },
     scales: {
         y: {
@@ -141,31 +102,20 @@ var contextDayEkpInc = document
     .getContext('2d');
 var myChart = new Chart(contextDayEkpInc, configEkpDay);
 
-<<<<<<< HEAD
-//일간 누적 데이터 건 수 차트 구현
-const dataTtlInc = {
-    labels: _monthlyLocalDateArr,
-    datasets: [{
-            label: 'Dataset',
-            data: _monthlyTtlIncArr,
-            borderColor: chartColors.green,
-            fill: false,
-            stepped: true,
-        }]
-=======
+
 
 //일간 누적 데이터 건 수 차트 구현
 const dataTtlDay = {
   labels: labelsDay,
   datasets: [
     {
-      label: 'Daily_total_increment',
+      label: '일간 누적 데이터 건 수',
       data: _dailyTtlIncArr,
       borderColor: chartColors.blue,
       backgroundColor: chartColors.red
     }
   ]
->>>>>>> 093e8806c44fe4effe90a6fd713b3bba094ce1b8
+
 };
 
 const configTtlDay = {
@@ -177,10 +127,10 @@ const configTtlDay = {
       legend: {
         position: 'top',
       },
-      title: {
-        display: true,
-        text: '일간 누적 데이터건수'
-      }
+//      title: {
+//        display: true,
+//        text: '일간 누적 데이터건수'
+//      }
     },
     scales: {
         y: {

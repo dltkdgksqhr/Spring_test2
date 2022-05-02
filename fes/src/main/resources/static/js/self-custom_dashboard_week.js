@@ -1,11 +1,3 @@
-//날짜 포맷 수정 mm-dd
- /*  function dateFormat(date) {
-    let day = date.getDate();
-    let month = date.getMonth() + 1;
-    day = day >= 10 ? day : '0' + day;
-    month = month >= 10 ? month : '0' + month;
-    return month+'-'+day;
-}*/
 // 주간 데이터 파싱
 var _weekLength = $('#week_data_length').val(); // 데이터 길이
 var _weekLocalDateArr = []; // 월간 날짜
@@ -22,7 +14,6 @@ for(var i=0; i<_weekLength; i++){
 }
 
 //주간 누적 모돈 수 차트 구현
-
 var lineChart = document.getElementById('week_modon_increment').getContext('2d');
 var lineChart2 = new Chart(lineChart, {
 	type: 'line',

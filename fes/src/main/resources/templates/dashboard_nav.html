@@ -1,25 +1,44 @@
-<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+<nav class="navbar fixed-top navbar-dark bg-dark">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">PigPlan</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav"
-                aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Features</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Pricing</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled">Disabled</a>
-                </li>
-            </ul>
-        </div>
+        <a class="navbar-brand">PigPlan</a>
+        <form class="d-flex">
+
+<!--            <div class="position-relative">-->
+<!--                -->
+<!--                -->
+<!--                -->
+<!--            </div>-->
+            <select aria-label="Default select example" id="GraphChoice" name="GraphChoice" style="margin-right: 10px;margin-left: 0px;height: 40px;">
+                <option selected value="default"> - default - </option>
+                <option value="daily">일간 누적 표</option>
+                <option value="week">주간 누적 표</option>
+                <option value="month">월간 누적 표</option>
+            </select>
+            <input type="date" class="form-control me-2" id="FirstDate" name="FirstDate" style="height: 40px;">
+            <label>~</label>
+            <input type="date" class="form-control me-2" id="SecondDate" name="SecondDate" style="height: 40px;">
+            <button class="btn btn-outline-success" id="chartSearch" style="width: 142px;height:40px;margin-left: 5px;margin-right: 5px;" type="submit">조회</button>
+            <button class="btn btn-outline-success" id="resetSearch" style="width: 142px;height:40px;margin-left: 5px;margin-right: 5px;" type="submit">리셋</button>
+        </form>
     </div>
 </nav>
+<script>
+    $('#chartSearch').on("click", function(){
+        var gc = $('#GraphChoice').val();
+        var startDate = $('#FirstDate').val();
+        var endDate = $('#SecondDate').val();
+        if(gc === "default"){
+            alert("조건을 선택해주세요.");
+            return false;
+        }
+        if(startDate === ""){
+            alert("시작 날짜를 선택해주세요.");
+            return false;
+        }else if(endDate === ""){
+            alert("종료 날짜를 선택해주세요.");
+            return false;
+        }
+        location.href = '/fes/search?gcCondition='+gc+'&startCondition='+startDate+'&endCondition='+endDate;
+    });
+</script>
+
