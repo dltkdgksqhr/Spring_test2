@@ -1,12 +1,14 @@
-//날짜 포맷 수정 yyyy-mm
+//날짜 포맷 수정 mm-dd
 function dateFormat(date) {
-    let day = date.getMonth() + 1;
+    let day = date.getDate();
+    let month = date.getMonth() + 1;
+    day = day >= 10 ? day : '0' + day;
     month = month >= 10 ? month : '0' + month;
-    return date.getFullYear() + '-' + month;
+    return month+'-'+day;
 }
 
-// 월간 데이터 파싱
-var _monthlyLength = $('#monthly_data_length').val(); // 데이터 길이
+// 일간 데이터 파싱
+var _dailyLength = $('#daily_data_length').val(); // 데이터 길이
 var _monthlyLocalDateArr = []; // 월간 날짜
 var _monthlyMdnIncArr = []; // 누적 모돈 수 배열
 var _monthlyEkpIncArr = []; // 누적 출하두 수 배열
