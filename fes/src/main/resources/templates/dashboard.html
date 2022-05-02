@@ -3,7 +3,12 @@
 <head>
 <meta th:replace="common/header">
 </head>
-<body class="p-3 mb-2 bg-white">
+<style>
+body::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera*/
+}
+</style>
+<body class="p-3 mb-2 bg-white" style="padding: 0px !important;">
 	<!-- navbar -->
 	<div th:replace="dashboard_nav"></div>
 	<!-- 메인콘텐츠 -->
@@ -95,20 +100,27 @@
             <tr>
                 <th>local_date</th>
                 <th>daily_modon_increment</th>
-                <th>daily_total_increment</th>
                 <th>daily_ekape_increment</th>
+                <th>daily_total_increment</th>
                 <th>re_daily_modon_increment</th>
-                <th>re_daily_total_increment</th>
                 <th>re_daily_ekape_increment</th>
+                <th>re_daily_total_increment</th>
             </tr>
-            <tr th:each="item : ${week.aggregations.aggWeek.buckets}">
-                <td align="center" th:text="${item.key_as_string}" ></td>
-                <td align="center" th:text="${item.daily_modon_increment.value}"></td>
-                <td align="center" th:text="${item.daily_total_increment.value}"></td>
-                <td align="center" th:text="${item.daily_ekape_increment.value}"></td>
-                <td align="center" th:text="${item.re_daily_modon_increment.value}"></td>
-                <td align="center" th:text="${item.re_daily_total_increment.value}"></td>
-                <td align="center" th:text="${item.re_daily_ekape_increment.value}"></td>
+            <tr th:each="item,index : ${week.aggregations.aggWeek.buckets}">
+                <td align="center" th:id="week_local_date+${index.index}"
+                    th:text="${item.key_as_string}"></td>
+                <td align="center" th:id="week_modon_increment+${index.index}"
+                    th:text="${item.daily_modon_increment.value}"></td>
+                <td align="center" th:id="week_ekape_increment+${index.index}"
+                    th:text="${item.daily_ekape_increment.value}"></td>
+                <td align="center" th:id="week_total_increment+${index.index}"
+                    th:text="${item.daily_total_increment.value}"></td>
+                <td align="center"
+                    th:text="${item.re_daily_modon_increment.value}"></td>
+                <td align="center"
+                    th:text="${item.re_daily_ekape_increment.value}"></td>
+                <td align="center"
+                    th:text="${item.re_daily_total_increment.value}"></td>
             </tr>
         </table>
     </div>
@@ -146,6 +158,6 @@
 </body>
 <script src="/js/chart_util.js"></script>
 <script src="/js/self-custom_dashboard_daily.js"></script>
-<script src="/js/self-custom.js"></script>
+<script src="/js/self-custom_dashboard_week.js"></script>
 <script src="/js/self-custom_dashboard_monthly.js"></script>
 </html>

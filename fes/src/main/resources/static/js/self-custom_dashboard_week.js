@@ -7,7 +7,7 @@ var _weekTtlIncArr = []; // 누적 데이터 건 수 배열
 // 누적 데이터 배열 그래프 수치 반복 초기화
 for(var i=0; i<_weekLength; i++){
     var dateConv = new Date($('#week_local_date'+i).text());
-    _weekLocalDateArr[i] = dateFormat(dateConv,"week");
+    _weekLocalDateArr[i] = dateFormat(dateConv, "week");
     _weekMdnIncArr[i] = $('#week_modon_increment'+i).text();
     _weekEkpIncArr[i] = $('#week_ekape_increment'+i).text();
     _weekTtlIncArr[i] = $('#week_total_increment'+i).text();

@@ -1,7 +1,7 @@
-<nav class="navbar fixed-top navbar-dark bg-dark">
+<nav class="navbar navbar-dark bg-dark">
     <div class="container-fluid">
         <a class="navbar-brand">PigPlan</a>
-        <form class="d-flex">
+        <div class="d-flex">
 
 <!--            <div class="position-relative">-->
 <!--                -->
@@ -19,7 +19,7 @@
             <input type="date" class="form-control me-2" id="SecondDate" name="SecondDate" style="height: 40px;">
             <button class="btn btn-outline-success" id="chartSearch" style="width: 142px;height:40px;margin-left: 5px;margin-right: 5px;" type="submit">조회</button>
             <button class="btn btn-outline-success" id="resetSearch" style="width: 142px;height:40px;margin-left: 5px;margin-right: 5px;" type="submit">리셋</button>
-        </form>
+        </div>
     </div>
 </nav>
 <script>
@@ -40,5 +40,9 @@
         }
         location.href = '/fes/search?gcCondition='+gc+'&startCondition='+startDate+'&endCondition='+endDate;
     });
+
+    $('#resetSearch').on("click", function(){
+        location.href = '/fes/search';
+    })
 </script>
 
