@@ -160,25 +160,30 @@ if (!self.__WB_pmw) { self.__WB_pmw = function(obj) { this.__WB_source = obj; re
 
 
 }
-/*
-     FILE ARCHIVED ON 11:54:24 Mar 17, 2021 AND RETRIEVED FROM THE
-     INTERNET ARCHIVE ON 15:38:56 Oct 13, 2021.
-     JAVASCRIPT APPENDED BY WAYBACK MACHINE, COPYRIGHT INTERNET ARCHIVE.
 
-     ALL OTHER CONTENT MAY ALSO BE PROTECTED BY COPYRIGHT (17 U.S.C.
-     SECTION 108(a)(3)).
-*/
 /*
-playback timings (ms):
-  captures_list: 179.424
-  exclusion.robots: 0.194
-  exclusion.robots.policy: 0.177
-  RedisCDXSource: 5.412
-  esindex: 0.013
-  LoadShardBlock: 142.04 (3)
-  PetaboxLoader3.datanode: 1597.674 (4)
-  CDXLines.iter: 22.523 (3)
-  load_resource: 2495.07
-  PetaboxLoader3.resolve: 980.408
+2022-05-02
+theo
 */
-
+//날짜 포맷 수정
+function dateFormat(date, typeStr) {
+    let result = "";
+    if(typeStr === "monthly"){ // 형식 : yyyy-mm
+        let month = date.getMonth() + 1;
+        month = month >= 10 ? month : '0' + month;
+        result = date.getFullYear() + '-' + month;
+    }else if(typeStr === "day"){  // 형식 : mm-dd
+        let day = date.getDate();
+        let month = date.getMonth() + 1;
+        day = day >= 10 ? day : '0' + day;
+        month = month >= 10 ? month : '0' + month;
+        result = month+'-'+day;
+    }else if(typeStr === "week"){
+        let day = date.getDate();
+        let month = date.getMonth() + 1;
+        day = day >= 10 ? day : '0' + day;
+        month = month >= 10 ? month : '0' + month;
+        result = month+'-'+day;
+    }
+    return result;
+}
