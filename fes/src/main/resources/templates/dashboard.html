@@ -64,8 +64,8 @@
             <tr>
                 <th>local_date</th>
                 <th>daily_modon_increment</th>
-                <th>daily_total_increment</th>
-                <th>daily_ekape_increment</th>
+                <th>daily_ekape_increment/th>
+                <th>daily_total_increment<</th>
                 <th>re_daily_modon_increment</th>
                 <th>re_daily_total_increment</th>
                 <th>re_daily_ekape_increment</th>
@@ -76,15 +76,15 @@
                 <td align="center" th:id="daily_modon_increment+${index.index}"
                     th:text="${item._source.daily_modon_increment}"></td>
                 <td align="center" th:id="daily_ekape_increment+${index.index}"
-                    th:text="${item._source.daily_total_increment}"></td>
-                <td align="center" th:id="daily_total_increment+${index.index}"
                     th:text="${item._source.daily_ekape_increment}"></td>
-                <td align="center"
+                <td align="center" th:id="daily_total_increment+${index.index}"
+                    th:text="${item._source.daily_total_increment}"></td>
+                <td align="center" th:id="re_daily_modon_increment+${index.index}"
                     th:text="${item._source.re_daily_modon_increment}"></td>
-                <td align="center"
-                    th:text="${item._source.re_daily_total_increment}"></td>
-                <td align="center"
+                <td align="center" th:id="re_daily_ekape_increment+${index.index}"
                     th:text="${item._source.re_daily_ekape_increment}"></td>
+                <td align="center" th:id="re_daily_total_increment+${index.index}"
+                    th:text="${item._source.re_daily_total_increment}"></td>
             </tr>
         </table>
     </div>
@@ -142,9 +142,11 @@
     </div>
     <br />
     <input type="hidden" id="monthly_data_length" th:value="${#lists.size(month.aggregations.aggWeek.buckets)}">
+    <input type="hidden" id="daily_data_length" th:value="${#lists.size(day.hits.hits)}">
 </div>
 </body>
 <script src="/js/chart_util.js"></script>
+<script src="/js/self-custom_dashboard_daily.js"></script>
 <script src="/js/self-custom.js"></script>
 <script src="/js/self-custom_dashboard_monthly.js"></script>
 </html>

@@ -1,10 +1,3 @@
-//날짜 포맷 수정 yyyy-mm
-function dateFormat(date) {
-    let month = date.getMonth() + 1;
-    month = month >= 10 ? month : '0' + month;
-    return date.getFullYear() + '-' + month;
-}
-
 // 월간 데이터 파싱
 var _monthlyLength = $('#monthly_data_length').val(); // 데이터 길이
 var _monthlyLocalDateArr = []; // 월간 날짜
@@ -14,25 +7,11 @@ var _monthlyTtlIncArr = []; // 누적 데이터 건 수 배열
 // 누적 데이터 배열 그래프 수치 반복 초기화
 for(var i=0; i<_monthlyLength; i++){
     var dateConv = new Date($('#monthly_local_date'+i).text());
-    _monthlyLocalDateArr[i] = dateFormat(dateConv);
+    _monthlyLocalDateArr[i] = dateFormat(dateConv, "monthly");
     _monthlyMdnIncArr[i] = $('#monthly_modon_increment'+i).text();
     _monthlyEkpIncArr[i] = $('#monthly_ekape_increment'+i).text();
     _monthlyTtlIncArr[i] = $('#monthly_total_increment'+i).text();
 }
-
-//_monthlyLocalDateArr[2] = "2022-05";
-//_monthlyLocalDateArr[3] = "2022-06";
-//_monthlyLocalDateArr[4] = "2022-07";
-//_monthlyLocalDateArr[5] = "2022-08";
-//_monthlyLocalDateArr[6] = "2022-09";
-//_monthlyLocalDateArr[7] = "2022-10";
-//
-//_monthlyMdnIncArr[2] = 2700000;
-//_monthlyMdnIncArr[3] = 2701000;
-//_monthlyMdnIncArr[4] = 2710000;
-//_monthlyMdnIncArr[5] = 2720000;
-//_monthlyMdnIncArr[6] = 2730000;
-//_monthlyMdnIncArr[7] = 2750000;
 //월간 누적 모돈 수 차트 구현
 const dataMdnInc = {
     labels: _monthlyLocalDateArr,
@@ -54,7 +33,6 @@ const configMdnInc = {
             axis: 'x'
         },
         plugins: {
-		
             title: {
                 display: true,
                 text: (ctx) => 'Step ' + ctx.chart.data.datasets[0].stepped + ' Interpolation',

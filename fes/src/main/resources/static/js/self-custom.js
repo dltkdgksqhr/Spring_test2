@@ -1,10 +1,3 @@
-//날짜 포맷 수정 yyyy-mm
-function dateFormat(date) {
-    let day = date.getMonth() + 1;
-    month = month >= 10 ? month : '0' + month;
-    return date.getFullYear() + '-' + month;
-}
-
 //주간 누적 모돈 수
 var _dailyMdnIncArr = [];
 for (var i = 0; i < 10; i++) {
