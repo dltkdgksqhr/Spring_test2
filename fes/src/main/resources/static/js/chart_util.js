@@ -178,6 +178,17 @@ function dateFormat(date, typeStr) {
         day = day >= 10 ? day : '0' + day;
         month = month >= 10 ? month : '0' + month;
         result = month+'-'+day;
+<<<<<<< HEAD
+    }else if(typeStr === "week"){ // 형식 : mm-dd
+		let day = date.getDate();
+   		let month = date.getMonth() + 1;
+  		day = day >= 10 ? day : '0' + day;
+   		month = month >= 10 ? month : '0' + month;
+    	result = month+'-'+day;
+}
+    return result;
+}
+=======
     }else if(typeStr === "week"){
         let day = date.getDate();
         let month = date.getMonth() + 1;
@@ -187,3 +198,4 @@ function dateFormat(date, typeStr) {
     }
     return result;
 }
+>>>>>>> 093e8806c44fe4effe90a6fd713b3bba094ce1b8

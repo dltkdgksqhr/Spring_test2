@@ -16,9 +16,10 @@ for(var i=0; i<_monthlyLength; i++){
 const dataMdnInc = {
     labels: _monthlyLocalDateArr,
     datasets: [{
-            label: 'Dataset',
+            label: '월간 누적 모돈수 표',
             data: _monthlyMdnIncArr,
-            borderColor: chartColors.red,
+            backgroundColor:'rgb(255, 0, 0)',
+            borderColor: 'rgb(255, 0, 0)',
             fill: false,
             stepped: true,
         }]
@@ -50,9 +51,10 @@ var myChart = new Chart(contextMdnInc, configMdnInc);
 const dataEkpInc = {
     labels: _monthlyLocalDateArr,
     datasets: [{
-            label: 'Dataset',
+            label: '월간 누적 출하두수 표',
             data: _monthlyEkpIncArr,
-            borderColor: chartColors.blue,
+             backgroundColor:'rgb(0, 0, 255)',
+            borderColor: 'rgb(0, 0, 255)',
             fill: false,
             stepped: true,
         }]
@@ -84,9 +86,10 @@ var myChart = new Chart(contextEkpInc, configEkpInc);
 const dataTtlInc = {
     labels: _monthlyLocalDateArr,
     datasets: [{
-            label: 'Dataset',
+            label: '월간 누적 데이터건수 표',
             data: _monthlyTtlIncArr,
-            borderColor: chartColors.green,
+            backgroundColor: 'rgb(0, 255, 0)',
+            borderColor: 'rgb(0, 255, 0)',
             fill: false,
             stepped: true,
         }]
