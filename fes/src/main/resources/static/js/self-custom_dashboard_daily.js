@@ -35,7 +35,7 @@ for(var i=0; i<_monthlyLength; i++){
 //_monthlyMdnIncArr[5] = 2720000;
 //_monthlyMdnIncArr[6] = 2730000;
 //_monthlyMdnIncArr[7] = 2750000;
-//월간 누적 모돈 수 차트 구현
+//일간 누적 모돈 수 차트 구현
 const dataMdnInc = {
     labels: _monthlyLocalDateArr,
     datasets: [{
@@ -69,7 +69,7 @@ var contextMdnInc = document
     .getContext('2d');
 var myChart = new Chart(contextMdnInc, configMdnInc);
 
-//월간 누적 출하두 수 차트 구현
+//일간 누적 출하두 수 차트 구현
 const dataEkpInc = {
     labels: _monthlyLocalDateArr,
     datasets: [{
@@ -103,7 +103,7 @@ var contextEkpInc = document
     .getContext('2d');
 var myChart = new Chart(contextEkpInc, configEkpInc);
 
-//월간 누적 데이터 건 수 차트 구현
+//일간 누적 데이터 건 수 차트 구현
 const dataTtlInc = {
     labels: _monthlyLocalDateArr,
     datasets: [{

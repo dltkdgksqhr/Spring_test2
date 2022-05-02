@@ -1,17 +1,15 @@
 package com.ezfarm.fes.controller;
 
-import com.ezfarm.fes.elastic.service.ElasticService;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import com.ezfarm.fes.elastic.service.ElasticService;
 
 
 
@@ -41,15 +39,12 @@ public class FesController {
         model.addAttribute("week", service.fesWeekSearch(condition));
         model.addAttribute("month", service.fesMonthSearch(condition));
 
-
-        model.addAttribute("all", service.fesSearch());
-        model.addAttribute("day", service.fesDailySearch(condition));
-        model.addAttribute("week", service.fesWeekSearch(condition));
-        model.addAttribute("month", service.fesMonthSearch(condition));
-        
-        
-        
-        
         return "dashboard";
+    }
+    @GetMapping("/DetailSearch")
+    public String a(@RequestParam("GraphChoice")String graphchoice,@RequestParam("FirstDate")String firstdate,@RequestParam("SecondDate")String seconddate,Model model) throws Exception{
+    	
+    	
+    	return "redirect:dashboard";
     }
 }
