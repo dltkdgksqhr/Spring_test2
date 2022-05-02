@@ -1,11 +1,3 @@
-//날짜 포맷 수정 mm-dd
- /*  function dateFormat(date) {
-    let day = date.getDate();
-    let month = date.getMonth() + 1;
-    day = day >= 10 ? day : '0' + day;
-    month = month >= 10 ? month : '0' + month;
-    return month+'-'+day;
-}*/
 // 주간 데이터 파싱
 var _weekLength = $('#week_data_length').val(); // 데이터 길이
 var _weekLocalDateArr = []; // 월간 날짜
@@ -15,14 +7,13 @@ var _weekTtlIncArr = []; // 누적 데이터 건 수 배열
 // 누적 데이터 배열 그래프 수치 반복 초기화
 for(var i=0; i<_weekLength; i++){
     var dateConv = new Date($('#week_local_date'+i).text());
-    _weekLocalDateArr[i] = dateFormat(dateConv,"week");
+    _weekLocalDateArr[i] = dateFormat(dateConv, "week");
     _weekMdnIncArr[i] = $('#week_modon_increment'+i).text();
     _weekEkpIncArr[i] = $('#week_ekape_increment'+i).text();
     _weekTtlIncArr[i] = $('#week_total_increment'+i).text();
 }
 
 //주간 누적 모돈 수 차트 구현
-
 var lineChart = document.getElementById('week_modon_increment').getContext('2d');
 var lineChart2 = new Chart(lineChart, {
 	type: 'line',
