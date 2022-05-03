@@ -88,8 +88,8 @@ const dataTtlInc = {
     datasets: [{
             label: '월간 누적 데이터건수 표',
             data: _monthlyTtlIncArr,
-            backgroundColor: 'rgb(0, 255, 0)',
-            borderColor: 'rgb(0, 255, 0)',
+            backgroundColor: 'rgb(255, 128, 0)',
+            borderColor: 'rgb(255, 128, 0)',
             fill: false,
             stepped: true,
         }]

@@ -67,8 +67,8 @@ var lineChart2 = new Chart(lineChart, {
 		datasets: [{
 			label: '주간 누적 데이터건수 표',
 			data: _weekTtlIncArr,
-			backgroundColor: 'rgb(0, 255, 0)',
-			borderColor: 'rgb(0, 255, 0)',
+			backgroundColor: 'rgb(255, 128, 0)',
+			borderColor: 'rgb(255, 128, 0)',
 			borderWidth: 1
 		}]
 	},

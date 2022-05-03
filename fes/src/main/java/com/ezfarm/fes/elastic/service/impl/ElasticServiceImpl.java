@@ -162,7 +162,6 @@ public class ElasticServiceImpl implements ElasticService {
 		// 현재 날짜 구하기 (시스템 시계, 시스템 타임존)
 		LocalDate now = null;
 		LocalDate pastOfDays = null;
-
 		if(!daily[0].equals("daily")){
 			now = LocalDate.now();
 			pastOfDays = now.minusDays(7); // 디폴트 7일

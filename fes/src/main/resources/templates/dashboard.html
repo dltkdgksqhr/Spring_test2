@@ -16,17 +16,22 @@ body::-webkit-scrollbar {
 		<!-- 토탈 데이터 -->
 		<div th:replace="dashboard_total"></div>
 		<!-- 일간 데이터 -->
+		<div th:replace="dashboard_dailysearchbar"></div>
 		<div th:replace="dashboard_daily"></div>
 		<!-- 주간 데이터 -->
+	
+		<div th:replace="dashboard_weeksearchbar"></div>
 		<div th:replace="dashboard_week"></div>
 		<!-- 월간 데이터 -->
+		
+		<div th:replace="dashboard_monthsearchbar"></div>
 		<div th:replace="dashboard_month"></div>
 		<br>
 		<br>
 		<br>
 		<br>
 		<br>
-	<div th:replace="dashboard_searchbar"></div>
+		
 <div style="display:none">
     <div>
         <div>
@@ -67,8 +72,8 @@ body::-webkit-scrollbar {
             <tr>
                 <th>local_date</th>
                 <th>daily_modon_increment</th>
-                <th>daily_ekape_increment/th>
-                <th>daily_total_increment<</th>
+                <th>daily_ekape_increment</th>
+                <th>daily_total_increment</th>
                 <th>re_daily_modon_increment</th>
                 <th>re_daily_total_increment</th>
                 <th>re_daily_ekape_increment</th>

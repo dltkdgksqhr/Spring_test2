@@ -25,12 +25,11 @@ const dataDay = {
     {
       label: '일간 누적 모돈 수',
       data: _dailyMdnIncArr,
-      borderColor: chartColors.blue,
-      backgroundColor: chartColors.red
+      borderColor: 'rgb(255, 0, 0)',
+      backgroundColor: 'rgb(255, 0, 0)',
     }
   ]
 };
-
 const configDay = {
   type: 'bar',
   data: dataDay,
@@ -53,12 +52,10 @@ const configDay = {
     }
   },
 };
-
 var contextDayMdnInc = document
     .getElementById('daily_modon_increment')
     .getContext('2d');
 var myChart = new Chart(contextDayMdnInc, configDay);
-
 
 
 //일간 누적 출하두 수 차트 구현
@@ -68,8 +65,8 @@ const dataEkpDay = {
     {
       label: '일간 누적 출하두 수',
       data: _dailyEkpIncArr,
-      borderColor: chartColors.blue,
-      backgroundColor: chartColors.red
+      borderColor: 'rgb(0, 0, 255)',
+      backgroundColor: 'rgb(0, 0, 255)',
     }
   ]
 };
@@ -111,8 +108,8 @@ const dataTtlDay = {
     {
       label: '일간 누적 데이터 건 수',
       data: _dailyTtlIncArr,
-      borderColor: chartColors.blue,
-      backgroundColor: chartColors.red
+      borderColor: 'rgb(255, 128, 0)',
+      backgroundColor: 'rgb(255, 128, 0)',
     }
   ]
 
