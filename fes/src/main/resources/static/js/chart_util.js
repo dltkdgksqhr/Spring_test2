@@ -179,6 +179,7 @@ function dateFormat(date, typeStr) {
         month = month >= 10 ? month : '0' + month;
         result = month+'-'+day;
 
+
     }else if(typeStr === "week"){ // 형식 : mm-dd
 		let day = date.getDate();
    		let month = date.getMonth() + 1;
@@ -188,3 +189,7 @@ function dateFormat(date, typeStr) {
 }
     return result;
 }
+
+
+
+

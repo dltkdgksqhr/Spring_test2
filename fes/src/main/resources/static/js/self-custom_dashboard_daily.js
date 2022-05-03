@@ -23,10 +23,10 @@ const dataDay = {
   labels: labelsDay,
   datasets: [
     {
-      label: 'Daily_modon_increment',
+      label: '일간 누적 모돈 수',
       data: _dailyMdnIncArr,
-      borderColor: chartColors.blue,
-      backgroundColor: chartColors.red
+      borderColor: 'rgb(255, 0, 0)',
+      backgroundColor: 'rgb(255, 0, 0)',
     }
   ]
 };
@@ -39,10 +39,10 @@ const configDay = {
       legend: {
         position: 'top',
       },
-      title: {
-        display: true,
-        text: '일간 누적 모돈 수'
-      }
+//      title: {
+//        display: true,
+//        text: '일간 누적 모돈 수'
+//      }
     },
     scales: {
         y: {
@@ -63,10 +63,10 @@ const dataEkpDay = {
   labels: labelsDay,
   datasets: [
     {
-      label: 'Daily_ekape_increment',
+      label: '일간 누적 출하두 수',
       data: _dailyEkpIncArr,
-      borderColor: chartColors.blue,
-      backgroundColor: chartColors.red
+      borderColor: 'rgb(0, 0, 255)',
+      backgroundColor: 'rgb(0, 0, 255)',
     }
   ]
 };
@@ -80,10 +80,10 @@ const configEkpDay = {
       legend: {
         position: 'top',
       },
-      title: {
-        display: true,
-        text: '일간 누적 출하두수'
-      }
+//      title: {
+//        display: true,
+//        text: '일간 누적 출하두수'
+//      }
     },
     scales: {
         y: {
@@ -100,17 +100,19 @@ var contextDayEkpInc = document
 var myChart = new Chart(contextDayEkpInc, configEkpDay);
 
 
+
 //일간 누적 데이터 건 수 차트 구현
 const dataTtlDay = {
   labels: labelsDay,
   datasets: [
     {
-      label: 'Daily_total_increment',
+      label: '일간 누적 데이터 건 수',
       data: _dailyTtlIncArr,
-      borderColor: chartColors.blue,
-      backgroundColor: chartColors.red
+      borderColor: 'rgb(255, 128, 0)',
+      backgroundColor: 'rgb(255, 128, 0)',
     }
   ]
+
 };
 
 const configTtlDay = {
@@ -122,10 +124,10 @@ const configTtlDay = {
       legend: {
         position: 'top',
       },
-      title: {
-        display: true,
-        text: '일간 누적 데이터건수'
-      }
+//      title: {
+//        display: true,
+//        text: '일간 누적 데이터건수'
+//      }
     },
     scales: {
         y: {
