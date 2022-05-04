@@ -13,13 +13,13 @@ if (!self.__WB_pmw) { self.__WB_pmw = function(obj) { this.__WB_source = obj; re
     //'use strict';
 
     window.chartColors = {
-        red: 'rgb(255, 99, 132)',
-        orange: 'rgb(255, 159, 64)',
-        yellow: 'rgb(255, 205, 86)',
-        green: 'rgb(75, 192, 192)',
-        blue: 'rgb(54, 162, 235)',
-        purple: 'rgb(153, 102, 255)',
-        grey: 'rgb(201, 203, 207)'
+        red: 'rgb(255, 0, 0)',
+        orange: 'rgb(255, 128, 0)',
+        yellow: 'rgb(255, 255, 0)',
+        green: 'rgb(0, 255, 0)',
+        blue: 'rgb(0, 0, 255)',
+        purple: 'rgb(155, 0, 255)',
+        brown:'rgb(133,78,20)'
     };
 
     (function(global) {
