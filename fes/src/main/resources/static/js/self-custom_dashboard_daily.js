@@ -65,7 +65,7 @@ const dataEkpDay = {
     {
       label: '일간 누적 출하두 수',
       data: _dailyEkpIncArr,
-      borderColor: 'rgb(0, 0, 255)',
+      borderColor: 'rgb(0, 0,0)',
       backgroundColor: 'rgb(0, 0, 255)',
     }
   ]
@@ -108,7 +108,7 @@ const dataTtlDay = {
     {
       label: '일간 누적 데이터 건 수',
       data: _dailyTtlIncArr,
-      borderColor: 'rgb(255, 128, 0)',
+      borderColor: 'rgb(0, 0, 0)',
       backgroundColor: 'rgb(255, 128, 0)',
     }
   ]

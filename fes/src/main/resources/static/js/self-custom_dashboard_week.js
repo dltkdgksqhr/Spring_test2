@@ -23,7 +23,7 @@ var lineChart2 = new Chart(lineChart, {
 			label: '주간 누적 모돈수 표',
 			data: _weekMdnIncArr,
 			backgroundColor: 'rgb(255, 0, 0)',
-			borderColor: 'rgb(255, 0, 0)',
+			borderColor: 'rgb(0, 0, 0)',
 			borderWidth: 1
 		}]
 	},
@@ -46,7 +46,7 @@ var lineChart2 = new Chart(lineChart, {
 			label: '주간 누적 출하두수 표',
 			data: _weekEkpIncArr,
 			backgroundColor: 'rgb(0, 0, 255)',
-			borderColor: 'rgb(0, 0, 255)',
+			borderColor: 'rgb(0, 0, 0)',
 			borderWidth: 1
 		}]
 	},
@@ -68,7 +68,7 @@ var lineChart2 = new Chart(lineChart, {
 			label: '주간 누적 데이터건수 표',
 			data: _weekTtlIncArr,
 			backgroundColor: 'rgb(255, 128, 0)',
-			borderColor: 'rgb(255, 128, 0)',
+			borderColor: 'rgb(0, 0, 0)',
 			borderWidth: 1
 		}]
 	},
