@@ -4,3 +4,6 @@ $('#chartSearchD').on("click",function() {
     var endDate = $(this).prev().val();;
     chartSearch(gc, startDate, endDate);
 });
+
+
+

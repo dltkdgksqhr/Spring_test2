@@ -14,32 +14,31 @@ for (var i = 0; i < _monthlyLength; i++) {
 }
 
 
-//월간 누적 모돈 수
+//월간 누적 모돈 수 
 const dataMdnInc = {
 	labels: _monthlyLocalDateArr,
 	datasets: [{
+		label:"월간 누적 모돈 수",
 		data: _monthlyMdnIncArr,
-		backgroundColor:[chartColors.red,chartColors.orange,chartColors.yellow,chartColors.green,chartColors.blue,chartColors.purple,chartColors.brown],
-		borderColor:'rgb(0,0,0)',
+		backgroundColor:'rgb(244, 143, 177,0.5)',
+		borderColor:'rgb(249, 81, 81 )',
+		fill:'start',
 	}]
 };
 
 const configMdnInc = {
-  type: 'pie',
+  type: 'line',
   data: dataMdnInc,
   options: {
     responsive: true,
     plugins: {
-      legend: {
-        position: 'top',
+    	filler:{
+		propagate: false,
+		}, 
       },
-      title: {
-        display: true,
-        text: '월간 누적 모돈수 표'
-      }
-    }
-  },
+   },
 };
+
 var contextMdnInc = document
 	.getElementById('month_modon_increment')
 	.getContext('2d');
@@ -47,63 +46,60 @@ var myChart = new Chart(contextMdnInc, configMdnInc);
 
 
 
-//월간 누적 출하두수
+//월간 출하두수 표
 const dataEkpInc = {
 	labels: _monthlyLocalDateArr,
 	datasets: [{
+		label:"월간 누적 출하두 수",
 		data: _monthlyEkpIncArr,
-		backgroundColor:[chartColors.red,chartColors.orange,chartColors.yellow,chartColors.green,chartColors.blue,chartColors.purple,chartColors.grey],
-		borderColor:'rgb(0,0,0)',
+		backgroundColor:'rgb(100, 208, 255,0.5)',
+		borderColor:'rgb(72, 72, 255 )',
+		fill:'start',
 	}]
 };
 
 const configEkpInc = {
-  type: 'pie',
+  type: 'line',
   data: dataEkpInc,
   options: {
     responsive: true,
     plugins: {
-      legend: {
-        position: 'top',
+    	filler:{
+		propagate: false,
+		}, 
       },
-      title: {
-        display: true,
-        text: '월간 누적 출하두수 표'
-      }
-    }
-  },
+   },
 };
 var contextEkpInc = document
 	.getElementById('month_ekape_increment')
 	.getContext('2d');
 var myChart = new Chart(contextEkpInc, configEkpInc);
 
-//월간 누적 데이터건수 
+//월간 누적 데이터 건 수 표
 const dataTtlInc = {
 	labels: _monthlyLocalDateArr,
 	datasets: [{
+		label:"월간 누적 데이터 건 수",
 		data: _monthlyTtlIncArr,
-		backgroundColor:[chartColors.red,chartColors.orange,chartColors.yellow,chartColors.green,chartColors.blue,chartColors.purple,chartColors.grey],
-		borderColor:'rgb(0,0,0)',
+		backgroundColor:'rgb(255, 196, 147,0.5)',
+		borderColor:'rgb(255, 160, 99 )',
+		fill:'start',
 	}]
 };
 
 const configTtlInc = {
-  type: 'pie',
+  type: 'line',
   data: dataTtlInc,
   options: {
     responsive: true,
     plugins: {
-      legend: {
-        position: 'top',
+    	filler:{
+		propagate: false,
+		}, 
       },
-      title: {
-        display: true,
-        text: '월간 누적 데이터건 수 표'
-      }
-    }
-  },
+   },
 };
+
 var contextTtlInc = document
 	.getElementById('month_total_increment')
 	.getContext('2d');
