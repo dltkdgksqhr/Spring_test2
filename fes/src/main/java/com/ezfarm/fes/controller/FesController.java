@@ -29,31 +29,27 @@ public class FesController {
 			@RequestParam(value = "startCondition", required = false, defaultValue = "default") String startCondition,
 			@RequestParam(value = "endCondition", required = false, defaultValue = "default") String endCondition)
 			throws Exception {
-		if (gcCondition.equals("일간 누적 표")) {
-			
+		if (gcCondition.equals("일간 누적 표")) {		
 			gcCondition = "daily";
 			keepSearch[0][0] = "daily";
 			keepSearch[0][1] = startCondition;
-			keepSearch[0][2] = endCondition;
-	
-		} else if (gcCondition.equals("주간 누적 표")) {
-			
+			keepSearch[0][2] = endCondition;	
+		} else if (gcCondition.equals("주간 누적 표")) {	
+			gcCondition = "week";
 			keepSearch[1][0] = "week";
 			keepSearch[1][1] = startCondition;
-			keepSearch[1][2] = endCondition;
-			
+			keepSearch[1][2] = endCondition;		
 		} else if (gcCondition.equals("월간 누적 표") ) {
-
 			gcCondition = "month";
 			keepSearch[2][0] = "month";
 			keepSearch[2][1] = startCondition;
 			keepSearch[2][2] = endCondition;
 		}
+	
 		
 		String condition[] = {"default","default","default"};
-		
-
 		model.addAttribute("all", service.fesSearch());
+		
 		if(keepSearch[0][0].equals("default")){
 			model.addAttribute("day", service.fesDailySearch(condition));
 
@@ -106,7 +102,6 @@ public class FesController {
 			model.addAttribute("firstDateM", condition[1]);
 			model.addAttribute("endDateM", condition[2]);
 		}
-
 		return "dashboard";
 	}
 
