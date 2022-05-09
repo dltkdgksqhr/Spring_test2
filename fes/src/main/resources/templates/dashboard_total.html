@@ -3,7 +3,7 @@
     <div class="col">
         <div class="card text-center">
             <div class="card-header" style="font-size: 0.9rem;font-weight: bold;">총 누적 모돈 수</div>
-            <div class="card-body">
+            <div class="card-body" style="padding-bottom: 2px;padding-top: 7px;">
                 <h5 class="card-title custom-font-theo"
                     th:text="${all.hits.hits[0]._source.daily_modon_increment}">
                 </h5>
@@ -13,7 +13,7 @@
     <div class="col">
         <div class="card text-center">
             <div class="card-header" style="font-size: 0.9rem;font-weight: bold;">총 누적 출하두수</div>
-            <div class="card-body">
+            <div class="card-body" style="padding-bottom: 2px;padding-top: 7px;">
                 <h5 class="card-title custom-font-theo"
                     th:text="${all.hits.hits[0]._source.daily_ekape_increment}">
                 </h5>
@@ -23,7 +23,7 @@
     <div class="col">
         <div class="card text-center">
             <div class="card-header" style="font-size: 0.9rem;font-weight: bold;">총 누적 데이터건수</div>
-            <div class="card-body">
+            <div class="card-body" style="padding-bottom: 2px;padding-top: 7px;">
                 <h5 class="card-title custom-font-theo"
                     th:text="${all.hits.hits[0]._source.daily_total_increment}">
                 </h5>

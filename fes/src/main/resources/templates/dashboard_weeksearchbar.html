@@ -1,9 +1,11 @@
-<div>
-	<input type="text" id="GraphChoice" value="주간 누적 표" readonly>
-	<input type="date" class="form-control me-2" id="FirstDate" name="FirstDate">
-	<label>~</label> 
-	<input type="date" class="form-control me-2" id="SecondDate" name="SecondDate">
-	<button class="btn btn-outline-success" id="chartSearch" type="submit">조회</button>
+<div class="input-group mb-3" style="margin-top: 1rem !important; margin-bottom: 0.5rem !important; font-size: 0.8rem !important; width: 495px;">
+	<input type="text" class="input-group-text" id="GraphChoice" text-ailgn="center" value="주간 누적 표" style="width: 100px; text-align:center; height: 31px; font-size: 0.8rem !important; font-weight: 700;" readonly>
+	<input th:if="${conditionW.toString().equals('week')}" th:value="${firstDateW}" type="date"  class="form-control me-2" id="FirstDate" name="FirstDate" style="font-size: 0.8rem !important; height: 31px; margin-left: 8px;">
+	<input th:unless="${conditionW.toString().equals('week')}" type="date" class="form-control me-2" id="FirstDate" name="FirstDate" style="font-size: 0.8rem !important; height: 31px; margin-left: 8px;">
+	<label>~</label>
+	<input th:if="${conditionW.toString().equals('week')}" th:value="${endDateW}" type="date" class="form-control me-2" id="SecondDate" name="SecondDate" style="font-size: 0.8rem !important; height: 31px; margin-left: 8px;">
+	<input th:unless="${conditionW.toString().equals('week')}" type="date" class="form-control me-2" id="SecondDate" name="SecondDate" style="font-size: 0.8rem !important; height: 31px; margin-left: 8px;">
+	<button class="btn btn-outline-success" id="chartSearchW" type="submit" style="font-size: 0.8rem !important; width: 65px; height: 30px;">조회</button>
 </div>
 
 <script src="/js/self-custom-weekgraphcheck.js"></script>
