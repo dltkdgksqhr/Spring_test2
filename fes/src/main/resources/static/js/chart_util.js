@@ -222,7 +222,3 @@ function dateFormat(date, typeStr) {
 }
     return result;
 }
-
-
-
-
