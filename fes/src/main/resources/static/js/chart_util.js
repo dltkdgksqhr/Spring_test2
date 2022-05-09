@@ -1,3 +1,36 @@
+var _dmiTotalDataTop = $('#dmiTotal').text();
+var _deiTotalDataTop = $('#deiTotal').text();
+var _dtiTotalDataTop = $('#dtiTotal').text();
+
+_dmiTotalDataTop = Math.floor(_dmiTotalDataTop);
+_deiTotalDataTop = Math.floor(_deiTotalDataTop);
+_dtiTotalDataTop = Math.floor(_dtiTotalDataTop);
+
+console.log(_dmiTotalDataTop);
+console.log(_deiTotalDataTop);
+console.log(_dtiTotalDataTop);
+totalDataTop(_dmiTotalDataTop, "dmiTotal");
+totalDataTop(_deiTotalDataTop, "deiTotal");
+totalDataTop(_dtiTotalDataTop, "dtiTotal");
+
+function totalDataTop(data, selectorStr){
+    $({ val : 0 }).animate({ val : data }, {
+      duration: 1500,
+      step: function() {
+        var num = numberWithCommas(Math.floor(this.val));
+        $("#"+selectorStr).text(num);
+      },
+      complete: function() {
+        var num = numberWithCommas(Math.floor(this.val));
+        $("#"+selectorStr).text(num);
+      }
+    });
+}
+
+function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
 var _____WB$wombat$assign$function_____ = function(name) {return (self._wb_wombat && self._wb_wombat.local_init && self._wb_wombat.local_init(name)) || self[name]; };
 if (!self.__WB_pmw) { self.__WB_pmw = function(obj) { this.__WB_source = obj; return this; } }
 {

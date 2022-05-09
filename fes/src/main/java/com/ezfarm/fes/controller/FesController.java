@@ -46,13 +46,11 @@ public class FesController {
 			keepSearch[2][2] = endCondition;
 		}
 
-
 		String condition[] = {"default","default","default"};
 		model.addAttribute("all", service.fesSearch());
 
 		if(keepSearch[0][0].equals("default")){
 			model.addAttribute("day", service.fesDailySearch(condition));
-
 			model.addAttribute("conditionD", "default");
 			model.addAttribute("firstDateD", "default");
 			model.addAttribute("endDateD", "default");
@@ -61,7 +59,6 @@ public class FesController {
 			condition[1] = keepSearch[0][1];
 			condition[2] = keepSearch[0][2];
 			model.addAttribute("day", service.fesDailySearch(condition));
-
 			model.addAttribute("conditionD", condition[0]);
 			model.addAttribute("firstDateD", condition[1]);
 			model.addAttribute("endDateD", condition[2]);
@@ -69,7 +66,6 @@ public class FesController {
 
 		if(keepSearch[1][0].equals("default")){
 			model.addAttribute("week", service.fesWeekSearch(condition));
-
 			model.addAttribute("conditionW", "default");
 			model.addAttribute("firstDateW", "default");
 			model.addAttribute("endDateW", "default");
@@ -78,17 +74,13 @@ public class FesController {
 			condition[1] = keepSearch[1][1];
 			condition[2] = keepSearch[1][2];
 			model.addAttribute("week", service.fesWeekSearch(condition));
-
 			model.addAttribute("conditionW", condition[0]);
 			model.addAttribute("firstDateW", condition[1]);
 			model.addAttribute("endDateW", condition[2]);
 		}
 
-
-
 		if(keepSearch[2][0].equals("default")){
 			model.addAttribute("month", service.fesMonthSearch(condition));
-
 			model.addAttribute("conditionM", "default");
 			model.addAttribute("firstDateM", "default");
 			model.addAttribute("endDateM", "default");
@@ -97,7 +89,6 @@ public class FesController {
 			condition[1] = keepSearch[2][1];
 			condition[2] = keepSearch[2][2];
 			model.addAttribute("month", service.fesMonthSearch(condition));
-
 			model.addAttribute("conditionM", condition[0]);
 			model.addAttribute("firstDateM", condition[1]);
 			model.addAttribute("endDateM", condition[2]);
