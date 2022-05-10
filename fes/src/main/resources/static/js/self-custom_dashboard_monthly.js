@@ -4,6 +4,14 @@ var _monthlyLocalDateArr = []; // 월간 날짜
 var _monthlyMdnIncArr = []; // 누적 모돈 수 배열
 var _monthlyEkpIncArr = []; // 누적 출하두 수 배열
 var _monthlyTtlIncArr = []; // 누적 데이터 건 수 배열
+
+var _reMtMdnIncArr = []; // 증감 모돈 수 배열
+var _reMtEkpIncArr = []; // 증감 출하두 수 배열
+var _reMtTtlIncArr = []; // 증감 데이터 건 수 배열
+
+var _reMtMdnIncStrParsing = []; // 증감 모돈 수 배열
+var _reMtEkpIncStrParsing = []; // 증감 출하두 수 배열
+var _reMtTtlIncStrParsing = []; // 증감 데이터 건 수 배열
 // 누적 데이터 배열 그래프 수치 반복 초기화
 for (var i = 0; i < _monthlyLength; i++) {
 	var dateConv = new Date($('#monthly_local_date' + i).text());
@@ -11,6 +19,14 @@ for (var i = 0; i < _monthlyLength; i++) {
 	_monthlyMdnIncArr[i] = $('#monthly_modon_increment' + i).text();
 	_monthlyEkpIncArr[i] = $('#monthly_ekape_increment' + i).text();
 	_monthlyTtlIncArr[i] = $('#monthly_total_increment' + i).text();
+
+    _reMtMdnIncArr[i] = $('#re_monthly_modon_increment'+i).text();
+    _reMtEkpIncArr[i] = $('#re_monthly_ekape_increment'+i).text();
+    _reMtTtlIncArr[i] = $('#re_monthly_total_increment'+i).text();
+
+    _reMtMdnIncStrParsing[i] = _monthlyMdnIncArr[i] + _reMtMdnIncArr[i];
+    _reMtEkpIncStrParsing[i] = _monthlyEkpIncArr[i] + _reMtEkpIncArr[i];
+    _reMtTtlIncStrParsing[i] = _monthlyTtlIncArr[i] + _reMtTtlIncArr[i];
 }
 
 
@@ -30,8 +46,21 @@ const configMdnInc = {
   type: 'line',
   data: dataMdnInc,
   options: {
-    responsive: true,
+    responsive: false,
     plugins: {
+        tooltip: {
+            callbacks: {
+                label: function(tooltipItem, data) { //그래프 콤마
+                    var a = "(+전일 증감치 : ";
+                    var b = ")";
+                    var nwc = _reMtMdnIncStrParsing[tooltipItem.parsed.x].replace(_reMtMdnIncArr[tooltipItem.parsed.x], "");
+                    nwc = numberWithCommas(Math.floor(nwc));
+                    var i = _reMtMdnIncStrParsing[tooltipItem.parsed.x].replace(_reMtMdnIncArr[tooltipItem.parsed.x], a + numberWithCommas(Math.floor(_reMtMdnIncArr[tooltipItem.parsed.x])) + b);
+                    i = i.replace(_monthlyMdnIncArr[tooltipItem.parsed.x], nwc);
+                    return i;
+                }
+            }
+        },
     	filler:{
 		propagate: false,
 		}, 
@@ -64,6 +93,19 @@ const configEkpInc = {
   options: {
     responsive: true,
     plugins: {
+        tooltip: {
+            callbacks: {
+                label: function(tooltipItem, data) { //그래프 콤마
+                    var a = "(+전일 증감치 : ";
+                    var b = ")";
+                    var nwc = _reMtEkpIncStrParsing[tooltipItem.parsed.x].replace(_reMtEkpIncArr[tooltipItem.parsed.x], "");
+                    nwc = numberWithCommas(Math.floor(nwc));
+                    var i = _reMtEkpIncStrParsing[tooltipItem.parsed.x].replace(_reMtEkpIncArr[tooltipItem.parsed.x], a + numberWithCommas(Math.floor(_reMtEkpIncArr[tooltipItem.parsed.x])) + b);
+                    i = i.replace(_monthlyEkpIncArr[tooltipItem.parsed.x], nwc);
+                    return i;
+                }
+            }
+        },
     	filler:{
 		propagate: false,
 		}, 
@@ -93,6 +135,19 @@ const configTtlInc = {
   options: {
     responsive: true,
     plugins: {
+        tooltip: {
+            callbacks: {
+                label: function(tooltipItem, data) { //그래프 콤마
+                    var a = "(+전일 증감치 : ";
+                    var b = ")";
+                    var nwc = _reMtTtlIncStrParsing[tooltipItem.parsed.x].replace(_reMtTtlIncArr[tooltipItem.parsed.x], "");
+                    nwc = numberWithCommas(Math.floor(nwc));
+                    var i = _reMtTtlIncStrParsing[tooltipItem.parsed.x].replace(_reMtTtlIncArr[tooltipItem.parsed.x], a + numberWithCommas(Math.floor(_reMtTtlIncArr[tooltipItem.parsed.x])) + b);
+                    i = i.replace(_monthlyTtlIncArr[tooltipItem.parsed.x], nwc);
+                    return i;
+                }
+            }
+        },
     	filler:{
 		propagate: false,
 		}, 

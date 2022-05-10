@@ -32,8 +32,10 @@ body::-webkit-scrollbar {
 		<br>
 		<br>
 
-<div style="display:none">
-    <div>
+<!--<div style="display:none">-->
+        <div>
+
+        <div>
         <div>
             <h1>총 누적 데이터 :</h1>
         </div>
@@ -120,11 +122,11 @@ body::-webkit-scrollbar {
                     th:text="${item.daily_ekape_increment.value}"></td>
                 <td align="center" th:id="week_total_increment+${index.index}"
                     th:text="${item.daily_total_increment.value}"></td>
-                <td align="center"
+                <td align="center" th:id="re_week_modon_increment+${index.index}"
                     th:text="${item.re_daily_modon_increment.value}"></td>
-                <td align="center"
+                <td align="center" th:id="re_week_ekape_increment+${index.index}"
                     th:text="${item.re_daily_ekape_increment.value}"></td>
-                <td align="center"
+                <td align="center" th:id="re_week_total_increment+${index.index}"
                     th:text="${item.re_daily_total_increment.value}"></td>
             </tr>
         </table>
@@ -149,9 +151,9 @@ body::-webkit-scrollbar {
                 <td align="center" th:id="monthly_modon_increment+${index.index}" th:text="${item.daily_modon_increment.value}"></td>
                 <td align="center" th:id="monthly_ekape_increment+${index.index}" th:text="${item.daily_ekape_increment.value}"></td>
                 <td align="center" th:id="monthly_total_increment+${index.index}" th:text="${item.daily_total_increment.value}"></td>
-                <td align="center" th:text="${item.re_daily_modon_increment.value}"></td>
-                <td align="center" th:text="${item.re_daily_total_increment.value}"></td>
-                <td align="center" th:text="${item.re_daily_ekape_increment.value}"></td>
+                <td align="center" th:id="re_monthly_modon_increment+${index.index}" th:text="${item.re_daily_modon_increment.value}"></td>
+                <td align="center" th:id="re_monthly_total_increment+${index.index}" th:text="${item.re_daily_total_increment.value}"></td>
+                <td align="center" th:id="re_monthly_ekape_increment+${index.index}" th:text="${item.re_daily_ekape_increment.value}"></td>
             </tr>
         </table>
     </div>
