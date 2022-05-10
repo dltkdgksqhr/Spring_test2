@@ -1,0 +1,10 @@
+<div class="input-group mb-3" style="margin-top: 1rem !important; margin-bottom: 0.5rem !important; font-size: 0.8rem !important; width: 495px;">
+	<input type="text" class="input-group-text" id="GraphChoice" value="월간 누적 표" style="width: 100px; text-align:center; height: 31px; font-size: 0.8rem !important; font-weight: 700;" readonly>
+	<input th:if="${conditionM.toString().equals('month')}" th:value="${firstDateM}" type="date"  class="form-control me-2" id="FirstDate" name="FirstDate" style="font-size: 0.8rem !important; height: 31px; margin-left: 8px;">
+	<input th:unless="${conditionM.toString().equals('month')}" th:value="${firstDateM}" type="date" class="form-control me-2" id="FirstDate" name="FirstDate" style="font-size: 0.8rem !important; height: 31px; margin-left: 8px;">
+	<label>~</label>
+	<input th:if="${conditionM.toString().equals('month')}" th:value="${endDateM}" type="date" class="form-control me-2" id="SecondDate" name="SecondDate" style="font-size: 0.8rem !important; height: 31px; margin-left: 8px;">
+	<input th:unless="${conditionM.toString().equals('month')}" th:value="${endDateM}" type="date" class="form-control me-2" id="SecondDate" name="SecondDate" style="font-size: 0.8rem !important; height: 31px; margin-left: 8px;">
+	<button class="btn btn-outline-success" id="chartSearchM" style="font-size: 0.8rem !important; width: 65px; height: 30px;" type="submit">조회</button>
+</div>
+<script src="/js/self-custom-monthgraphcheck.js"></script>
