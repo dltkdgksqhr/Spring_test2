@@ -91,7 +91,7 @@ const configEkpInc = {
   type: 'line',
   data: dataEkpInc,
   options: {
-    responsive: true,
+    responsive: false,
     plugins: {
         tooltip: {
             callbacks: {
@@ -133,7 +133,7 @@ const configTtlInc = {
   type: 'line',
   data: dataTtlInc,
   options: {
-    responsive: true,
+    responsive: false,
     plugins: {
         tooltip: {
             callbacks: {
