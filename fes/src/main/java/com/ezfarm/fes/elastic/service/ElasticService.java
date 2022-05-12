@@ -73,7 +73,7 @@ public interface ElasticService {
 	 * 	220422	init
 	 */
 	ElasticResultMap fesDailySearch(String[] daily) throws IOException, InstantiationException, IllegalAccessException;
-
+	
 	/**
 	 * get방식으로 요청
 	 * @return ElasticResultMap

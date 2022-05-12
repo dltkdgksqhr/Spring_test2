@@ -1,0 +1,57 @@
+■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+--공지사항--
+
+CREATE TABLE NOTICE 
+(
+  NO NUMBER NOT NULL 
+, TITLE VARCHAR2(100) NOT NULL 
+, CONTENT VARCHAR2(3500) NOT NULL 
+, REGDATE DATE NOT NULL 
+, HITS NUMBER NOT NULL 
+, BFNO NUMBER NOT NULL 
+, CONSTRAINT NOTICE_PK PRIMARY KEY 
+  (
+    NO 
+  )
+  ENABLE 
+);
+
+--공지사항 글번호 시퀀스--
+
+CREATE SEQUENCE NOTICE_SEQ INCREMENT BY 1 START WITH 1;
+■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+--양돈소식--
+
+CREATE TABLE PIGFARMING_NEWS 
+(
+  NO NUMBER NOT NULL 
+, TITLE VARCHAR2(100) NOT NULL 
+, CONTENT VARCHAR2(3500) NOT NULL 
+, REGDATE DATE NOT NULL 
+, HITS NUMBER NOT NULL 
+, BFNO NUMBER NOT NULL 
+, CONSTRAINT PIGFARMING_NEWS_PK PRIMARY KEY 
+  (
+    NO 
+  )
+  ENABLE 
+);
+
+--양돈소식 글번호 시퀀스--
+
+CREATE SEQUENCE PIGFARMING_NEWS_SEQ INCREMENT BY 1 START WITH 1;
+■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+--첨부파일보관--
+
+CREATE TABLE FILEKEEP 
+(
+  BFNO NUMBER NOT NULL 
+, BNO NUMBER NOT NULL 
+, FNAME VARCHAR2(200) NOT NULL 
+, CONSTRAINT FILEKEEP_PK PRIMARY KEY 
+  (
+    BFNO 
+  )
+  ENABLE 
+);
+■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■

@@ -162,13 +162,12 @@ public class ElasticServiceImpl implements ElasticService {
 		// 현재 날짜 구하기 (시스템 시계, 시스템 타임존)
 		LocalDate now = null;
 		LocalDate pastOfDays = null;
-
 		if(!daily[0].equals("daily")){
 			now = LocalDate.now();
 			pastOfDays = now.minusDays(7); // 디폴트 7일
 		} else if(daily[0].equals("daily")) {
-			now = LocalDate.parse(daily[1]);
-			pastOfDays = LocalDate.parse(daily[2]);
+			now = LocalDate.parse(daily[2]);
+			pastOfDays = LocalDate.parse(daily[1]);
 		}
 
 		qry += " {";
@@ -193,7 +192,7 @@ public class ElasticServiceImpl implements ElasticService {
 		qry += "    	}";
 		qry += "    	}";
 		qry += "      ],";
-		qry += "    	\"size\": 10";
+		qry += "    	\"size\": 999";
 		qry += "    }";
 		return qry;
 	}
@@ -211,8 +210,8 @@ public class ElasticServiceImpl implements ElasticService {
 			now = LocalDate.now();
 			pastOfWeeks = now.minusWeeks(5);
 		}else if (week[0].equals("week")){
-			now = LocalDate.parse(week[1]);
-			pastOfWeeks = LocalDate.parse(week[2]);
+			now = LocalDate.parse(week[2]);
+			pastOfWeeks = LocalDate.parse(week[1]);
 		}
 
 		qry += "{";
@@ -287,8 +286,8 @@ public class ElasticServiceImpl implements ElasticService {
 			now = LocalDate.now();
 			pastOfMonths = now.minusMonths(6);
 		}else if (month[0].equals("month")){
-			now = LocalDate.parse(month[1]);
-			pastOfMonths = LocalDate.parse(month[2]);
+			now = LocalDate.parse(month[2]);
+			pastOfMonths = LocalDate.parse(month[1]);
 		}
 
 		qry += "{";
