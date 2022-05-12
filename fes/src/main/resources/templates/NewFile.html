@@ -5,11 +5,11 @@
 <title>Insert title here</title>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"> </script>
 <script type="text/javascript">
-google.charts.load('current', {'packages':['corechart']});
+google.charts.load('upcoming', {'packages':['corechart']});
 google.charts.setOnLoadCallback(drawChart);
 
 function drawChart() {
-  var data = google.visualization.arrayToDataTable([
+  var data = new google.visualization.arrayToDataTable([
     ['title', '누적 모돈 수'],
     ['월요일',  2130],
     ['화요일',  2240],
@@ -33,6 +33,6 @@ function drawChart() {
 </script>
 </head>
 <body>
-dddㅇㅇㅇ
+  <div id="curve_chart" style="height: 500px; width: 500px;"></div>
 </body>
 </html>

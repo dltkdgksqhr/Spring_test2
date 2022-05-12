@@ -2,30 +2,30 @@ package com.ezfarm.fes.controller;
 
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Arrays;
+//import java.util.Arrays;
 import java.util.Base64;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
-import java.util.HashSet;
+//import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-import java.util.concurrent.CompletionService;
-import java.util.concurrent.ExecutorCompletionService;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
-import java.util.stream.Collectors;
+//import java.util.Set;
+//import java.util.concurrent.CompletionService;
+//import java.util.concurrent.ExecutorCompletionService;
+//import java.util.concurrent.ExecutorService;
+//import java.util.concurrent.Executors;
+//import java.util.concurrent.Future;
+//import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+//import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.xml.transform.Result;
+//import javax.xml.transform.Result;
 
 import org.apache.commons.io.IOUtils;
-import org.elasticsearch.client.RestClient;
-import org.json.JSONObject;
+//import org.elasticsearch.client.RestClient;
+//import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,24 +36,24 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.thymeleaf.util.MapUtils;
+//import org.springframework.web.bind.annotation.RestController;
+//import org.thymeleaf.util.MapUtils;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
+//import com.fasterxml.jackson.core.JsonProcessingException;
+//import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.minio.BucketExistsArgs;
 import io.minio.GetObjectArgs;
 import io.minio.MinioClient;
 import com.ezfarm.fes.elastic.ElasticResultMap;
-import com.ezfarm.fes.elastic.service.ElasticService;
-import com.ezfarm.fes.elastic.service.impl.ElasticServiceImpl;
-import com.ezfarm.fes.enumeration.ApiUrl;
+//import com.ezfarm.fes.elastic.service.ElasticService;
+//import com.ezfarm.fes.elastic.service.impl.ElasticServiceImpl;
+//import com.ezfarm.fes.enumeration.ApiUrl;
 import com.ezfarm.fes.service.AuthService;
 import com.ezfarm.fes.service.QnaService;
-import com.ezfarm.fes.util.HttpUtil;
-import com.ezfarm.fes.util.SHA256;
+//import com.ezfarm.fes.util.HttpUtil;
+//import com.ezfarm.fes.util.SHA256;
 import com.ezfarm.fes.vo.AnswerVo;
 import com.ezfarm.fes.vo.QuestionVo;
 import com.ezfarm.fes.vo.TokenVo;
@@ -63,8 +63,8 @@ import com.ezfarm.fes.vo.TokenVo;
 @RequestMapping("/qna")
 public class QnaController {
 
-	@Autowired
-	private SHA256 sha256;
+//	@Autowired
+//	private SHA256 sha256;
 	
 	@Autowired
 	private AuthService authService;
@@ -72,7 +72,7 @@ public class QnaController {
 	@Autowired
 	private QnaService qnaService;
 	
-	@Value("${aiad.api.id}")
+//	@Value("${aiad.api.id}")
 	private String apiId;
 	
 	@Value("${minio.url}")
@@ -93,8 +93,8 @@ public class QnaController {
 
 
 		HttpSession httpSession = request.getSession(true);
-		//String userId = (String) httpSession.getAttribute("USER_ID");
-		String userId = apiId;
+		String userId = (String) httpSession.getAttribute("USER_ID");
+//		String userId = apiId;
 		
 		TokenVo tokenVo = authService.selectRefreshToken(userId);
 		String token = tokenVo.getRefreshToken();
@@ -102,8 +102,8 @@ public class QnaController {
 		// 질문
 		String question = (String) param.get("question");
 		//SHA256으로 암호화된 질문해시
-        String questionHash = sha256.encrypt(question);
-        String apiParam = "";
+//        String questionHash = sha256.encrypt(question);
+//        String apiParam = "";
         
         String ansType = (String) param.get("ansType");	// 답변 타입 : 백서/뉴스/공지
         String searchType = (String) param.get("searchType");	// 검색 타입 : 간편검색/정밀검색
@@ -233,7 +233,7 @@ public class QnaController {
 		List<HashMap<String, Object>> mrcResultMapList = new ArrayList<HashMap<String, Object>>();
 		// 간편/정밀 검색에 따라 해당 리스트 개수만큼 기계독해 api 호출
 		mrcResultMapList = qnaService.getMrcResultMapList(token, question, paragraphResultSources.subList(0, searchVolum), searchType);
-		
+
 		// mrc 결과 리스트 docId와 매칭되는 aiad_paragraph source 순서 정렬
 		List<Map<String, Object>> mrcParagraphSources = new ArrayList<Map<String,Object>>();
 		

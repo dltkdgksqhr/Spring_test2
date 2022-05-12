@@ -1,11 +1,11 @@
 package com.ezfarm.fes.controller;
 
-import java.net.URLEncoder;
+//import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.annotation.Resource;
-import javax.servlet.http.Cookie;
+//import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -17,34 +17,34 @@ import com.ezfarm.fes.service.UserService;
 import com.ezfarm.fes.util.SHA256;
 import com.ezfarm.fes.vo.TokenVo;
 import com.ezfarm.fes.vo.UserVo;
-import org.elasticsearch.client.RestClient;
-import org.json.JSONObject;
+//import org.elasticsearch.client.RestClient;
+//import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
+//import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.DisabledException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+//import org.springframework.security.authentication.AuthenticationManager;
+//import org.springframework.security.authentication.BadCredentialsException;
+//import org.springframework.security.authentication.DisabledException;
+//import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+//import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.password.PasswordEncoder;
+//import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+//import org.springframework.web.bind.annotation.RestController;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.JsonObject;
+//import com.fasterxml.jackson.core.JsonProcessingException;
+//import com.fasterxml.jackson.databind.ObjectMapper;
+//import com.google.gson.JsonObject;
 
 
 
@@ -56,8 +56,8 @@ public class LoginController {
 	@Resource
     private Environment environment;
 	
-	@Autowired
-	private AuthenticationManager authenticationManager;
+//	@Autowired
+//	private AuthenticationManager authenticationManager;
 	
 	@Autowired
 	private TokenProvider tokenProvider;
@@ -74,11 +74,11 @@ public class LoginController {
 	@Autowired
 	private SHA256 sha256;
 	
-	@Value("${aiad.api.id}")
-	private String apiId;
+//	@Value("${aiad.api.id}")
+//	private String apiId;
 
-	@Value("${aiad.api.pw}")
-	private String apiPw;
+//	@Value("${aiad.api.pw}")
+//	private String apiPw;
 	
 	Logger logger = LoggerFactory.getLogger(LoginController.class);
 	
