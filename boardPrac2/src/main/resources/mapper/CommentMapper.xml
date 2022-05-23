@@ -16,8 +16,8 @@
 
 
     <insert id="insert">
-        insert into tbl_reply (rno,bno, reply, replyer)
-        values (seq_reply.nextval,#{bno},#{reply}, #{replyer})
+        insert into tbl_reply (bno, reply, replyer)
+        values (#{bno},#{reply}, #{replyer})
 
     </insert>
 
@@ -37,7 +37,7 @@
     <update id="update">
         update tbl_reply
         set reply      = #{reply},
-            updatedate = sysdate
+            updatedate = NOW()
         where rno = #{rno}
 
     </update>

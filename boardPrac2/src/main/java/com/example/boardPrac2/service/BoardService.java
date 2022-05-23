@@ -8,6 +8,7 @@ import com.example.boardPrac2.dto.FileVO;
 import java.util.List;
 
 public interface BoardService {
+	//List<FileVO> getfileInsert();
 
     List<BoardDto> getFileBoardList(); //게시글 리스트 출력
     BoardDto fileBoardDetail(int b_no); //게시글 세부내용 보기
@@ -19,10 +20,12 @@ public interface BoardService {
 
     int getTotal(Criteria cri);
 
-    //파일 업로드 메서드
+    //파일 업로드 및 다운로드 메서드 
     int fileInsert (FileVO file);
+    FileVO fileDown(int b_no);
 
     // 파일 다운로드
-    FileVO fileDown(int b_no);
+//    FileVO fileDown(int b_no);
+    
 
 }

@@ -11,7 +11,9 @@ import java.util.Map;
 
 @Mapper
 public interface BoardMapper {
-
+	//파일 업로드
+	List<FileVO> getfileInsert(); //getFileBoardList를 getfileInsert로 변경
+	
     // 읽기
     List<BoardDto> getFileBoardList();
     // 자세히 읽기
@@ -36,12 +38,14 @@ public interface BoardMapper {
     // 이름으로  전달되는 데이터 안에 map이라는게 필요해서 한번 더 감싸서 한것
 
     //파일 업로드
-    int fileInsert(FileVO fileVO);
+    //int fileInsert(FileVO fileVO);
 
     //파일 다운로드
+    //FileVO fileDown(int b_no);
+ 
+  //파일 업로드 및 다운로드 메서드 추가
+    int fileInsert(FileVO file);
     FileVO fileDown(int b_no);
-
-
 
 
 

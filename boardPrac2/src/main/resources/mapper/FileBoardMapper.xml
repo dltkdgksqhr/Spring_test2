@@ -11,13 +11,13 @@
         <trim prefix="(" suffix=") AND">
             <foreach collection="typeArr" item="type" separator="or">
                 <if test="type =='T'.toString()">
-                    title like '%'|| #{keyword}||'%'
+                    title like CONCAT('%', #{keyword}, '%') <!-- '%'|| #{keyword}||'%' -->
                 </if>
                 <if test="type =='C'.toString()">
-                    content like '%'||#{keyword}||'%'
+                    content like CONCAT('%', #{keyword}, '%')
                 </if>
                 <if test="type =='W'.toString()">
-                    writer like '%'|| #{keyword}||'%'
+                    writer like CONCAT('%', #{keyword}, '%')
                 </if>
 
             </foreach>
@@ -26,33 +26,40 @@
 
 
     <select id="searchTest" resultType="com.example.boardPrac2.dto.BoardDto">
-        <![CDATA[
+         <![CDATA[
             select * from tbl_board
             where
                   ]]>
 <include refid="criteria"></include>
-        <![CDATA[
-        rownum < 10
-        ]]>
+        <![CDATA[ 
+        @rownum < 10
+        ]]> 
     </select>
 
     <select id="getListWithPaging" resultType="com.example.boardPrac2.dto.BoardDto"><!-- /* index_asr(file_board pk_board)   */ -->
-        <![CDATA[
+        <!--  <![CDATA[
     select * from (
-          select /*+ index_asr(file_board pk_board)   */ rownum rn, b_no, title, WRITER, reg_date
+          select /*+ index_asr(file_board pk_board)   */ @rownum rn, b_no, title, WRITER, reg_date
           from tbl_board
           where    ]]>
         <include refid="criteria"></include>
-        <![CDATA[       B_NO > 0 and ROWNUM <= (#{pageNum} * #{amount})
-      )
+        <![CDATA[       B_NO > 0 and @ROWNUM <= (#{pageNum} * #{amount})
+      ) test
     where rn > (#{pageNum}-1) * #{amount}
-        ]]>
+        ]]>   -->
+	
+	select * from (
+                select b_no, title, writer, reg_date  
+                from tbl_board order by b_no asc) as T1 
+    limit #{skip},#{amount}
+         
     </select>
+    
     <select id="getTotalCount" resultType="int">
         select count(b_no) from tbl_board
         where
         <include refid="criteria"></include>
-        b_no > 0
+        b_no > 0   
     </select>
 
 
@@ -60,7 +67,6 @@
         SELECT *
         FROM tbl_board
         ORDER BY b_no
-
     </select>
 
     <select id="fileBoardDetail" parameterType="int" resultType="com.example.boardPrac2.dto.BoardDto">
@@ -70,8 +76,8 @@
     </select>
 
     <insert id="fileBoardInsert" parameterType="com.example.boardPrac2.dto.BoardDto" keyProperty="b_no">
-        INSERT INTO tbl_board (b_no, title, content, writer, reg_date)
-        VALUES (AUTO_INCREASE.nextval, #{title}, #{content}, #{writer}, sysdate)
+        INSERT INTO tbl_board ( title, content, writer, reg_date)
+        VALUES ( #{title}, #{content}, #{writer}, NOW())
     </insert>
 
     <update id="fileBoardUpdate" parameterType="com.example.boardPrac2.dto.BoardDto">
@@ -90,26 +96,42 @@
     </delete>
 
 <!--    파일 업로드 -->
-
+<!-- 원본
     <insert id="fileInsert" parameterType="com.example.boardPrac2.dto.FileVO">
         <selectKey keyProperty="b_no" resultType="int" order="BEFORE">
             SELECT MAX(b_no)
             FROM tbl_board
         </selectKey>
 
-        insert into file_board (fno,b_no,fileName,fileOriginName,fileUrl,uploadDate)
-        values(files_seq.nextval,#{b_no},#{fileName},#{fileOriginName},#{fileUrl},SYSDATE)
+        insert into file_board (b_no,fileName,fileOriginName,fileUrl,uploadDate)
+        values(#{b_no},#{fileName},#{fileOriginName},#{fileUrl},NOW())
 
-    </insert>
+    </insert> -->
 
+ <!-- 파일 업로드 내용 추가 -->  
+  <insert id="fileInsert" parameterType="com.example.boardPrac2.dto.FileVO">
+    <selectKey keyProperty="b_no" resultType="int" order="BEFORE">
+      SELECT MAX(b_no)
+      FROM tbl_board
+    </selectKey>
+    INSERT INTO file_board(b_no, fileName, fileOriginName, fileUrl,uploadDate) 
+    VALUES(#{b_no}, #{fileName}, #{fileOriginName}, #{fileUrl},now())
+  </insert>
 
 <!--    파일 다운로드-->
 
     <select id="fileDown" parameterType="int" resultType="com.example.boardPrac2.dto.FileVO">
-        select *
+         select *
         from file_board
-        where b_no = #{b_no}
+        where b_no = #{b_no} 
+        
+        <!-- SELECT 
+		fileName,
+		fileOriginName
+		FROM file_board
+		WHERE b_no = #{b_no} -->
     </select>
 
+	
 
 </mapper>

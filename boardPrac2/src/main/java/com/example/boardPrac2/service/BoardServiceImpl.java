@@ -11,6 +11,7 @@ import java.util.List;
 
 @Service
 public class BoardServiceImpl implements BoardService {
+	
 
     @Autowired
     BoardMapper boardMapper;
@@ -51,14 +52,33 @@ public class BoardServiceImpl implements BoardService {
     }
 
     //파일 업로드
-    @Override
+    /*@Override
     public int fileInsert(FileVO file) {
         return boardMapper.fileInsert(file);
-    }
+    } 원본 */
 
     //파일 다운로드
+    /*
     @Override
     public FileVO fileDown(int b_no) {
         return boardMapper.fileDown(b_no);
-    }
+    }*/
+    
+    /*
+	@Override
+	public List<FileVO> getfileInsert() {
+		return boardMapper.fileInsert(file);
+	}*/
+	
+	@Override
+	  public FileVO fileDown(int b_no) {
+	    return boardMapper.fileDown(b_no);
+	  }
+
+	@Override
+	public int fileInsert(FileVO file) {
+		return boardMapper.fileInsert(file);
+	}
+
+	
 }
