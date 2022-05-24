@@ -13,7 +13,7 @@ import java.util.List;
 public class BoardServiceImpl implements BoardService {
 	
 
-    @Autowired
+   /* @Autowired
     BoardMapper boardMapper;
 
     @Override
@@ -49,6 +49,75 @@ public class BoardServiceImpl implements BoardService {
     @Override
     public int getTotal(Criteria cri) {
         return boardMapper.getTotalCount(cri);
+    }*/
+
+    //파일 업로드
+    /*@Override
+    public int fileInsert(FileVO file) {
+        return boardMapper.fileInsert(file);
+    } 원본 */
+
+    //파일 다운로드
+    /*
+    @Override
+    public FileVO fileDown(int b_no) {
+        return boardMapper.fileDown(b_no);
+    }*/
+    
+    /*
+	@Override
+	public List<FileVO> getfileInsert() {
+		return boardMapper.fileInsert(file);
+	}*/
+    
+   /* @Override
+	public int fileInsert(FileVO file) {
+		return boardMapper.fileInsert(file);
+	}
+	
+	@Override
+	  public FileVO fileDown(int b_no) {
+	    return boardMapper.fileDown(b_no);
+	  }*/
+//	---------------위에는 원본 아래는 수정판 ----------------------
+	
+	
+	@Autowired
+    BoardMapper boardMapper;
+
+    @Override
+    public List<BoardDto> getFileBoardList() {
+        return boardMapper.getFileBoardList();
+    }
+
+    @Override
+    public BoardDto fileBoardDetail(int no) {
+        return boardMapper.fileBoardDetail(no);
+    }
+
+    @Override
+    public int fileBoardInsert(BoardDto boardDto) {
+        return boardMapper.fileBoardInsert(boardDto);
+    }
+
+    @Override
+    public int fileBoardUpdate(BoardDto boardDto) {
+        return boardMapper.fileBoardUpdate(boardDto);
+    }
+
+    @Override
+    public int fileBoardDelete(int no) {
+        return boardMapper.fileBoardDelete(no);
+    }
+
+    @Override
+    public List<BoardDto> getFileBoardList(Criteria cri) {
+        return boardMapper.getListWithPaging(cri);
+    }
+
+    @Override
+    public int getTotal(Criteria cri) {
+        return boardMapper.getTotalCount(cri);
     }
 
     //파일 업로드
@@ -69,16 +138,14 @@ public class BoardServiceImpl implements BoardService {
 	public List<FileVO> getfileInsert() {
 		return boardMapper.fileInsert(file);
 	}*/
-	
-	@Override
-	  public FileVO fileDown(int b_no) {
-	    return boardMapper.fileDown(b_no);
-	  }
-
-	@Override
+    
+    @Override
 	public int fileInsert(FileVO file) {
 		return boardMapper.fileInsert(file);
 	}
-
 	
+	@Override
+	  public FileVO fileDown(int no) {
+	    return boardMapper.fileDown(no);
+	  }
 }

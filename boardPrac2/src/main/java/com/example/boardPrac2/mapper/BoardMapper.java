@@ -12,28 +12,28 @@ import java.util.Map;
 @Mapper
 public interface BoardMapper {
 	//파일 업로드
-	List<FileVO> getfileInsert(); //getFileBoardList를 getfileInsert로 변경
+//	List<FileVO> getfileInsert(); //getFileBoardList를 getfileInsert로 변경
 	
     // 읽기
-    List<BoardDto> getFileBoardList();
+//    List<BoardDto> getFileBoardList();
     // 자세히 읽기
-    BoardDto fileBoardDetail(int b_no);
+//    BoardDto fileBoardDetail(int b_no);
     // 삽입하기
-    int fileBoardInsert(BoardDto boardDto);
+//    int fileBoardInsert(BoardDto boardDto);
     // 수정하기
-    int fileBoardUpdate(BoardDto boardDto);
+//    int fileBoardUpdate(BoardDto boardDto);
     //삭제하기
-    int fileBoardDelete(int b_no);
+//    int fileBoardDelete(int b_no);
 
     //페이징
-    List<BoardDto> getListWithPaging(Criteria cri);
+//    List<BoardDto> getListWithPaging(Criteria cri);
 
     // 테이블 카운트
-    int getTotalCount(Criteria cri);
+//    int getTotalCount(Criteria cri);
 
 
     //동적 검색을 위한것
-    List<BoardDto> searchTest(Map<String, Map<String, String>> map);
+//    List<BoardDto> searchTest(Map<String, Map<String, String>> map);
     // map안에 map을 한이유는 xml sql문 작성 시
     // 이름으로  전달되는 데이터 안에 map이라는게 필요해서 한번 더 감싸서 한것
 
@@ -44,9 +44,44 @@ public interface BoardMapper {
     //FileVO fileDown(int b_no);
  
   //파일 업로드 및 다운로드 메서드 추가
-    int fileInsert(FileVO file);
-    FileVO fileDown(int b_no);
+//    int fileInsert(FileVO file);
+//    FileVO fileDown(int b_no);
+// 위에는 원본 아래는 수정판 
+    
+  //파일 업로드
+  	List<FileVO> getfileInsert(); //getFileBoardList를 getfileInsert로 변경
+  	
+      // 읽기
+      List<BoardDto> getFileBoardList();
+      // 자세히 읽기
+      BoardDto fileBoardDetail(int no);
+      // 삽입하기
+      int fileBoardInsert(BoardDto boardDto);
+      // 수정하기
+      int fileBoardUpdate(BoardDto boardDto);
+      //삭제하기
+      int fileBoardDelete(int no);
+
+      //페이징
+      List<BoardDto> getListWithPaging(Criteria cri);
+
+      // 테이블 카운트
+      int getTotalCount(Criteria cri);
 
 
+      //동적 검색을 위한것
+      List<BoardDto> searchTest(Map<String, Map<String, String>> map);
+      // map안에 map을 한이유는 xml sql문 작성 시
+      // 이름으로  전달되는 데이터 안에 map이라는게 필요해서 한번 더 감싸서 한것
+
+      //파일 업로드
+      //int fileInsert(FileVO fileVO);
+
+      //파일 다운로드
+      //FileVO fileDown(int b_no);
+   
+    //파일 업로드 및 다운로드 메서드 추가
+      int fileInsert(FileVO file);
+      FileVO fileDown(int no);
 
 }

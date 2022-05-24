@@ -16,19 +16,19 @@
         <div>
             <h4 style="font-weight: bolder;">상세내용</h4>
             <br/>
-
+<!-- 원본 시작 -->
 <!--  form  문 시작   -->
             <!--  th:object=${boardDto}해당 form문 에  사용될 객체를 지정한다. 객체로 받아진다.
                   th:action="@{/}
                   -->       <!--="@{/fileBoard/list}"-->
-            <form role="form" th:object=${detail} th:action  method="post">
+           <!--  <form role="form" th:object=${detail} th:action  method="post">
                 <div>
 
-                    <label style="font-weight: bolder;">제목</label>
+                    <label style="font-weight: bolder;">제목</label> -->
 
 <!--  th:text =내용 변경. 내용의값을 변경한다. 태그안에 들어가는 텍스트 값이다.
      그러나 th:field 는 각 필드 매핑하는 역할. th:object에 설정해준 객체의 내부와 매칭  -->
-                    <p th:text="${detail.title}"></p>
+                    <!-- <p th:text="${detail.title}"></p>
                     <input type="hidden" th:field="${detail.title}">
                 </div>
                 <div>
@@ -43,7 +43,7 @@
                 <div>
                     <label style="font-weight: bolder;">첨부파일</label>
                     <p>
-                        <a th:if="${files}" th:href="@{/fileBoard/fileDown/{bno}(bno=${files.b_no})}">
+                        <a th:if="${files}" th:href="@{/fileDown/{bno}(bno=${files.b_no})}">
                             [[${files.fileOriginName}]]
                         </a>
                     </p> 
@@ -52,6 +52,53 @@
                     <label for="" style="font-weight: bolder;">내용</label>
                     <p th:text="${detail.content}"></p>
                     <input type="hidden" th:field="${detail.content}">
+                </div> -->
+
+
+                <!--  th:value="${item.id}" == 모델에 있는 정보를 획득하고 프로펄티 접근법으로 출력한다.
+                                   value 속성을  th:value속성으로 변경
+                      th:formaction  = 버튼 태그의 formation 속성은 form data가 서버로 제출 될 때 도착할 URL 의미
+                                        type 속성이 submit인 경우에만 사용 가능.
+                                   -->
+                <!-- <div style="text-align: right;">
+                    <input type="submit" th:value="목록" th:formaction="@{/}">
+                    <input type="submit" th:value="수정" th:formaction="@{/edit/{bno}(bno=${detail.b_no})}">
+                    <input type="submit" th:value="삭제" th:formaction="@{/delete/{bno}(bno=${detail.b_no})}">
+                </div>
+            </form> -->
+	<!-- 원본 끝 -->
+
+			<form role="form" th:object=${detail} th:action  method="post">
+                <div>
+
+                    <label style="font-weight: bolder;">제목</label>
+
+<!--  th:text =내용 변경. 내용의값을 변경한다. 태그안에 들어가는 텍스트 값이다.
+     그러나 th:field 는 각 필드 매핑하는 역할. th:object에 설정해준 객체의 내부와 매칭  -->
+                    <p th:text="${detail.ttl}"></p>
+                    <input type="hidden" th:field="${detail.ttl}">
+                </div>
+                <!-- <div>
+                    <label style="font-weight: bolder;">작성자</label>
+                    <p th:text="${detail.writer}"></p>
+                    <input type="hidden" th:field="${detail.writer}">
+                </div> -->
+                <div>
+                    <label style="font-weight: bolder;">작성일자</label>
+                    <p th:text="${detail.rgdte}"></p>
+                </div>
+                <div>
+                    <label style="font-weight: bolder;">첨부파일</label>
+                    <p>
+                        <a th:if="${files}" th:href="@{/fileDown/{no}(no=${files.no})}">
+                            [[${files.FL_NM}]]
+                        </a>
+                    </p> 
+                </div>
+                <div>
+                    <label for="" style="font-weight: bolder;">내용</label>
+                    <p th:text="${detail.cntnt}"></p>
+                    <input type="hidden" th:field="${detail.cntnt}">
                 </div>
 
 
@@ -62,12 +109,10 @@
                                    -->
                 <div style="text-align: right;">
                     <input type="submit" th:value="목록" th:formaction="@{/}">
-                    <input type="submit" th:value="수정" th:formaction="@{/edit/{bno}(bno=${detail.b_no})}">
-                    <input type="submit" th:value="삭제" th:formaction="@{/delete/{bno}(bno=${detail.b_no})}">
+                    <input type="submit" th:value="수정" th:formaction="@{/edit/{no}(no=${detail.no})}">
+                    <input type="submit" th:value="삭제" th:formaction="@{/delete/{no}(no=${detail.no})}">
                 </div>
             </form>
-
-
 
         </div>
 

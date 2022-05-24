@@ -6,6 +6,7 @@
 </head>
 
 <body>
+<!--  
 <div>
     <div style="padding: 10px; text-align: center;">
         <h1><a th:href="@{/}" style="text-decoration: none;">게시글 수정</a></h1>
@@ -23,23 +24,64 @@
                 <input type="text" id="writer" name="writer"
                        th:value="${detail.writer}" disabled="disabled">
             </div>
-            <div>
+            <div>-->
                 <!--  [[${detail.content}]] 의 의미는 태그를 벗어나 인라인 에서 표현을 하는 방법이다.
                 기타 문자와 결합하여 사용할 수 있다.-->
-                <label for="content" style="font-weight: bolder;">내용</label><br>
+               <!--  <label for="content" style="font-weight: bolder;">내용</label><br>
                 <textarea id="content" name="content" rows="15" cols="50">
 
 [[${detail.content}]]
   </textarea>
             </div>
+            <div style="text-align: right;"> 
+
+                <input type="hidden" name="b_no" th:value="${detail.b_no}">-->
+<!--                이건 html 문법인지 모르곘는데,form 전체에 action 값을 지정해주니, 그거로 바로 연결이 된다? -->
+  <!--             <input type="submit" th:value="목록" th:formaction="@{/}">
+                <input type="submit" th:value="저장" th:formaction="@{/update}"> -->
+<!--              앞서 이야기 한 것 처럼 formaction은 버튼을 눌렸을 때 전달할 URL을 입력한다. -->
+               <!-- <input type="submit" th:value="삭제" th:formaction="@{/delete/{bno}(bno=${detail.b_no})}">
+
+            </div>
+        </form>
+    </div>
+    <br/><br/><br/>
+</div> 원본 끝  -->
+
+<div>
+    <div style="padding: 10px; text-align: center;">
+        <h1><a th:href="@{/}" style="text-decoration: none;">게시글 수정</a></h1>
+    </div>
+    <div>
+        <form role="form" th:object="${boardDto}"
+              th:action method="post">
+            <div>
+                <label for="ttl" style="font-weight: bolder;">제목</label>
+                <input type="text" id="ttl" name="ttl"
+                       th:value="${detail.ttl}">
+            </div>
+           <!--  <div>
+                <label for="writer" style="font-weight: bolder;">작성자</label>
+                <input type="text" id="writer" name="writer"
+                       th:value="${detail.writer}" disabled="disabled">
+            </div> -->
+            <div>
+                <!--  [[${detail.content}]] 의 의미는 태그를 벗어나 인라인 에서 표현을 하는 방법이다.
+                기타 문자와 결합하여 사용할 수 있다.-->
+                <label for="cntnt" style="font-weight: bolder;">내용</label><br>
+                <textarea id="cntnt" name="cntnt" rows="15" cols="50">
+
+[[${detail.cntnt}]]
+  </textarea>
+            </div>
             <div style="text-align: right;">
 
-                <input type="hidden" name="b_no" th:value="${detail.b_no}">
+                <input type="hidden" name="no" th:value="${detail.no}">
 <!--                이건 html 문법인지 모르곘는데,form 전체에 action 값을 지정해주니, 그거로 바로 연결이 된다? -->
                 <input type="submit" th:value="목록" th:formaction="@{/}">
                 <input type="submit" th:value="저장" th:formaction="@{/update}">
 <!--              앞서 이야기 한 것 처럼 formaction은 버튼을 눌렸을 때 전달할 URL을 입력한다. -->
-                <input type="submit" th:value="삭제" th:formaction="@{/delete/{bno}(bno=${detail.b_no})}">
+                <input type="submit" th:value="삭제" th:formaction="@{/delete/{no}(no=${detail.no})}">
 
             </div>
         </form>
