@@ -148,4 +148,5 @@ public class BoardServiceImpl implements BoardService {
 	  public FileVO fileDown(int no) {
 	    return boardMapper.fileDown(no);
 	  }
+	
 }

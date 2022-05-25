@@ -2,11 +2,10 @@ package com.example.boardPrac2.dto;
 
 
 
-import java.util.Date;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 
 @Data
 @NoArgsConstructor
@@ -24,5 +23,5 @@ public class FileVO {
     private int no; //글 번호 
     private String FL_NM;
     private String FL_URL;
-    
+    private String FL_ORI_NM; // 받아올 때 파일 이름
 }

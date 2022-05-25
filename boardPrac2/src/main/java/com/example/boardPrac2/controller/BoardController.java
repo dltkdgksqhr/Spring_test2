@@ -272,7 +272,6 @@ public class BoardController {
 
        if(files.isEmpty()) {
            boardService.fileBoardInsert(boardDto);
-
        } else {
            String fileName = files.getOriginalFilename(); // 사용자 컴에 저장된 파일명 그대로
            //확장자
@@ -298,13 +297,14 @@ public class BoardController {
            FileVO file = new FileVO();
            file.setNo(boardDto.getNo());
            file.setFL_NM(destinationFileName);
+           file.setFL_ORI_NM(fileName);
            file.setFL_URL(fileUrl);
 
            boardService.fileInsert(file);
        }
 
        return "forward:/"; //객체 재사용
-   }
+   } 
    
 //   원본 fileDown 메서드
    /* @RequestMapping("/fileDown/{b_no}")
@@ -384,85 +384,7 @@ public class BoardController {
       }
       
     }*/
-/*  원본 fileDown 메서드
-   @RequestMapping("/fileDown/{no}")
-   private void fileDown(@PathVariable("no") int no, HttpServletRequest request, 
-   HttpServletResponse response) throws UnsupportedEncodingException, Exception {
-  
-     request.setCharacterEncoding("UTF-8");
-     FileVO fileVO = boardService.fileDown(no);
-     
-     //파일 업로드 경로
-     try {
-       String fileUrl = fileVO.getFileUrl();
-       System.out.println(fileUrl);
-       fileUrl += "/";
-       String savePath = fileUrl;
-       String fileName = fileVO.getFileName();
 
-       //실제 내보낼 파일명
-        String originFileName = fileVO.getFileOriginName();
-        InputStream in = null;
-        OutputStream os = null;
-        File file= null;
-        Boolean skip = false;
-        String client = "";
-        
-        //파일을 읽어 스트림에 담기
-       try {
-         file = new File(savePath, fileName);
-         in = new FileInputStream(file);
-       } catch (FileNotFoundException fe) {
-         skip = true;
-       } 
-
-       client = request.getHeader("User-Agent");
-        
-       //파일 다운로드 헤더 지정
-       response.reset();
-       response.setContentType("application/octet-stream");
-       response.setHeader("Content-Description", "HTML Generated Data");
-
-       if(!skip) {
-         //IE
-         if(client.indexOf("MSIE") != -1) {
-           response.setHeader("Content-Disposition", "attachment; filename=\"" 
-             + java.net.URLEncoder.encode(originFileName, "UTF-8").replaceAll("\\+", "\\ ") + "\"");
-         //IE 11 이상
-         } else if (client.indexOf("Trident") != -1) {
-           response.setHeader("Content-Disposition", "attachment; filename=\""
-             + java.net.URLEncoder.encode(originFileName, "UTF-8").replaceAll("\\+", "\\ ") + "\"");
-         //한글 파일명 처리
-         } else {
-           response.setHeader("Content-Disposition", "attachment; filename=\"" + 
- new String(originFileName.getBytes("UTF-8"), "ISO8859_1") + "\"");
-           response.setHeader("Content-Type", "application/octet-stream; charset=utf-8");
-          }
-          
-         response.setHeader("Content-Length", ""+file.length());
-         os = response.getOutputStream();
-         byte b[] = new byte[(int) file.length()];
-         int leng = 0;
-
-         while ((leng = in.read(b)) > 0) {
-           os.write(b, 0, leng);
-         }
-       } else {
-         response.setContentType("text/html; charset=UTF-8");
-         PrintWriter out = response.getWriter();
-         out.println("<script> alert('파일을 찾을 수 없습니다.'); history.back(); </script>");
-         out.flush();
-       }
-        
-        in.close();
-        os.close();
-     
-     } catch (Exception e) {
-       System.out.println("ERROR : " + e.getStackTrace());
-     }
-     
-   } */
-   
    @RequestMapping("/fileDown/{no}")
    private void fileDown(@PathVariable("no") int no, HttpServletRequest request, 
    HttpServletResponse response) throws UnsupportedEncodingException, Exception {
@@ -479,7 +401,7 @@ public class BoardController {
        String fileName = fileVO.getFL_NM();
 
        //실제 내보낼 파일명
-        String originFileName = fileVO.getFL_NM();
+        String originFileName = fileVO.getFL_ORI_NM(); 
         InputStream in = null;
         OutputStream os = null;
         File file= null;

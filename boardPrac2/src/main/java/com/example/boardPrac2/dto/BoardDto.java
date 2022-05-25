@@ -10,7 +10,6 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-//@ToString(of = {"b_no","title","content","writer","reg_date"}) 원본
 @ToString(of = {"no","ttl","cntnt","rgdte"})
 public class BoardDto {
 

@@ -25,92 +25,7 @@
 </head>
 <body>
     	
-<!-- <div>
-  <div style="padding: 10px; text-align: center;">
-    <h1><a th:href="@{/}" style="text-decoration: none;">게시판</a></h1>
-  </div> -->
 
-  <!--/* 타임리프 관련 태그에 내용이 없어도 무적권 에러ㅇㅅㅇ */-->
-
- <!-- <div> 
-    <table>
-      <thead style="text-align: center;">
-      <tr>
-        <th style="text-align: center;">번호</th>
-        <th style="text-align: center;">제목</th>
-        <th style="text-align: center;">등록일</th>
-      </tr>
-      </thead>
-      <tbody> -->
-      <!-- th:each 는 반복출력을 지원하다.
-         th:each="data : ${boardDtos}" 이렇게 하면, 모델에 포함된 boardDtos 컬렌션 데이터가
-         data 변수에 하나 씩 포함되고, 반복문 안에서 date를 이용하여 값을 깨낼 수 있다.
-         컬렉션의 수 만큼  [ <tr> </tr> ] 이 태그를 포함하여 생성된다.
-         -->
-      <!-- 리터럴 대체 [ |...| ]
-
-         "b_no","title","content","writer","reg_date"                                                get method-->
-                                          	            
-      <!-- <li th:text="${pageMaker}"></li>  --> 
-	
-      <!-- <tr th:each=" data : ${boardDtos}" th:onclick="|location.href='@{/detail/{bno}(bno=${data.b_no})}'|" >
-        <td th:text="${data.b_no}" style="cursor: pointer; text-align: center;"></td>
-        <td th:text="${data.title}" style="cursor: pointer; text-align: center;"></td>
-        <td th:text="${data.reg_date}" style="cursor: pointer; text-align: center;"></td> 
-      </tr>
-      </tbody>
-    </table>
-</div> -->
-<!--검색 창  -->
-<!--   form  테그 눌릴때 페이지 번호도 같이 전송이 되야 하니까 hidden 값으로 처리한다.-->
-
-  <!-- <form id='searchForm' action="/" method="get" >
-    <select name="type">
-      <option th:selected="${pageMaker.cri.type==null}">---</option>
-      <option value="T" th:selected="${pageMaker.cri.type=='T'}">제목</option>
-      <option value="C" th:selected="${pageMaker.cri.type=='C'}">내용</option> -->
-      <!-- <option value="W" th:selected="${pageMaker.cri.type=='W'}">작성자</option> -->
-     <!--  <option value="TC" th:selected="${pageMaker.cri.type=='TC'}">제목+내용</option>
-      <option value="TCW" th:selected="${pageMaker.cri.type=='TCW'}">제목+내용+작성자</option>
-    </select>
-
-        <input id='actionForm' type='text' name="keyword">
-        <input type='hidden' name="pageNum" th:value='${pageMaker.cri.pageNum}'>
-        <input type='hidden' name="amount" th:value='${pageMaker.cri.amount}'>
-
-    <button class='btn btn-default'>Search</button>
-
-  </form>  -->
-<!--검색 창 끝  -->
-
-
-  <!-- 게시판 하단의 페이징 버튼 -->
-  <!-- <div>
-    <ul th:each="obj :${pageMaker}"> -->
-      <!-- <li th:text="${pageMaker}"></li> -->
-      <!--  <li th:if="${obj.prev} == true">
-        <a th:href="@{/(pageNum=${obj.startPage}-1,amount=${obj.cri.amount})}"> &laquo;&laquo;</a>
-      </li>
-
-      <li th:each="idx,iterStat : ${#numbers.sequence(obj.startPage,obj.endPage)}"  th:classappend="${obj.cri.pageNum} == ${idx} ? active : null">
-        <a th:href="@{/(pageNum=${idx},amount=${obj.cri.amount})}" th:text="${idx}"></a>
-      </li>
-
-      <li th:if="${obj.next} == true and ${obj.endPage > 0}">
-        <a th:href="@{/(pageNum=${obj.endPage}+1,amount=${obj.cri.amount})}">&raquo;&raquo;</a>
-      </li>
-
-    </ul>
-
-  </div>
-
-  <div style="text-align: right;">
-    <button th:onclick="|location.href='@{/write}'|">글작성</button>
-  </div>
-
-  <br/><br/><br/>
-</div> 원본 끝 -->
-<!--                            수정판 시작                           -->
 <div>
   <div style="padding: 10px; text-align: center;">
     <h1><a th:href="@{/}" style="text-decoration: none;">게시판</a></h1>
@@ -128,22 +43,12 @@
       </tr>
       </thead>
       <tbody> 
-      <!-- th:each 는 반복출력을 지원하다.
-         th:each="data : ${boardDtos}" 이렇게 하면, 모델에 포함된 boardDtos 컬렌션 데이터가
-         data 변수에 하나 씩 포함되고, 반복문 안에서 date를 이용하여 값을 깨낼 수 있다.
-         컬렉션의 수 만큼  [ <tr> </tr> ] 이 태그를 포함하여 생성된다.
-         -->
-      <!-- 리터럴 대체 [ |...| ]
-
-         "b_no","title","content","writer","reg_date"                                                get method-->
-                                          	            
-      <!-- <li th:text="${pageMaker}"></li>  --> 
 	
        <tr th:each=" data : ${boardDtos}" th:onclick="|location.href='@{/detail/{no}(no=${data.no})}'|" >
         <td th:text="${data.no}" style="cursor: pointer; text-align: center;"></td>
         <td th:text="${data.ttl}" style="cursor: pointer; text-align: center;"></td>
         <td th:text="${#dates.format(data.rgdte, 'yyyy-MM-dd')}" style="cursor: pointer; text-align: center;"></td>
-       <!--  <td th:text="${data.rgdte}" style="cursor: pointer; text-align: center;"></td> --> 
+       <!--  <td th:text="${data.rgdte}" style="cursor: pointer;  center;"></td> --> 
       </tr>
       </tbody>
     </table>

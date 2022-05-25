@@ -10,15 +10,6 @@
     <sql id="criteria">
         <trim prefix="(" suffix=") AND">
             <foreach collection="typeArr" item="type" separator="or">
-               <!--  <if test="type =='T'.toString()">
-                    title like CONCAT('%', #{keyword}, '%')원본 --> <!-- '%'|| #{keyword}||'%' -->
-                <!-- </if>
-                <if test="type =='C'.toString()">
-                    content like CONCAT('%', #{keyword}, '%')
-                </if>
-                <if test="type =='W'.toString()">
-                    writer like CONCAT('%', #{keyword}, '%')
-                </if>  원본 -->
                 
                 <if test="type =='T'.toString()">
                     ttl like CONCAT('%', #{keyword}, '%') <!-- '%'|| #{keyword}||'%' -->
@@ -26,9 +17,7 @@
                 <if test="type =='C'.toString()">
                     cntnt like CONCAT('%', #{keyword}, '%')
                 </if>
-                <!-- <if test="type =='W'.toString()">
-                    writer like CONCAT('%', #{keyword}, '%')
-                </if> 필요없음--> 
+ 
 
             </foreach>
         </trim>
@@ -46,23 +35,7 @@
         ]]> 
     </select>
 
-    <select id="getListWithPaging" resultType="com.example.boardPrac2.dto.BoardDto"><!-- /* index_asr(file_board pk_board)   */ -->
-        <!--  <![CDATA[
-    select * from (
-          select /*+ index_asr(file_board pk_board)   */ @rownum rn, b_no, title, WRITER, reg_date
-          from tbl_board
-          where    ]]>
-        <include refid="criteria"></include>
-        <![CDATA[       B_NO > 0 and @ROWNUM <= (#{pageNum} * #{amount})
-      ) test
-    where rn > (#{pageNum}-1) * #{amount}
-        ]]>   -->
-	
-	<!-- select * from (
-                select b_no, title, writer, reg_date  
-                from tbl_board order by b_no asc) as T1 
-    limit #{skip},#{amount} 원본 b_no,  -->
-    
+    <select id="getListWithPaging" resultType="com.example.boardPrac2.dto.BoardDto">   
     select * from (
                 select no, ttl, cntnt, rgdte  
                 from board order by no asc) as T1 
@@ -72,11 +45,6 @@
     </select>
     
     <select id="getTotalCount" resultType="int">
-        <!-- select count(b_no) from tbl_board
-        where
-        <include refid="criteria"></include>
-        b_no > 0 원본-->
-        
         select count(no) from board
         where
         <include refid="criteria"></include>
@@ -86,53 +54,31 @@
 
 
     <select id="getFileBoardList" resultType="com.example.boardPrac2.dto.BoardDto">
-        <!-- SELECT *
-        FROM tbl_board
-        ORDER BY b_no 원본 -->
-        
         SELECT *
         FROM board
         ORDER BY no
     </select>
 
     <select id="fileBoardDetail" parameterType="int" resultType="com.example.boardPrac2.dto.BoardDto">
-        <!-- SELECT *
-        FROM tbl_board
-        WHERE b_no = #{b_no} 원본-->
-        
         SELECT *
         FROM board
         WHERE no = #{no}
     </select>
 
     <insert id="fileBoardInsert" parameterType="com.example.boardPrac2.dto.BoardDto" keyProperty="no">
-        <!-- INSERT INTO tbl_board ( title, content, writer, reg_date)
-        VALUES ( #{title}, #{content}, #{writer}, NOW())  원본-->
-        
         INSERT INTO board ( ttl, cntnt, rgdte)
         VALUES ( #{ttl}, #{cntnt},now())
     </insert>
 
     <update id="fileBoardUpdate" parameterType="com.example.boardPrac2.dto.BoardDto">
-
-        <!-- update tbl_board set
-        title=<if test="title != null">#{title}</if>,
-        content=
-        <if test="content != null">#{content}</if>
-        where b_no=#{b_no} 원본 -->
-        
         update board set
-        ttl=<if test="title != null">#{ttl}</if>,
+        ttl=<if test="ttl != null">#{ttl}</if>,
         cntnt=
-        <if test="content != null">#{cntnt}</if>
+        <if test="cntnt != null">#{cntnt}</if>
         where no=#{no} 
 
     </update>
-    <delete id="fileBoardDelete" parameterType="int">
-        <!-- DELETE
-        FROM tbl_board
-        WHERE b_no = #{b_no} 원본-->
-        
+    <delete id="fileBoardDelete" parameterType="int">     
         DELETE
         FROM board
         WHERE no = #{no}
@@ -168,8 +114,8 @@
       SELECT MAX(no)
       FROM board
     </selectKey>
-    INSERT INTO file_keep(no, FL_NM, FL_URL) 
-    VALUES(#{no}, #{FL_NM}, #{FL_URL})
+    INSERT INTO file_keep(no, FL_NM, FL_URL, FL_ORI_NM) 
+    VALUES(#{no}, #{FL_NM}, #{FL_URL}, #{FL_ORI_NM} )
   </insert> 
 
 <!--    파일 다운로드-->
