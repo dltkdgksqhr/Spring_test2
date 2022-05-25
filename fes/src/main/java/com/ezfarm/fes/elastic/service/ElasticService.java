@@ -6,6 +6,7 @@ package com.ezfarm.fes.elastic.service;
 import java.io.IOException;
 
 import com.ezfarm.fes.elastic.ElasticResultMap;
+import com.ezfarm.fes.vo.SearchVO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -73,7 +74,36 @@ public interface ElasticService {
 	 * 	220422	init
 	 */
 	ElasticResultMap fesDailySearch(String[] daily) throws IOException, InstantiationException, IllegalAccessException;
-	
+	/**
+	 * get방식으로 요청
+	 * @return ElasticResultMap
+	 * @throws IOException
+	 * @throws IllegalAccessException
+	 * @throws InstantiationException
+	 * @since
+	 * 	220422	init
+	 */
+	ElasticResultMap fesWeekSearchAPI(SearchVO searchVO) throws IOException, InstantiationException, IllegalAccessException;
+	/**
+	 * get방식으로 요청
+	 * @return ElasticResultMap
+	 * @throws IOException
+	 * @throws IllegalAccessException
+	 * @throws InstantiationException
+	 * @since
+	 * 	220422	init
+	 */
+	ElasticResultMap fesMonthSearchAPI(SearchVO searchVO) throws IOException, InstantiationException, IllegalAccessException;
+	/**
+	 * get방식으로 요청
+	 * @return ElasticResultMap
+	 * @throws IOException
+	 * @throws IllegalAccessException
+	 * @throws InstantiationException
+	 * @since
+	 * 	220422	init
+	 */
+	ElasticResultMap fesDailySearchAPI(SearchVO searchVO) throws IOException, InstantiationException, IllegalAccessException;
 	/**
 	 * get방식으로 요청
 	 * @return ElasticResultMap

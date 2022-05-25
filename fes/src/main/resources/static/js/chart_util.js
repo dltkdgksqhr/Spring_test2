@@ -211,28 +211,177 @@ function dateFormat(date, typeStr) {
         day = day >= 10 ? day : '0' + day;
         month = month >= 10 ? month : '0' + month;
         result = month+'-'+day;
-
-
     }else if(typeStr === "week"){ // 형식 : mm-dd
 		let day = date.getDate();
    		let month = date.getMonth() + 1;
   		day = day >= 10 ? day : '0' + day;
    		month = month >= 10 ? month : '0' + month;
     	result = month+'-'+day;
-}
+    }
     return result;
 }
 
 
 function chartSearch(gc, startDate, endDate){
-    if (startDate === "") {
-        alert("시작 날짜를 선택해주세요.");
-        return false;
-    } else if (endDate === "") {
-        alert("종료 날짜를 선택해주세요.");
+    if(gc === "일간 누적 표"){
+        gc = "daily";
+    }else if(gc === "주간 누적 표"){
+        gc = "week";
+    }else{
+        gc = "month";
+    }
+
+    if (startDate > endDate) {
+        alert("시작날짜가 종료날짜보다 더 클 수 없습니다.");
         return false;
     }
-    location.href = '/fes/search?gcCondition=' + gc
-            + '&startCondition=' + startDate + '&endCondition='
-            + endDate;
+    transChart(gc, startDate, endDate);
+}
+
+function transChart(transDateStr, startDate, endDate){
+    const URL = (transDateStr === "daily") ? API_URL.FES_SEARCH_DAILY :
+                    (transDateStr === "week") ? API_URL.FES_SEARCH_WEEK :
+                        API_URL.FES_SEARCH_MONTH;
+    $.ajax({
+        url: URL,
+        data: {
+            gcCondition: transDateStr
+            , startCondition: startDate
+            , endCondition: endDate
+            },
+        type: 'GET',
+        dataType: 'json',
+        success: function(data) {
+            if(transDateStr === "daily"){
+                updateChart(data.result.hits.hits, transDateStr);
+            }else if(transDateStr === "week"){
+                updateChart(data.result.aggregations.aggWeek.buckets, transDateStr);
+            }else{
+                updateChart(data.result.aggregations.aggWeek.buckets, transDateStr);
+            }
+
+        }
+    })
+}
+
+function updateChart(items, strId){
+    setDataList(items, strId);
+    setChart(items.length, strId);
+}
+function setChart(lengthInt, strId){
+        if(strId === "daily") {
+            $('#daily_data_length').val(lengthInt); // 데이터 길이 초기화
+            dailyDataInit(); // 차트 데이터 셋
+            labelsDay = _dailyLocalDateArr; // 날짜 셋
+            $('#daily_modon_increment').remove();
+            $('#daily_mdn_inc_chart_box').append('<canvas id="daily_modon_increment" width="380px" height="200px"></canvas>');
+            $('#daily_ekape_increment').remove();
+            $('#daily_ekp_inc_chart_box').append('<canvas id="daily_ekape_increment" width="380px" height="200px"></canvas>');
+            $('#daily_total_increment').remove();
+            $('#daily_ttl_inc_chart_box').append('<canvas id="daily_total_increment" width="380px" height="200px"></canvas>');
+            dailyMdnChartDraw(); //일간 누적 모돈 수 차트 구현
+            dailyEkpChartDraw(); //일간 누적 출하두 수 차트 구현
+            dailyTtlChartDraw(); //일간 누적 데이터 건 수 차트 구현
+        } else if(strId === "week") {
+            $('#week_data_length').val(lengthInt); // 데이터 길이 초기화
+            weekDataInit(); // 차트 데이터 셋
+            $('#week_modon_increment').remove();
+            $('#week_mdn_inc_chart_box').append('<canvas id="week_modon_increment" width="380px" height="200px"></canvas>');
+            $('#week_ekape_increment').remove();
+            $('#week_ekp_inc_chart_box').append('<canvas id="week_ekape_increment" width="380px" height="200px"></canvas>');
+            $('#week_total_increment').remove();
+            $('#week_ttl_inc_chart_box').append('<canvas id="week_total_increment" width="380px" height="200px"></canvas>');
+            weekMdnChartDraw(); //주간 누적 모돈 수 차트 구현
+            weekEkpChartDraw(); //주간 누적 출하두 수 차트 구현
+            weekTtlChartDraw(); //주간 누적 데이터 건 수 차트 구현
+        } else { //month
+            $('#monthly_data_length').val(lengthInt); // 데이터 길이 // 데이터 길이 초기화
+            monthDataInit(); // 차트 데이터 셋
+            $('#month_modon_increment').remove();
+            $('#month_mdn_inc_chart_box').append('<canvas id="month_modon_increment" width="380px" height="200px"></canvas>');
+            $('#month_ekape_increment').remove();
+            $('#month_ekp_inc_chart_box').append('<canvas id="month_ekape_increment" width="380px" height="200px"></canvas>');
+            $('#month_total_increment').remove();
+            $('#month_ttl_inc_chart_box').append('<canvas id="month_total_increment" width="380px" height="200px"></canvas>');
+            monthMdnChartDraw(); //주간 누적 모돈 수 차트 구현
+            monthEkpChartDraw(); //주간 누적 출하두 수 차트 구현
+            monthTtlChartDraw(); //주간 누적 데이터 건 수 차트 구현
+
+        }
+}
+
+function setDataList(items, strId){
+    if(strId === "daily") {
+        var itemCell = [];
+        $('.daily_list').children().remove(); // 기존 html 리스트 제거
+        itemCell.push('<tr>');
+        itemCell.push('<th>local_date</th>');
+        itemCell.push('<th>daily_modon_increment</th>');
+        itemCell.push('<th>daily_ekape_increment</th>');
+        itemCell.push('<th>daily_total_increment</th>');
+        itemCell.push('<th>re_daily_modon_increment</th>');
+        itemCell.push('<th>re_daily_total_increment</th>');
+        itemCell.push('<th>re_daily_ekape_increment</th>');
+        itemCell.push('</tr>');
+        $.each(items, function(index, item){
+            itemCell.push('<tr>');
+            itemCell.push('<td align="center" id="date_daily_inc'+index+'">'+item._source.agg_dt+'</td>');
+            itemCell.push('<td align="center" id="daily_modon_increment'+index+'">'+item._source.daily_modon_increment+'</td>');
+            itemCell.push('<td align="center" id="daily_ekape_increment'+index+'">'+item._source.daily_ekape_increment+'</td>');
+            itemCell.push('<td align="center" id="daily_total_increment'+index+'">'+item._source.daily_total_increment+'</td>');
+            itemCell.push('<td align="center" id="re_daily_modon_increment'+index+'">'+item._source.re_daily_modon_increment+'</td>');
+            itemCell.push('<td align="center" id="re_daily_ekape_increment'+index+'">'+item._source.re_daily_ekape_increment+'</td>');
+            itemCell.push('<td align="center" id="re_daily_total_increment'+index+'">'+item._source.re_daily_total_increment+'</td>');
+            itemCell.push('</tr>');
+        });
+        $('.daily_list').append(itemCell);
+    } else if(strId === "week") {
+        var itemCell = [];
+        $('.week_list').children().remove(); // 기존 html 리스트 제거
+        itemCell.push('<tr>');
+        itemCell.push('<th>local_date</th>');
+        itemCell.push('<th>daily_modon_increment</th>');
+        itemCell.push('<th>daily_ekape_increment</th>');
+        itemCell.push('<th>daily_total_increment</th>');
+        itemCell.push('<th>re_daily_modon_increment</th>');
+        itemCell.push('<th>re_daily_ekape_increment</th>');
+        itemCell.push('<th>re_daily_total_increment</th>');
+        itemCell.push('</tr>');
+        $.each(items, function(index, item){
+            itemCell.push('<tr>');
+            itemCell.push('<td align="center" id="week_local_date'+index+'">'+item.key_as_string+'</td>');
+            itemCell.push('<td align="center" id="week_modon_increment'+index+'">'+item.daily_modon_increment.value+'</td>');
+            itemCell.push('<td align="center" id="week_ekape_increment'+index+'">'+item.daily_ekape_increment.value+'</td>');
+            itemCell.push('<td align="center" id="week_total_increment'+index+'">'+item.daily_total_increment.value+'</td>');
+            itemCell.push('<td align="center" id="re_week_modon_increment'+index+'">'+item.re_daily_modon_increment.value+'</td>');
+            itemCell.push('<td align="center" id="re_week_ekape_increment'+index+'">'+item.re_daily_ekape_increment.value+'</td>');
+            itemCell.push('<td align="center" id="re_week_total_increment'+index+'">'+item.re_daily_total_increment.value+'</td>');
+            itemCell.push('</tr>');
+        });
+        $('.week_list').append(itemCell);
+    } else { //month
+        var itemCell = [];
+        $('.month_list').children().remove();
+        itemCell.push('<tr>');
+        itemCell.push('<th>local_date</th>');
+        itemCell.push('<th>monthly_modon_increment</th>');
+        itemCell.push('<th>monthly_total_increment</th>');
+        itemCell.push('<th>monthly_ekape_increment</th>');
+        itemCell.push('<th>re_monthly_modon_increment</th>');
+        itemCell.push('<th>re_monthly_total_increment</th>');
+        itemCell.push('<th>re_monthly_ekape_increment</th>');
+        itemCell.push('</tr>');
+        $.each(items, function(index, item){
+            itemCell.push('<tr>');
+            itemCell.push('<td align="center" id="monthly_local_date'+index+'">'+item.key_as_string+'</td>');
+            itemCell.push('<td align="center" id="monthly_modon_increment'+index+'">'+item.daily_modon_increment.value+'</td>');
+            itemCell.push('<td align="center" id="monthly_ekape_increment'+index+'">'+item.daily_ekape_increment.value+'</td>');
+            itemCell.push('<td align="center" id="monthly_total_increment'+index+'">'+item.daily_total_increment.value+'</td>');
+            itemCell.push('<td align="center" id="re_monthly_modon_increment'+index+'">'+item.re_daily_modon_increment.value+'</td>');
+            itemCell.push('<td align="center" id="re_monthly_total_increment'+index+'">'+item.re_daily_ekape_increment.value+'</td>');
+            itemCell.push('<td align="center" id="re_monthly_ekape_increment'+index+'">'+item.re_daily_total_increment.value+'</td>');
+            itemCell.push('</tr>');
+        });
+        $('.month_list').append(itemCell);
+    }
 }

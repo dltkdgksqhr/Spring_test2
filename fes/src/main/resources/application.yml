@@ -1,0 +1,21 @@
+server:
+  port: 8023
+  servlet:
+    session:
+      tracking-modes: cookie
+
+spring:
+  datasource:
+    driver-class-name: oracle.jdbc.driver.OracleDriver
+    url: jdbc:oracle:thin:@localhost:1521/xe
+    username: pigplan
+    password: 0404159
+  thymeleaf:
+    cache: false
+
+elastic:
+  hostname: 210.92.91.232
+  port: 9200
+  id: elastic
+  pw: es12#$
+

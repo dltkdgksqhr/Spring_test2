@@ -11,6 +11,7 @@ import java.util.Map;
 import javax.annotation.PostConstruct;
 
 import com.ezfarm.fes.elastic.service.ElasticService;
+import com.ezfarm.fes.vo.SearchVO;
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpHost;
@@ -56,12 +57,11 @@ public class ElasticServiceImpl implements ElasticService {
 	@Value("${elastic.port}")
 	private String port;
 
-	//@Value("${elastic.scheme}")
-	//private String scheme;
+	private String _fesIndex = "/wiselake_daily_data_count";
+	private StringBuffer _qry = new StringBuffer();
+	private LocalDate _now = null;
+	private LocalDate _pastOfDays = null;
 
-
-	//@Autowired
-	//private CtvtArSttemntService ctvtArSttemntService;
 
 
 	/**
@@ -137,217 +137,201 @@ public class ElasticServiceImpl implements ElasticService {
 	}
 
 	/**
-	 * @param qry
-	 * @return String
+	 * @return StringBuffer
 	 */
-	public String allQryStatement(String qry){
-		qry += "    {";
-		qry += "        \"sort\": [";
-		qry += "        {";
-		qry += "            \"agg_dt\": {";
-		qry += "                \"order\": \"desc\"";
-		qry += "            }";
-		qry += "        }";
-		qry += "    ],";
-		qry += "    \"size\": 1";
-		qry += "}";
-		return qry;
+	public StringBuffer allQryStatement(){
+		_qry.delete(0, _qry.length());
+		_qry.append("    {");
+		_qry.append("        \"sort\": [");
+		_qry.append("        {");
+		_qry.append("            \"agg_dt\": {");
+		_qry.append("                \"order\": \"desc\"");
+		_qry.append("            }");
+		_qry.append("        }");
+		_qry.append("    ],");
+		_qry.append("    \"size\": 1");
+		_qry.append("}");
+		return _qry;
+	}
+	public void dateInit(String[] dateType){
+		_now = LocalDate.parse(dateType[2]);
+		_pastOfDays = LocalDate.parse(dateType[1]);
+	}
+
+	public void transDateForm(String condition, String[] dateType){
+		if(condition.equals(dateType[0])) {
+			dateInit(dateType);
+			return;
+		} else {
+			_now = LocalDate.now();
+			_pastOfDays = (condition.equals("daily")) ? _now.minusDays(7) : 
+					(condition.equals("week")) ? _now.minusWeeks(5) : _now.minusMonths(6);
+		}
 	}
 
 	/**
-	 * @param qry
-	 * @return String
+	 * @return StringBuffer
 	 */
-	public String dayQryStatement(String qry, String[] daily){
-		// 현재 날짜 구하기 (시스템 시계, 시스템 타임존)
-		LocalDate now = null;
-		LocalDate pastOfDays = null;
-		if(!daily[0].equals("daily")){
-			now = LocalDate.now();
-			pastOfDays = now.minusDays(7); // 디폴트 7일
-		} else if(daily[0].equals("daily")) {
-			now = LocalDate.parse(daily[2]);
-			pastOfDays = LocalDate.parse(daily[1]);
-		}
-
-		qry += " {";
-		qry += "	\"query\": {";
-		qry += "    	\"bool\": {";
-		qry += "    		\"must\": [";
-		qry += "    		{";
-		qry += "    			\"range\": {";
-		qry += "    			\"agg_dt\": {";
-		qry += "    				\"gte\": \""+pastOfDays+"\",";
-		qry += "    						\"lte\": \""+now+"\"";
-		qry += "    			}";
-		qry += "    		}";
-		qry += "    		}";
-		qry += "      ]";
-		qry += "    	}";
-		qry += "    },";
-		qry += "    	\"sort\": [";
-		qry += "    	{";
-		qry += "    		\"agg_dt\": {";
-		qry += "    		\"order\": \"asc\"";
-		qry += "    	}";
-		qry += "    	}";
-		qry += "      ],";
-		qry += "    	\"size\": 999";
-		qry += "    }";
-		return qry;
+	public StringBuffer dayQryStatement(String[] daily){
+		transDateForm("daily", daily);
+		_qry.delete(0, _qry.length());
+		_qry.append(" {");
+		_qry.append("   \"query\": {");
+		_qry.append("       \"bool\": {");
+		_qry.append("          \"must\": [");
+		_qry.append("          {");
+		_qry.append("             \"range\": {");
+		_qry.append("             \"agg_dt\": {");
+		_qry.append("                \"gte\": \""+_pastOfDays+"\",");
+		_qry.append("                      \"lte\": \""+_now+"\"");
+		_qry.append("             }");
+		_qry.append("          }");
+		_qry.append("          }");
+		_qry.append("      ]");
+		_qry.append("       }");
+		_qry.append("    },");
+		_qry.append("       \"sort\": [");
+		_qry.append("       {");
+		_qry.append("          \"agg_dt\": {");
+		_qry.append("          \"order\": \"asc\"");
+		_qry.append("       }");
+		_qry.append("       }");
+		_qry.append("      ],");
+		_qry.append("       \"size\": 999");
+		_qry.append("    }");
+		return _qry;
 	}
 
 	/**
-	 * @param qry
-	 * @return String
+	 * @return StringBuffer
 	 */
-	public String weekQryStatement(String qry, String[] week){
-		// 현재 날짜 구하기 (시스템 시계, 시스템 타임존)
-		LocalDate now = null;
-		LocalDate pastOfWeeks = null;
-		
-		if(!week[0].equals("week")){
-			now = LocalDate.now();
-			pastOfWeeks = now.minusWeeks(5);
-		}else if (week[0].equals("week")){
-			now = LocalDate.parse(week[2]);
-			pastOfWeeks = LocalDate.parse(week[1]);
-		}
-
-		qry += "{";
-		qry += "	\"query\": {";
-		qry += "	\"bool\": {";
-		qry += "		\"must\": [";
-		qry += "		{";
-		qry += "			\"range\": {";
-		qry += "			\"agg_dt\": {";
-		qry += "				\"gte\": \""+pastOfWeeks+"\",";
-		qry += "						\"lte\": \""+now+"\"";
-		qry += "			}";
-		qry += "		}";
-		qry += "		}";
-		qry += "  ]";
-		qry += "	}";
-		qry += "},";
-		qry += "	\"aggs\": {";
-		qry += "	\"aggWeek\": {";
-		qry += "		\"date_histogram\": {";
-		qry += "			\"field\": \"agg_dt\",";
-		qry += "					\"interval\": \"week\"";
-		qry += "		},";
-		qry += "		\"aggs\": {";
-		qry += "			\"daily_modon_increment\": {";
-		qry += "				\"max\": {";
-		qry += "					\"field\": \"daily_modon_increment\"";
-		qry += "				}";
-		qry += "			},";
-		qry += "			\"daily_ekape_increment\": {";
-		qry += "				\"max\": {";
-		qry += "					\"field\": \"daily_ekape_increment\"";
-		qry += "				}";
-		qry += "			},";
-		qry += "			\"daily_total_increment\": {";
-		qry += "				\"max\": {";
-		qry += "					\"field\": \"daily_total_increment\"";
-		qry += "				}";
-		qry += "			},";
-		qry += "			\"re_daily_modon_increment\": {";
-		qry += "				\"sum\": {";
-		qry += "					\"field\": \"re_daily_modon_increment\"";
-		qry += "				}";
-		qry += "			},";
-		qry += "			\"re_daily_ekape_increment\": {";
-		qry += "				\"sum\": {";
-		qry += "					\"field\": \"re_daily_ekape_increment\"";
-		qry += "				}";
-		qry += "			},";
-		qry += "			\"re_daily_total_increment\": {";
-		qry += "				\"sum\": {";
-		qry += "					\"field\": \"re_daily_total_increment\"";
-		qry += "				}";
-		qry += "			}";
-		qry += "		}";
-		qry += "	}";
-		qry += "},";
-		qry += "	\"size\": 0";
-		qry += "}";
-		return qry;
+	public StringBuffer weekQryStatement(String[] week){
+		transDateForm("week", week);
+		_qry.delete(0, _qry.length());
+		_qry.append("{");
+		_qry.append("   \"query\": {");
+		_qry.append("   \"bool\": {");
+		_qry.append("      \"must\": [");
+		_qry.append("      {");
+		_qry.append("      \"range\": {");
+		_qry.append("         \"agg_dt\": {");
+		_qry.append("            \"gte\": \""+_pastOfDays+"\",");
+		_qry.append("            \"lte\": \""+_now+"\"");
+		_qry.append("           }");
+		_qry.append("      }");
+		_qry.append("      }");
+		_qry.append("  ]");
+		_qry.append("   }");
+		_qry.append("},");
+		_qry.append("   \"aggs\": {");
+		_qry.append("   \"aggWeek\": {");
+		_qry.append("      \"date_histogram\": {");
+		_qry.append("         \"field\": \"agg_dt\",");
+		_qry.append("               \"interval\": \"week\"");
+		_qry.append("      },");
+		_qry.append("      \"aggs\": {");
+		_qry.append("         \"daily_modon_increment\": {");
+		_qry.append("            \"max\": {");
+		_qry.append("               \"field\": \"daily_modon_increment\"");
+		_qry.append("            }");
+		_qry.append("         },");
+		_qry.append("         \"daily_ekape_increment\": {");
+		_qry.append("            \"max\": {");
+		_qry.append("               \"field\": \"daily_ekape_increment\"");
+		_qry.append("            }");
+		_qry.append("         },");
+		_qry.append("         \"daily_total_increment\": {");
+		_qry.append("            \"max\": {");
+		_qry.append("               \"field\": \"daily_total_increment\"");
+		_qry.append("            }");
+		_qry.append("         },");
+		_qry.append("         \"re_daily_modon_increment\": {");
+		_qry.append("            \"sum\": {");
+		_qry.append("               \"field\": \"re_daily_modon_increment\"");
+		_qry.append("            }");
+		_qry.append("         },");
+		_qry.append("         \"re_daily_ekape_increment\": {");
+		_qry.append("            \"sum\": {");
+		_qry.append("               \"field\": \"re_daily_ekape_increment\"");
+		_qry.append("            }");
+		_qry.append("         },");
+		_qry.append("         \"re_daily_total_increment\": {");
+		_qry.append("            \"sum\": {");
+		_qry.append("               \"field\": \"re_daily_total_increment\"");
+		_qry.append("            }");
+		_qry.append("         }");
+		_qry.append("      }");
+		_qry.append("   }");
+		_qry.append("},");
+		_qry.append("   \"size\": 0");
+		_qry.append("}");
+		return _qry;
 	}
 
 	/**
-	 * @param qry
-	 * @return String
+	 * @return StringBuffer
 	 */
-	public String monthQryStatement(String qry, String[] month){
-		// 현재 날짜 구하기 (시스템 시계, 시스템 타임존)
-		LocalDate now = null;
-		LocalDate pastOfMonths = null;
-		if(!month[0].equals("month")){
-			now = LocalDate.now();
-			pastOfMonths = now.minusMonths(6);
-		}else if (month[0].equals("month")){
-			now = LocalDate.parse(month[2]);
-			pastOfMonths = LocalDate.parse(month[1]);
-		}
-
-		qry += "{";
-		qry += "	\"query\": {";
-		qry += "	\"bool\": {";
-		qry += "		\"must\": [";
-		qry += "		{";
-		qry += "			\"range\": {";
-		qry += "			\"agg_dt\": {";
-		qry += "				\"gte\": \""+pastOfMonths+"\",";
-		qry += "						\"lte\": \""+now+"\"";
-		qry += "			}";
-		qry += "		}";
-		qry += "		}";
-		qry += "  ]";
-		qry += "	}";
-		qry += "},";
-		qry += "	\"aggs\": {";
-		qry += "	\"aggWeek\": {";
-		qry += "		\"date_histogram\": {";
-		qry += "			\"field\": \"agg_dt\",";
-		qry += "					\"interval\": \"month\"";
-		qry += "		},";
-		qry += "		\"aggs\": {";
-		qry += "			\"daily_modon_increment\": {";
-		qry += "				\"max\": {";
-		qry += "					\"field\": \"daily_modon_increment\"";
-		qry += "				}";
-		qry += "			},";
-		qry += "			\"daily_ekape_increment\": {";
-		qry += "				\"max\": {";
-		qry += "					\"field\": \"daily_ekape_increment\"";
-		qry += "				}";
-		qry += "			},";
-		qry += "			\"daily_total_increment\": {";
-		qry += "				\"max\": {";
-		qry += "					\"field\": \"daily_total_increment\"";
-		qry += "				}";
-		qry += "			},";
-		qry += "			\"re_daily_modon_increment\": {";
-		qry += "				\"sum\": {";
-		qry += "					\"field\": \"re_daily_modon_increment\"";
-		qry += "				}";
-		qry += "			},";
-		qry += "			\"re_daily_ekape_increment\": {";
-		qry += "				\"sum\": {";
-		qry += "					\"field\": \"re_daily_ekape_increment\"";
-		qry += "				}";
-		qry += "			},";
-		qry += "			\"re_daily_total_increment\": {";
-		qry += "				\"sum\": {";
-		qry += "					\"field\": \"re_daily_total_increment\"";
-		qry += "				}";
-		qry += "			}";
-		qry += "		}";
-		qry += "	}";
-		qry += "},";
-		qry += "	\"size\": 0";
-		qry += "}";
-		return qry;
+	public StringBuffer monthQryStatement(String[] month){
+		transDateForm("month", month);
+		_qry.delete(0, _qry.length());
+		_qry.append("{");
+		_qry.append("   \"query\": {");
+		_qry.append("   \"bool\": {");
+		_qry.append("      \"must\": [");
+		_qry.append("      {");
+		_qry.append("         \"range\": {");
+		_qry.append("         \"agg_dt\": {");
+		_qry.append("            \"gte\": \""+_pastOfDays+"\",");
+		_qry.append("                  \"lte\": \""+_now+"\"");
+		_qry.append("         }");
+		_qry.append("      }");
+		_qry.append("      }");
+		_qry.append("  ]");
+		_qry.append("   }");
+		_qry.append("},");
+		_qry.append("   \"aggs\": {");
+		_qry.append("   \"aggWeek\": {");
+		_qry.append("      \"date_histogram\": {");
+		_qry.append("         \"field\": \"agg_dt\",");
+		_qry.append("               \"interval\": \"month\"");
+		_qry.append("      },");
+		_qry.append("      \"aggs\": {");
+		_qry.append("         \"daily_modon_increment\": {");
+		_qry.append("            \"max\": {");
+		_qry.append("               \"field\": \"daily_modon_increment\"");
+		_qry.append("            }");
+		_qry.append("         },");
+		_qry.append("         \"daily_ekape_increment\": {");
+		_qry.append("            \"max\": {");
+		_qry.append("               \"field\": \"daily_ekape_increment\"");
+		_qry.append("            }");
+		_qry.append("         },");
+		_qry.append("         \"daily_total_increment\": {");
+		_qry.append("            \"max\": {");
+		_qry.append("               \"field\": \"daily_total_increment\"");
+		_qry.append("            }");
+		_qry.append("         },");
+		_qry.append("         \"re_daily_modon_increment\": {");
+		_qry.append("            \"sum\": {");
+		_qry.append("               \"field\": \"re_daily_modon_increment\"");
+		_qry.append("            }");
+		_qry.append("         },");
+		_qry.append("         \"re_daily_ekape_increment\": {");
+		_qry.append("            \"sum\": {");
+		_qry.append("               \"field\": \"re_daily_ekape_increment\"");
+		_qry.append("            }");
+		_qry.append("         },");
+		_qry.append("         \"re_daily_total_increment\": {");
+		_qry.append("            \"sum\": {");
+		_qry.append("               \"field\": \"re_daily_total_increment\"");
+		_qry.append("            }");
+		_qry.append("         }");
+		_qry.append("      }");
+		_qry.append("   }");
+		_qry.append("},");
+		_qry.append("   \"size\": 0");
+		_qry.append("}");
+		return _qry;
 	}
 
 
@@ -455,50 +439,59 @@ public class ElasticServiceImpl implements ElasticService {
 
 	@Override
 	public ElasticResultMap fesSearch() throws IOException, InstantiationException, IllegalAccessException {
-		String index = "";
-		String qry = "";
-		//상단 누적 모돈수 / 누적 출하두수 / 누적 데이터건수 조회 쿼리
-		index = "/wiselake_daily_data_count";
-		qry = allQryStatement(qry);
-
-		String jsonString = performRequest(index, qry, METHOD_GET, POSTFIX_SEARCH);
+		String qry = allQryStatement().toString();
+		String jsonString = performRequest(_fesIndex, qry, METHOD_GET, POSTFIX_SEARCH);
 		return new ElasticResultMap(jsonString);
 	}
 
 
 	@Override
 	public ElasticResultMap fesDailySearch(String[] daily) throws IOException, InstantiationException, IllegalAccessException {
-		String index = "";
-		String qry = "";
 		//일간 누적 모돈수 / 누적 출하두수 / 누적 데이터건수 조회 쿼리
-		index = "/wiselake_daily_data_count";
-		qry = dayQryStatement(qry, daily);
+		String qry = dayQryStatement(daily).toString();
+		String jsonString = performRequest(_fesIndex, qry, METHOD_GET, POSTFIX_SEARCH);
+		return new ElasticResultMap(jsonString);
+	}
 
-		String jsonString = performRequest(index, qry, METHOD_GET, POSTFIX_SEARCH);
+	@Override
+	public ElasticResultMap fesDailySearchAPI(SearchVO searchVO) throws IOException, InstantiationException, IllegalAccessException {
+		String[] daily = {searchVO.getGcCondition(), searchVO.getStartCondition(), searchVO.getEndCondition()};
+		//일간 누적 모돈수 / 누적 출하두수 / 누적 데이터건수 조회 쿼리
+		String qry = dayQryStatement(daily).toString();
+		String jsonString = performRequest(_fesIndex, qry, METHOD_GET, POSTFIX_SEARCH);
+		return new ElasticResultMap(jsonString);
+	}
+
+	@Override
+	public ElasticResultMap fesWeekSearchAPI(SearchVO searchVO) throws IOException, InstantiationException, IllegalAccessException {
+		String[] week = {searchVO.getGcCondition(), searchVO.getStartCondition(), searchVO.getEndCondition()};
+		//일간 누적 모돈수 / 누적 출하두수 / 누적 데이터건수 조회 쿼리
+		String qry = weekQryStatement(week).toString();
+		String jsonString = performRequest(_fesIndex, qry, METHOD_GET, POSTFIX_SEARCH);
+		return new ElasticResultMap(jsonString);
+	}
+
+	@Override
+	public ElasticResultMap fesMonthSearchAPI(SearchVO searchVO) throws IOException, InstantiationException, IllegalAccessException {
+		String[] month = {searchVO.getGcCondition(), searchVO.getStartCondition(), searchVO.getEndCondition()};
+		//일간 누적 모돈수 / 누적 출하두수 / 누적 데이터건수 조회 쿼리
+		String qry = monthQryStatement(month).toString();
+		String jsonString = performRequest(_fesIndex, qry, METHOD_GET, POSTFIX_SEARCH);
 		return new ElasticResultMap(jsonString);
 	}
 
 	@Override
 	public ElasticResultMap fesWeekSearch(String[] week) throws IOException, InstantiationException, IllegalAccessException {
-		String index = "";
-		String qry = "";
 		//주간 누적 모돈수 / 누적 출하두수 / 누적 데이터건수 조회 쿼리
-		index = "/wiselake_daily_data_count";
-		qry = weekQryStatement(qry, week);
-
-		String jsonString = performRequest(index, qry, METHOD_GET, POSTFIX_SEARCH);
+		String qry = weekQryStatement(week).toString();
+		String jsonString = performRequest(_fesIndex, qry, METHOD_GET, POSTFIX_SEARCH);
 		return new ElasticResultMap(jsonString);
 	}
 
 	@Override
 	public ElasticResultMap fesMonthSearch(String[] month) throws IOException, InstantiationException, IllegalAccessException {
-		String index = "";
-		String qry = "";
-		//월간 누적 모돈수 / 누적 출하두수 / 누적 데이터건수 조회 쿼리
-		index = "/wiselake_daily_data_count";
-		qry = monthQryStatement(qry, month);
-
-		String jsonString = performRequest(index, qry, METHOD_GET, POSTFIX_SEARCH);
+		String qry = monthQryStatement(month).toString();
+		String jsonString = performRequest(_fesIndex, qry, METHOD_GET, POSTFIX_SEARCH);
 		return new ElasticResultMap(jsonString);
 	}
 
@@ -525,16 +518,12 @@ public class ElasticServiceImpl implements ElasticService {
 		HttpAsyncResponseConsumerFactory consumerFactory = createConsumerFactory();
 		Header[] headers = createHeaders();
 
-		//
-		//LOG.debug(".performRequest - index:{}", index);
-		//LOG.debug(".performRequest - qry:{}", qry);
 
 		//
 		Response response = restClient.performRequest(method, index + postfix, params, entity, consumerFactory, headers);
 		String jsonString = EntityUtils.toString(response.getEntity());
 
-		//
-		//LOG.trace(".performRequest - jsonString:{}", jsonString);
+
 		return jsonString;
 	}
 
