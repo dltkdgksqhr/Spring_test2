@@ -17,7 +17,9 @@ _dailyMdnIncAvg = _dailyEkpIncAvg = _dailyTtlIncAvg = 0;
 
 for(var i=0; i<_dailyLength; i++){ // 누적 데이터 배열 그래프 수치 반복 초기화
     var dateConv = new Date($('#date_daily_inc'+i).text());
+  
     _dailyLocalDateArr[i] = dateFormat(dateConv, "day");
+  
     _dailyMdnIncArr[i] = $('#daily_modon_increment'+i).text();
     _dailyEkpIncArr[i] = $('#daily_ekape_increment'+i).text();
     _dailyTtlIncArr[i] = $('#daily_total_increment'+i).text();
@@ -29,12 +31,16 @@ for(var i=0; i<_dailyLength; i++){ // 누적 데이터 배열 그래프 수치 �
     _reDaMdnIncStrParsing[i] = _dailyMdnIncArr[i] + _reDaMdnIncArr[i];
     _reDaEkpIncStrParsing[i] = _dailyEkpIncArr[i] + _reDaEkpIncArr[i];
     _reDaTtlIncStrParsing[i] = _dailyTtlIncArr[i] + _reDaTtlIncArr[i];
+    
     // 증감치 평균값 구하기
     _dailyMdnIncAvg += parseInt($('#re_daily_modon_increment'+i).text());
     _dailyEkpIncAvg += parseInt($('#re_daily_ekape_increment'+i).text());
     _dailyTtlIncAvg += parseInt($('#re_daily_total_increment'+i).text());
 }
 const labelsDay = _dailyLocalDateArr;
+ 	 alert(dateConv);
+	 alert(_dailyLocalDateArr);
+	 alert(labelsDay);
 //일간 누적 모돈 수 차트 구현
 const dataDay = {
     labels: labelsDay,
@@ -45,6 +51,7 @@ const dataDay = {
         backgroundColor: 'rgb(255, 0, 0)',
     }]
 };
+
 
 const configDay = {
     type: 'bar',

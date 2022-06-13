@@ -2,6 +2,7 @@ package com.ezfarm.fes;
 
 import java.io.IOException;
 import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -9,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.ezfarm.fes.board.common.FileUtil;
@@ -28,7 +30,7 @@ public class Board8Ctr {
     /**
      * 리스트.
      */
-    @RequestMapping(value = "board8List")
+    @GetMapping(value = "board8List")
     public String boardList(SearchVO searchVO, ModelMap modelMap) {
         
         if (searchVO.getBgno() == null) {
@@ -47,7 +49,7 @@ public class Board8Ctr {
     /** 
      * 글 쓰기. 
      */
-    @RequestMapping(value = "board8Form")
+    @GetMapping(value = "board8Form")
     public String boardForm(HttpServletRequest request, ModelMap modelMap) {
         String bgno = request.getParameter("bgno");
         String brdno = request.getParameter("brdno");
@@ -67,7 +69,7 @@ public class Board8Ctr {
     /**
      * 글 저장.
      */
-    @RequestMapping(value = "board8Save")
+    @GetMapping(value = "board8Save")
     public String boardSave(HttpServletRequest request, BoardVO boardInfo) {
         String[] fileno = request.getParameterValues("fileno");
         
@@ -82,7 +84,7 @@ public class Board8Ctr {
     /**
      * 글 읽기.
      */
-    @RequestMapping(value = "board8Read")
+    @GetMapping(value = "board8Read")
     public String board8Read(HttpServletRequest request, ModelMap modelMap) {
         
         String brdno = request.getParameter("brdno");
@@ -102,7 +104,7 @@ public class Board8Ctr {
     /**
      * 글 삭제.
      */
-    @RequestMapping(value = "board8Delete")
+    @GetMapping(value = "board8Delete")
     public String boardDelete(HttpServletRequest request) {
         String brdno = request.getParameter("brdno");
         String bgno = request.getParameter("bgno");

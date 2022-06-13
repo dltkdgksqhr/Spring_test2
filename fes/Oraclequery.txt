@@ -1,57 +1,111 @@
 ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
---공지사항--
+--게시판 테이블--
 
-CREATE TABLE NOTICE 
+CREATE TABLE BOARD
 (
-  NO NUMBER NOT NULL 
-, TITLE VARCHAR2(100) NOT NULL 
-, CONTENT VARCHAR2(3500) NOT NULL 
-, REGDATE DATE NOT NULL 
-, HITS NUMBER NOT NULL 
-, BFNO NUMBER NOT NULL 
-, CONSTRAINT NOTICE_PK PRIMARY KEY 
+  NO NUMBER NOT NULL  // 글번호
+, TITLE VARCHAR2(100) NOT NULL  // 글제목 
+, CONTENT VARCHAR2(3500) NOT NULL  // 글내용
+, REGDATE DATE NOT NULL  // 글작성날짜
+, HITS NUMBER NOT NULL  // 조회수
+, BFNO NUMBER  // 첨부파일번호
+, BO_TYPE NUMBER NOT NULL  // 게시판 구분 
+, CONSTRAINT BOARD_PK PRIMARY KEY 
   (
     NO 
   )
   ENABLE 
 );
 
---공지사항 글번호 시퀀스--
 
-CREATE SEQUENCE NOTICE_SEQ INCREMENT BY 1 START WITH 1;
-■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
---양돈소식--
+--테이블 컬럼 설명--
 
-CREATE TABLE PIGFARMING_NEWS 
-(
-  NO NUMBER NOT NULL 
-, TITLE VARCHAR2(100) NOT NULL 
-, CONTENT VARCHAR2(3500) NOT NULL 
-, REGDATE DATE NOT NULL 
-, HITS NUMBER NOT NULL 
-, BFNO NUMBER NOT NULL 
-, CONSTRAINT PIGFARMING_NEWS_PK PRIMARY KEY 
-  (
-    NO 
-  )
-  ENABLE 
-);
+COMMENT ON COLUMN BOARD.NO IS '글번호';
 
---양돈소식 글번호 시퀀스--
+COMMENT ON COLUMN BOARD.TITLE IS '글제목';
 
-CREATE SEQUENCE PIGFARMING_NEWS_SEQ INCREMENT BY 1 START WITH 1;
+COMMENT ON COLUMN BOARD.CONTENT IS '글내용';
+
+COMMENT ON COLUMN BOARD.REGDATE IS '글작성날짜';
+
+COMMENT ON COLUMN BOARD.HITS IS '조회수';
+
+COMMENT ON COLUMN BOARD.BFNO IS '파일번호';
+
+COMMENT ON COLUMN BOARD.BO_TYPE IS '게시판구분';
 ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
 --첨부파일보관--
 
-CREATE TABLE FILEKEEP 
+CREATE TABLE FILE_KEEP 
 (
-  BFNO NUMBER NOT NULL 
-, BNO NUMBER NOT NULL 
-, FNAME VARCHAR2(200) NOT NULL 
+  BFNO NUMBER NOT NULL  // 첨부파일번호
+, BNO NUMBER NOT NULL  // 파일생성번호 
+, FNAME VARCHAR2(200) NOT NULL  // 파일 이름
 , CONSTRAINT FILEKEEP_PK PRIMARY KEY 
   (
     BFNO 
   )
   ENABLE 
 );
+
+
+--테이블 컬럼 설명--
+
+CREATE SEQUENCE FILEBNO_SEQ INCREMENT BY 1 START WITH 1;
+
+COMMENT ON COLUMN FILE_KEEP.BFNO IS '파일번호';
+
+COMMENT ON COLUMN FILE_KEEP.BNO IS '파일생성번호';
+
+COMMENT ON COLUMN FILE_KEEP.FNAME IS '파일이름';
+
 ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+--생산성지표 데이터 차트--
+
+CREATE TABLE PRODUCTION 
+(
+  DAY DATE NOT NULL  // 날짜
+, CROSS_PREDICTION NUMBER  // 교배복수 예측
+, WEANING_PREDICTION NUMBER  // 이유두수 예측
+, CROSS NUMBER  // 교배복수
+, CHILDBIRTH NUMBER  // 분만복수
+, WEANING NUMBER  // 이유두수
+);
+
+
+--테이블 컬럼 설명--
+
+COMMENT ON COLUMN PRODUCTION.DAY IS '날짜';
+
+COMMENT ON COLUMN PRODUCTION.CROSS_PREDICTION IS '교배복수 예측';
+
+COMMENT ON COLUMN PRODUCTION.WEANING_PREDICTION IS '이유두수 예측';
+
+COMMENT ON COLUMN PRODUCTION.CROSS IS '교배복수';
+
+COMMENT ON COLUMN PRODUCTION.CHILDBIRTH IS '분만복수';
+
+COMMENT ON COLUMN PRODUCTION.WEANING IS '이유두수';
+■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+--게시판 구분 테이블--
+CREATE TABLE BOARD_TYPE 
+(
+  BO_TYPE NUMBER 
+, TYPE_NAME VARCHAR2(30) 
+);
+
+--테이블 컬럼 설명--
+
+COMMENT ON COLUMN BOARD_TYPE.BO_TYPE IS '게시판 구분';
+
+COMMENT ON COLUMN BOARD_TYPE.TYPE_NAME IS '게시판명';
+
+
+--게시판 구분--
+insert into board_type values(1,'공지사항');
+
+insert into board_type values(2,'기술자료');
+
+insert into board_type values(3,'보도자료');
+
+insert into board_type values(4,'양돈소식');
